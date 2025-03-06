@@ -1,0 +1,36 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block title %}Power Bank Feedback{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center text-success">
+        <i class="fas fa-comment-alt"></i> Power Bank Feedback
+    </h2>
+
+    <form method="POST" class="card p-4 shadow mt-4">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label"><strong>Power Bank Condition:</strong></label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="status" id="normal" value="Normal" required>
+                <label class="form-check-label" for="normal">
+                    <i class="fas fa-check-circle text-success"></i> Normal
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="status" id="broken" value="Broken">
+                <label class="form-check-label" for="broken">
+                    <i class="fas fa-exclamation-circle text-danger"></i> Broken
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">
+            <i class="fas fa-paper-plane"></i> Submit Feedback
+        </button>
+    </form>
+</div>
+{% endblock %}

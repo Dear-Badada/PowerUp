@@ -1,0 +1,60 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block title %}Admin Reports{% endblock %}
+
+{% block content %}
+<!--<script>-->
+<!--document.addEventListener("DOMContentLoaded", function () {-->
+<!--    if (!localStorage.getItem("isAdmin")) {-->
+<!--        alert("Unauthorized access. Redirecting to login.");-->
+<!--        window.location.href = "admin_login.html";-->
+<!--    }-->
+<!--});-->
+<!--</script>-->
+
+<div class="container mt-5">
+    <h2 class="text-center text-warning"><i class="fas fa-chart-bar"></i> Reports & Analytics</h2>
+
+    <div class="row mt-4 align-items-center">
+        <div class="col-md-4">
+            <label class="fw-bold">Choose Start Date:</label>
+            <input type="date" class="form-control form-control-lg">
+        </div>
+        <div class="col-md-4">
+            <label class="fw-bold">Choose End Date:</label>
+            <input type="date" class="form-control form-control-lg">
+        </div>
+        <div class="col-md-4">
+            <label class="fw-bold">Report Type:</label>
+            <select class="form-select form-select-lg">
+                <option>Customer Feedback</option>
+                <option>Power Bank Usage</option>
+                <option>Station Usage Ratio</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="text-center">
+         <button class="btn btn-success w-50 mt-3">View Report</button>
+    </div>
+
+
+    <div class="mt-5">
+        <h3>Customer Feedback Report</h3>
+        <canvas id="feedbackChart"></canvas>
+    </div>
+
+    <div class="mt-5">
+        <h3>Power Bank Usage</h3>
+        <canvas id="usageChart"></canvas>
+    </div>
+
+    <div class="mt-5">
+        <h3>Station Usage Ratio</h3>
+        <canvas id="stationChart"></canvas>
+    </div>
+</div>
+
+{% endblock %}

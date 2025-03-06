@@ -1,0 +1,57 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<!--<script>-->
+<!--document.addEventListener("DOMContentLoaded", function () {-->
+<!--    if (!localStorage.getItem("isAdmin")) {-->
+<!--        alert("Unauthorized access. Redirecting to login.");-->
+<!--        window.location.href = "admin_login.html";-->
+<!--    }-->
+<!--});-->
+<!--</script>-->
+
+<div class="container mt-5">
+    <h2 class="text-center text-success"><i class="fas fa-tools"></i> Admin Dashboard</h2>
+
+    <div class="container text-center">
+    <table class="table table-bordered table-hover mt-3" style="width: 80%; margin: 0 auto;">
+        <thead class="table-success">
+            <tr>
+                <th>Power Bank ID</th>
+                <th>Battery</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>001</td>
+                <td>80%</td>
+                <td class="text-success">Available</td>
+                <td><button class="btn btn-success btn-sm action-btn">Details</button></td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>30%</td>
+                <td class="text-danger">Low Battery</td>
+                <td><button class="btn btn-danger btn-sm action-btn">Fix</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="btn btn-danger text-center mt-4" style="width: 20%" onclick="logoutAdmin()">Logout</button>
+    </div>
+</div>
+
+<!--<script>-->
+<!--function logoutAdmin() {-->
+<!--    localStorage.removeItem("isAdmin");-->
+<!--    alert("Admin logged out.");-->
+<!--    window.location.href = "admin_login.html";-->
+<!--}-->
+<!--</script>-->
+
+{% endblock %}

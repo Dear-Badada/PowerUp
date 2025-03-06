@@ -1,0 +1,22 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block title %}Login - Power Up{% endblock %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
+    <div class="card shadow-lg p-4 text-center">
+        <h2 class="text-success"><i class="fas fa-user"></i>User Login</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" id="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

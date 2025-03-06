@@ -1,0 +1,42 @@
+# 忽略 Python 相关
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+# 忽略虚拟环境
+.venv/
+venv/
+env/
+# 忽略 IDE 相关文件
+.idea/
+.vscode/
+.DS_Store
+
+# 忽略数据库 & 迁移文件
+db.sqlite3
+*.sqlite3
+migrations/
+
+# 忽略静态 & 资源文件
+staticfiles/
+media/
+node_modules/
+
+# 忽略 Windows 系统文件
+Application Data/
+AppData/
+Cookies/
+Desktop/
+Documents/
+Downloads/
+Favorites/
+Links/
+Music/
+OneDrive/
+Pictures/
+Saved Games/
+Searches/
+Videos/
+Thumbs.db
+ehthumbs.db

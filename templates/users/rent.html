@@ -1,0 +1,49 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block title %}Rent a Power Bank{% endblock %}
+{% block content %}
+<!--<script>-->
+<!--document.addEventListener("DOMContentLoaded", function () {-->
+<!--    const isLoggedIn = localStorage.getItem("isLoggedIn");-->
+<!--    const hasRented = localStorage.getItem("hasRented");-->
+
+<!--    if (!isLoggedIn) {-->
+<!--        alert("Please login first!");-->
+<!--        window.location.href = "login.html";-->
+<!--    } else if (hasRented === "true") {-->
+<!--        alert("You have already rented a power bank. Please return it first.");-->
+<!--        window.location.href = "return.html";-->
+<!--    }-->
+<!--});-->
+<!--</script>-->
+
+<div class="container mt-5">
+    <h2 class="text-center"><i class="fa-solid fa-download"></i>  Rent Power Bank</h2>
+
+    <!-- 选择租借站点 -->
+    <div class="mb-3 mx-auto" style="width: 75%;">
+        <label for="rental_station" class="form-label">
+            <i class="fas fa-map-marker-alt"></i> Select Rental Station:
+        </label>
+        <select id="rental_station" class="form-select w-100">
+            <option value="">-- Select a Station --</option>
+            <option value="1">Station A</option>
+            <option value="2">Station B</option>
+            <option value="3">Station C</option>
+        </select>
+    </div>
+
+
+    <div class="text-center">
+        <button class="btn btn-success" id="rent-btn">Rent</button>
+    </div>
+</div>
+
+<!--<script>-->
+<!--document.getElementById("rent-btn").addEventListener("click", function () {-->
+<!--    localStorage.setItem("hasRented", "true");-->
+<!--    alert("You have rented a power bank!");-->
+<!--    window.location.href = "return.html";-->
+<!--});-->
+<!--</script>-->
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block title %}Power Bank Management{% endblock %}
+
+{% block content %}
+<!--<script>-->
+<!--document.addEventListener("DOMContentLoaded", function () {-->
+<!--    if (!localStorage.getItem("isAdmin")) {-->
+<!--        alert("Unauthorized access. Redirecting to login.");-->
+<!--        window.location.href = "admin_login.html";-->
+<!--    }-->
+<!--});-->
+<!--</script>-->
+
+<div class="container mt-5">
+    <h2 class="text-center text-warning"><i class="fas fa-battery-half"></i> Power Bank Management</h2>
+
+    <table class="table table-bordered table-hover mt-3">
+        <thead class="table-success">
+            <tr>
+                <th>Power Bank ID</th>
+                <th>Battery Balance</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>001</td>
+                <td>70%</td>
+                <td class="text-info">In-use</td>
+                <td><a href="admin_powerbank_details.html?id=001" class="btn btn-warning btn-sm">View Details</a></td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>50%</td>
+                <td class="text-danger">Unavailable</td>
+                <td><a href="admin_powerbank_details.html?id=002" class="btn btn-warning btn-sm">View Details</a></td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>30%</td>
+                <td class="text-success">Available</td>
+                <td><a href="admin_powerbank_details.html?id=003" class="btn btn-warning btn-sm">View Details</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

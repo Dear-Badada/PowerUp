@@ -1,0 +1,30 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block title %}Payment Success{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center text-success"><i class="fas fa-check-circle"></i> Payment Successful</h2>
+
+    <div class="alert alert-success text-center mt-4">
+        Your payment has been processed successfully. Thank you!
+    </div>
+
+    <div class="card p-4 shadow">
+        <p class="h4"><strong>Rental Info</strong></p>
+        <table class="table mt-3">
+            <tr><th>Payment ID</th><td>{{ payment.payment_id }}</td></tr>
+            <tr><th>Customer Info</th><td>{{ rental.customer_id.customer_name }}</td></tr>
+            <tr><th>Wallet Balance</th><td><strong class="text-success">£{{ wallet_balance|floatformat:2 }}</strong></td></tr>
+            <tr><th>Payment Amount</th><td><strong class="text-success">£{{ payment.payment_amount }}</strong></td></tr>
+            <tr><th>Usage Hours</th><td>{{ payment.usage_hours }} Hours</td></tr>
+        </table>
+
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'payment_history' rental.rental_id %}" class="btn btn-success me-2">View Payment History</a>
+            <a href="{% url 'rent.html' %}" class="btn btn-outline-success">Rent Again</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

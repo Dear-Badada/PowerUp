@@ -1,0 +1,33 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block title %}Admin Login{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
+    <div class="card shadow-lg p-4 text-center">
+        <h2 class="text-success"><i class="fas fa-user-shield"></i> Admin Login</h2>
+        <form id="adminLoginForm">
+            <div class="mb-3">
+                <label for="admin-username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="admin-username" required>
+            </div>
+            <div class="mb-3">
+                <label for="admin-password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="admin-password" required>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Login</button>
+        </form>
+    </div>
+</div>
+
+<!--<script>-->
+<!--document.getElementById("adminLoginForm").addEventListener("submit", function(event) {-->
+<!--    event.preventDefault();-->
+
+<!--    localStorage.setItem("isAdmin", "true");-->
+<!--    alert("Admin login successful!");-->
+<!--    window.location.href = "admin_dashboard.html";-->
+<!--});-->
+<!--</script>-->
+{% endblock %}

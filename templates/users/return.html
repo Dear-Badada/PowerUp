@@ -1,0 +1,40 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+{% block title %}Return a Power Bank{% endblock %}
+{% block content %}
+<!--<script>-->
+<!--document.addEventListener("DOMContentLoaded", function () {-->
+<!--    const isLoggedIn = localStorage.getItem("isLoggedIn");-->
+<!--    const hasRented = localStorage.getItem("hasRented");-->
+
+<!--    if (!isLoggedIn) {-->
+<!--        alert("Please login first!");-->
+<!--        window.location.href = "login.html";-->
+<!--    } else if (hasRented !== "true") {-->
+<!--        alert("You have no active rental!");-->
+<!--        window.location.href = "rent.html";-->
+<!--    }-->
+<!--});-->
+<!--</script>-->
+
+<div class="container mt-5">
+    <h2 class="text-center text-success">
+        <i class="fa-solid fa-upload"></i> Return Power Bank
+    </h2>
+
+    <form id="returnForm" class="mt-4">
+        <button type="submit" class="btn btn-success w-100 return-btn">
+            <i class="fas fa-undo-alt"></i> Return
+        </button>
+    </form>
+</div>
+
+<!--<script>-->
+<!--document.getElementById("returnForm").addEventListener("submit", function (event) {-->
+<!--    event.preventDefault();-->
+<!--    localStorage.removeItem("hasRented");-->
+<!--    alert("Power bank returned successfully! Redirecting to payment page...");-->
+<!--    window.location.href = "payment.html";-->
+<!--});-->
+<!--</script>-->
+{% endblock %}

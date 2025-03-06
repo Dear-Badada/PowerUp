@@ -1,0 +1,242 @@
+/*  整体页面的背景颜色 */
+body {
+    background-image: url("../images/PowerUp-8.jpg");
+    background-size: cover;
+    background-position: center top 50%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #a9c39f;
+}
+
+/* 表单容器 */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    max-width: 420px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* 标题样式 */
+h2 {
+    font-size: 26px;
+    color: #1e8449;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 输入框样式 */
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #d5dbdb; /* 默认浅灰色边框 */
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 输入框聚焦时的效果 */
+input[type="text"]:focus, input[type="password"]:focus, select:focus {
+    border-color: #27ae60;
+    box-shadow: 0 0 8px rgba(39, 174, 96, 0.5);
+    outline: none;
+}
+
+/* 按钮样式 */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #27ae60; /* 深绿色按钮 */
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2);
+}
+
+/* 按钮 hover 效果 */
+button:hover {
+    background-color: #2ecc71;
+    transform: scale(1.02);
+}
+
+/* 页面顶部导航栏 */
+nav {
+    background-color: #1e8449;
+    padding: 12px 20px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #d5dbdb;
+    text-decoration: underline;
+}
+
+/* 租借站点的标题加粗 */
+.form-label {
+    font-weight: bold;
+}
+
+.navbar {
+    background-color: #1e8449;
+    padding: 8px 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand {
+    text-decoration: none !important;
+}
+.navbar-brand:hover {
+    text-decoration: none !important;
+}
+.navbar-logo {
+    width: 40px;
+    height: auto;
+}
+
+/* 错误提示框 */
+.error-message {
+    color: #e74c3c;
+    background-color: #f8d7da;
+    border: 1px solid #e74c3c;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* 输入框验证错误时的样式 */
+input:invalid {
+    border: 2px solid #e74c3c;
+}
+
+input:focus:invalid {
+    outline: none;
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.7); /* 红色阴影效果 */
+}
+
+/* 数据表格优化 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #27ae60;
+    color: white;
+}
+
+/* 表格行 hover 效果 */
+tr:hover {
+    background-color: #f0fdf4;
+}
+
+/* 🌟 反馈单选框样式 */
+.form-check-label {
+    font-size: 1.1rem;
+}
+
+.form-check-input:checked {
+    background-color: #27ae60;
+    border-color: #27ae60;
+}
+
+/* 按钮加载动画 */
+button:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+/* 归还按钮加载动画 */
+.return-btn:disabled::after {
+    content: " ⏳";
+    animation: loadingDots 1s infinite;
+}
+
+@keyframes loadingDots {
+    0% { content: " ⏳"; }
+    33% { content: " ⏳."; }
+    66% { content: " ⏳.."; }
+    100% { content: " ⏳..."; }
+}
+
+.welcome-text {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #064224;
+    text-shadow: none;
+    margin-bottom: 25px;
+}
+
+.subtext {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #064224;
+}
+
+.btn-custom {
+    padding: 14px 28px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 15px;
+    border: 3px solid #1e8449;
+}
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+.logo-container img {
+    width: 150px;
+    height: auto;
+}
+
+.start-now-button {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    background: #1e8449;
+}
+
+#rent-btn {
+    width: auto;
+    padding: 10px 30px;
+}
+
+.action-btn {
+    min-width: 60px;
+    text-align: center;
+}
