@@ -22,7 +22,6 @@ INSTALLED_APPS = [
     'users',  # 用户管理
     'powerbank',  # 充电宝租借
     'adminn',  # 管理员控制台
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -58,8 +57,12 @@ WSGI_APPLICATION = 'powerup_project.wsgi.application'
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'powerup',
+        'USER': 'eeatem',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
