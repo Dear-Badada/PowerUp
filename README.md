@@ -1,0 +1,12 @@
+- 每个人创建一个自己的分支修改代码。
+    - git checkout -b yourname # 创建并切换到你的分支
+- 修改代码前，先同步远程仓库的 master 分支：
+    - git fetch origin         # 获取最新代码
+    - git checkout master      # 切换到 master
+    - git pull origin master   # 拉取最新 master 代码
+    - git checkout yourname    # 切回自己的分支
+    - git merge master         # 合并 master，避免冲突
+- 修改代码并提交：
+    - git add .
+    - git commit -m "update message."
+- 最后 git push origin master，把最新的代码上传到 master 分支。
