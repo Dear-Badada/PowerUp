@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from payment import views as payment_views
-from users.views import home, user_login, rent_powerbank, return_powerbank, register
+from users.views import home, user_login, rent_powerbank, return_powerbank, register, recharge_wallet, view_wallet
 from adminn.views import admin_login, admin_dashboard, admin_reports
 
 urlpatterns = [
@@ -14,6 +14,8 @@ urlpatterns = [
     path('rent/', rent_powerbank, {'powerbank_id': 1}, name='rent_default'),
     path('rent/<int:powerbank_id>/', rent_powerbank, name='rent_powerbank'),
     path('return/', return_powerbank, name='return_powerbank'),
+    path('recharge/', recharge_wallet, name='recharge_wallet'),
+    path('wallet/', view_wallet, name='view_wallet'),
 
 
     # 支付相关 URL
