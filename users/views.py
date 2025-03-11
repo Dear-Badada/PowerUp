@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import User
 
-from users.forms import RegistrationForm, LoginForm
+from users.forms import RegistrationForm, LoginForm, RechargeForm
 
 
 def register(request):
@@ -47,6 +47,29 @@ def user_login(request):
         form = LoginForm()
 
     return render(request, "users/login.html", {"form": form})
+
+
+def view_wallet(request):
+    user = User.objects.get(id=request.session['user_id'])  # Ensure the latest data is fetched
+    return render(request, "users/wallet.html", {"username": user.username,
+        "balance": user.balance})
+
+def recharge_wallet(request):
+    if request.method == "POST":
+        form = RechargeForm(request.POST)
+        if form.is_valid():
+            amount = form.cleaned_data["amount"]
+            user = User.objects.get(id=request.session['user_id'])  # Fetch the user again to get the latest balance
+            user.balance += amount  # Update the balance
+            user.save()
+            messages.success(request, f"Successfully recharged ${amount:.2f}.")
+            return redirect("view_wallet")  # Redirect to wallet page after successful recharge
+        else:
+            messages.error(request, "Invalid amount. Please enter a valid number.")
+    else:
+        form = RechargeForm()
+
+    return render(request, "users/recharge.html", {"form": form})
 
 def home(request):
     return render(request, 'includes/home.html')
