@@ -2,14 +2,21 @@
 {% load static %}
 {% block title %}Register - Power Up{% endblock %}
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center"><i class="fas fa-user"></i>   Registration</h2>
-    <form method="POST" class="card p-4 shadow mt-4">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success w-100">
-            <i class="fas fa-user"></i>  Register
-        </button>
-    </form>
-</div>
+    <div class="container mt-5">
+        <h2 class="text-center"><i class="fas fa-user"></i> Registration</h2>
+        <form method="POST" class="card p-4 shadow mt-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success w-100">
+                <i class="fas fa-user"></i> Register
+            </button>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </form>
+    </div>
 {% endblock %}
