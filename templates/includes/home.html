@@ -31,13 +31,13 @@
         </a>
     </div>
 
-    <!--  用户租借/归还 -->
+    <!--  用户租借/归还（已登录用户显示） -->
     <div id="user-options" style="display: none;">
         <a href="{% url 'rent_default' %}" class="btn btn-success btn-lg btn-custom"><i class="fas fa-battery-full"></i> Rent a Power Bank</a>
         <a href="{% url 'return_powerbank' %}" class="btn btn-outline-success btn-lg btn-custom"><i class="fas fa-undo-alt"></i> Return Power Bank</a>
     </div>
 
-    <!--  管理员面板 -->
+    <!--  管理员面板（仅管理员显示） -->
     <div id="admin-panel" style="display: none;">
         <a href="{% url 'admin_dashboard' %}" class="btn btn-warning btn-lg btn-custom"><i class="fas fa-user-shield"></i> Admin Panel</a>
     </div>

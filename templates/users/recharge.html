@@ -1,0 +1,24 @@
+{% extends "includes/base.html" %}
+
+{% block content %}
+<h2>Recharge Wallet</h2>
+
+<!-- Display messages (e.g., success or error) -->
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<!-- Recharge form -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Recharge</button>
+</form>
+
+<!-- Back to wallet page -->
+<a href="{% url 'view_wallet' %}" class="btn btn-secondary">Back to Wallet</a>
+{% endblock %}

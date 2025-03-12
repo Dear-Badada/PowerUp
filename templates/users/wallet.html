@@ -1,0 +1,11 @@
+{% extends "includes/base.html" %}
+
+{% block content %}
+<h2>Your Wallet</h2>
+
+<!-- Display the wallet balance -->
+<p>Current Balance: <strong>${{ balance }}</strong></p>
+
+<!-- Link to recharge page -->
+<a href="{% url 'recharge_wallet' %}" class="btn btn-primary">Recharge</a>
+{% endblock %}
