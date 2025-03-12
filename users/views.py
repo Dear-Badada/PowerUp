@@ -1,8 +1,15 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import User
 from .forms import RegistrationForm, LoginForm, RechargeForm
+
+def login_required(view_func):
+    def wrapper(request, *args, **kwargs):
+        if 'user_id' not in request.session:
+            messages.error(request, "You need to log in first.")
+            return redirect("login")
+        return view_func(request, *args, **kwargs)
+    return wrapper
 
 # 用户注册（自定义表单）
 def register(request):
@@ -50,7 +57,7 @@ def user_login(request):
 # 查看钱包余额
 @login_required
 def view_wallet(request):
-    user = User.objects.get(id=request.session['user_id'])  # Ensure the latest data is fetched
+    user = get_object_or_404(User, id=request.session['user_id'])  # Ensure the latest data is fetched
     return render(request, "users/wallet.html", {"username": user.username, "balance": user.balance})
 
 # 充值钱包

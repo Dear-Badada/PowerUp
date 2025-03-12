@@ -11,7 +11,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                {% if request.user.is_authenticated %}
+                {% if request.session.user_id %}
                 <li class="nav-item">
                     <a class="nav-link text-white fw-bold" href="#" onclick="logout();">
                         <i class="fas fa-sign-out-alt"></i> Logout

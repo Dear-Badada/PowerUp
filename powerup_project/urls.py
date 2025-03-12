@@ -5,8 +5,9 @@ from users.views import home, user_login, rent_powerbank, return_powerbank, regi
 from adminn.views import admin_login, admin_dashboard, admin_reports
 
 urlpatterns = [
-    path('admin/', admin.site.urls),  # Django 管理后台
+
     path('', home, name='home'),  # 主页
+    path('admin/', admin.site.urls),  # Django 管理后台
 
     # 用户相关 URL
     path('login/', user_login, name='login'),
@@ -14,12 +15,10 @@ urlpatterns = [
     path('rent/', rent_powerbank, {'powerbank_id': 1}, name='rent_default'),
     path('rent/<int:powerbank_id>/', rent_powerbank, name='rent_powerbank'),
     path('return/', return_powerbank, name='return_powerbank'),
-    path('recharge/', recharge_wallet, name='recharge_wallet'),
     path('wallet/', view_wallet, name='view_wallet'),
-
+    path('wallet/recharge/', recharge_wallet, name='recharge_wallet'),
 
     # 支付相关 URL
-    path('payment/', payment_views.payment_home, name='payment_home'),
     path('payment/details/<int:rental_id>/', payment_views.payment_details, name='payment_details'),
     path('payment/history/<int:customer_id>/', payment_views.payment_history, name='payment_history'),
     path('payment/success/<int:rental_id>/', payment_views.payment_success, name='payment_success'),

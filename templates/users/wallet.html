@@ -1,11 +1,17 @@
 {% extends "includes/base.html" %}
 
+{% block title %}Your Wallet{% endblock %}
+
 {% block content %}
-<h2>Your Wallet</h2>
+<div class="container mt-5">
+    <h2 class="text-center text-primary"><i class="fas fa-wallet"></i> Your Wallet</h2>
 
-<!-- Display the wallet balance -->
-<p>Current Balance: <strong>${{ balance }}</strong></p>
+    <div class="card p-4 shadow mt-4">
+        <!-- Display the wallet balance -->
+        <p>Current Balance: <strong>${{ balance }}</strong></p>
 
-<!-- Link to recharge page -->
-<a href="{% url 'recharge_wallet' %}" class="btn btn-primary">Recharge</a>
+        <!-- Link to recharge page -->
+        <a href="{% url 'recharge_wallet' %}" class="btn btn-success">Recharge</a>
+    </div>
+</div>
 {% endblock %}

@@ -1,26 +1,42 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login
+from django.contrib import messages
+from django.views.decorators.csrf import csrf_protect
+from .models import Admin
+import hashlib
 
 # 管理员登录
+@csrf_protect
 def admin_login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            if user.is_staff:  # 只有管理员可以登录
-                login(request, user)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            admin = Admin.objects.get(username=username)
+            hashed_input_password = hashlib.sha256((password + admin.salt).encode()).hexdigest()
+
+            if admin.password_hash == hashed_input_password:
+                request.session['admin_id'] = admin.id
+                messages.success(request, 'Login successful!')
                 return redirect('admin_dashboard')
-    else:
-        form = AuthenticationForm()
-    return render(request, 'admin/admin_login.html', {'form': form})
+            else:
+                messages.error(request, 'Incorrect username or password.')
+        except Admin.DoesNotExist:
+            messages.error(request, 'Incorrect username or password.')
 
-def admin_reports(request):
-    # 渲染 admin_reports.html 模板
-    return render(request, 'admin/admin_reports.html')
+    return render(request, 'admin/admin_login.html')
 
-# 管理员控制面板
-@login_required
+# 管理员仪表盘
 def admin_dashboard(request):
+    admin_id = request.session.get('admin_id')
+    if not admin_id:
+        return redirect('admin_login')
+
     return render(request, 'admin/admin_dashboard.html')
+
+# 报告页面
+def admin_reports(request):
+    admin_id = request.session.get('admin_id')
+    if not admin_id:
+        return redirect('admin_login')
+    return render(request, 'admin/admin_reports.html')

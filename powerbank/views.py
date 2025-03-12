@@ -1,33 +1,46 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
+
 from django.utils import timezone
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 
-from .models import PowerBank, Rental
+from users.views import login_required
+from .models import PowerBank, Rental, Station
+from payment.models import Pricing
 
-@csrf_exempt
 @login_required
 def rent_powerbank(request, powerbank_id):
+    if Rental.objects.filter(user=request.user, order_status="ongoing").exists():
+        return JsonResponse({"message": "You already have a rented PowerBank. Please return it first."}, status=400)
+
     powerbank = get_object_or_404(PowerBank, id=powerbank_id, status="available")
-    # 防止用户重复租借
-    if Rental.objects.filter(user=request.user, powerbank__status="in_use").exists():
-        return JsonResponse({"message": "You already have a rented PowerBank. Return it before renting a new one."},
-                            status=400)
+    pricing = Pricing.objects.first()
 
     if request.method == "POST":
-        rental = Rental.objects.create(user=request.user, powerbank=powerbank, start_time=timezone.now())
-        powerbank.status = "in_use"
+        rental = Rental.objects.create(
+            user=request.user,
+            power_bank=powerbank,
+            deposit=pricing.deposit_amount,
+            hourly_rate=pricing.hourly_rate,
+            start_time=timezone.now(),
+            order_status='ongoing'
+        )
+        powerbank.status = "rented"
         powerbank.save()
-        return JsonResponse({"message": "PowerBank rented successfully", "rental_id": rental.id})
+
+        return JsonResponse({"message": "Rental successful", "rental_id": rental.id})
+
+    stations = Station.objects.all()
+    return render(request, 'users/rent.html', {'stations': stations})
 
 @login_required
 def return_powerbank(request, rental_id):
-    rental = get_object_or_404(Rental, id=rental_id, user=request.user)
+    rental = Rental.objects.filter(user=request.user, order_status="ongoing").first()
 
-    # 计算租借时长
+    if not rental:
+        return JsonResponse({"message": "No active rental found."}, status=400)
+
     rental.end_time = timezone.now()
-    rental_duration = (rental.end_time - rental.start_time).total_seconds() / 3600  # 转换为小时
+    rental_duration = (rental.end_time - rental.start_time).total_seconds() / 3600
 
     # 计算费用
     # 定价标准：
@@ -47,10 +60,14 @@ def return_powerbank(request, rental_id):
     else:
         rental_cost = 4 + (rental_duration - 3) * 1
 
-    rental.total_cost = round(rental_cost, 2)  # 保留两位小数
-    rental.powerbank.status = "available"
-    rental.powerbank.save()
+    rental.total_cost = round(rental_cost, 2)
+    rental.order_status = 'completed'
+    rental.payment_status = 'pending'
     rental.save()
+
+    powerbank = rental.power_bank
+    powerbank.status = "available"
+    powerbank.save()
 
     return JsonResponse({
         "message": "PowerBank returned successfully",

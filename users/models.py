@@ -1,8 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 import hashlib
 import uuid
-
 
 class User(models.Model):
 

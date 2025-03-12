@@ -1,24 +1,36 @@
 {% extends "includes/base.html" %}
 
+{% block title %}Recharge Wallet{% endblock %}
+
 {% block content %}
-<h2>Recharge Wallet</h2>
+<div class="container mt-5">
+    <h2 class="text-center text-primary"><i class="fas fa-credit-card"></i> Recharge Wallet</h2>
 
-<!-- Display messages (e.g., success or error) -->
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
+    <!-- Display messages (e.g., success or error) -->
+    {% if messages %}
+    <div class="alert alert-info mt-4">
+        <ul class="list-unstyled mb-0">
+            {% for message in messages %}
             <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 
-<!-- Recharge form -->
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Recharge</button>
-</form>
+    <!-- Recharge form -->
+    <div class="card p-4 shadow mt-4">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success w-100">Recharge</button>
+        </form>
+    </div>
 
-<!-- Back to wallet page -->
-<a href="{% url 'view_wallet' %}" class="btn btn-secondary">Back to Wallet</a>
+    <!-- Back to wallet page -->
+    <div class="text-center mt-4">
+        <a href="{% url 'view_wallet' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Wallet
+        </a>
+    </div>
+</div>
 {% endblock %}
