@@ -1,0 +1,30 @@
+{% extends "includes/base.html" %}
+
+{% block content %}
+<h2>Order Details</h2>
+
+<p>Order ID: {{ order.id }}</p>
+<p>Power Bank: {{ order.power_bank.id }}</p>
+<p>Status: {{ order.order_status }}</p>
+<p>Start Time: {{ order.start_time }}</p>
+<p>End Time: {{ order.end_time }}</p>
+<p>Total Cost: ${{ order.total_cost }}</p>
+<p>Deposit: ${{ order.deposit }}</p>
+<p>Feedback: {{ order.feedback }}</p>
+
+{% if order.order_status == 'ongoing' %}
+    <form method="post" action="{% url 'return_order' order.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Return Power Bank</button>
+    </form>
+{% endif %}
+
+{% if order.feedback == 'abnormal' %}
+    <p>Refund request is in progress.</p>
+{% else %}
+    <form method="post" action="{% url 'report_feedback' order.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-warning">Report Feedback (Abnormal)</button>
+    </form>
+{% endif %}
+{% endblock %}

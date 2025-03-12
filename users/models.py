@@ -3,13 +3,13 @@ import hashlib
 import uuid
 
 class User(models.Model):
-
+    """ 用户模型 """
     id = models.AutoField(primary_key=True)
     username = models.CharField(max_length=50, unique=True, null=False)
     email = models.EmailField(max_length=100, unique=True, null=False)
     phone = models.CharField(max_length=20, unique=True, null=False)
-    password_hash = models.TextField(null=False)  # Explicitly store hashed password
-    salt = models.TextField(null=False)
+    password_hash = models.CharField(max_length=128, null=False)
+    salt = models.CharField(max_length=64, null=False)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -23,12 +23,12 @@ class User(models.Model):
         return self.username
 
     def set_password(self, raw_password):
-        # Hash the password and store it in password_hash field
-        self.salt = uuid.uuid4().hex  # Generate a random salt
+        """ Hash 用户密码 """
+        self.salt = uuid.uuid4().hex  # 生成随机 salt
         hashed_password = hashlib.sha256((raw_password + self.salt).encode()).hexdigest()
-        self.password_hash = hashed_password  # Store the hashed password in password_hash
+        self.password_hash = hashed_password  # 存储 hash 后的密码
 
     def check_password(self, raw_password):
-        # Check the password by hashing it and comparing it with password_hash and salt
+        """ 检查用户输入的密码是否正确 """
         hashed_password = hashlib.sha256((raw_password + self.salt).encode()).hexdigest()
         return self.password_hash == hashed_password

@@ -1,0 +1,21 @@
+{% extends "includes/base.html" %}
+
+{% block content %}
+<h2>Refund Request Details</h2>
+
+<!-- 显示退款申请详细信息 -->
+<p><strong>Order ID:</strong> {{ refund_request.order.id }}</p>
+<p><strong>User:</strong> {{ refund_request.user.username }} ({{ refund_request.user.email }})</p>
+<p><strong>Reason:</strong> {{ refund_request.reason }}</p>
+<p><strong>Status:</strong> {{ refund_request.status }}</p>
+<p><strong>Processed At:</strong> {% if refund_request.processed_at %}{{ refund_request.processed_at }}{% else %}pending{% endif %}</p>
+
+<!-- 退款处理表单 -->
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" name="action" value="approve" class="btn btn-success">Approve Refund</button>
+    <button type="submit" name="action" value="reject" class="btn btn-danger">Reject Refund</button>
+</form>
+
+<a href="{% url 'refund_requests_list' %}" class="btn btn-secondary">Back to Refund Requests</a>
+{% endblock %}

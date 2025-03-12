@@ -1,0 +1,17 @@
+{% extends "includes/base.html" %}
+
+{% block content %}
+<h2>Available Stations</h2>
+
+{% if stations %}
+    <ul>
+        {% for station in stations %}
+            <li>
+                <a href="{% url 'station_detail' station.id %}">{{ station.name }}</a> - {{ station.location }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No stations available.</p>
+{% endif %}
+{% endblock %}

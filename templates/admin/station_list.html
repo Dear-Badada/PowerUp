@@ -1,0 +1,17 @@
+{% extends "includes/base.html" %}
+
+{% block content %}
+<h2>Manage Stations</h2>
+
+<a href="{% url 'create_station' %}" class="btn btn-success">Add Station</a>
+
+<ul>
+    {% for station in stations %}
+        <li>
+            {{ station.name }} - {{ station.location }}
+            <a href="{% url 'powerbank_list' station.id %}">Manage Power Banks</a>
+            <a href="{% url 'delete_station' station.id %}" class="btn btn-danger">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

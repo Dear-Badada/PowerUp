@@ -1,0 +1,16 @@
+{% extends "includes/base.html" %}
+
+{% block content %}
+<h2>Create New Station</h2>
+
+<!-- 显示创建站点的表单 -->
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Django 会渲染表单的字段 -->
+    
+    <button type="submit" class="btn btn-success">Create Station</button>
+</form>
+
+<!-- 返回到站点列表页面 -->
+<a href="{% url 'station_list_admin' %}" class="btn btn-secondary">Back to Stations</a>
+{% endblock %}
