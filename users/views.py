@@ -1,10 +1,9 @@
 from decimal import Decimal
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils import timezone
-
-from powerbank.models import Pricing, PowerBank
+from powerbank.models import Pricing
 from payment.models import Order, Transaction
 from .models import User
 from .forms import RegistrationForm, LoginForm
@@ -22,9 +21,11 @@ def register(request):
                 messages.error(request, "Passwords do not match.")
                 return render(request, "users/register.html", {"form": form})
 
+            # 创建用户并设置密码
             user = form.save(commit=False)
-            user.set_password(password)  # ✅ Hash 密码
+            user.set_password(password)
             user.save()
+
             messages.success(request, "Registration successful. Please log in.")
             return redirect("login")
         else:
@@ -44,19 +45,21 @@ def user_login(request):
             password = form.cleaned_data.get("password")
 
             try:
+                # 手动查询用户
                 user = User.objects.get(username=username)
+
+                # 使用自定义的 check_password 方法验证密码
                 if user.check_password(password):
-                    request.session['user_id'] = user.id
-                    request.session.set_expiry(3600)  # Session 1 小时后自动过期
+                    # 密码正确，登录成功
+                    login(request, user)
                     messages.success(request, "Login successful.")
-                    return redirect("home")
+                    return redirect("station_list")  # 登录后跳转到选择站点的页面
                 else:
                     messages.error(request, "Invalid username or password.")
             except User.DoesNotExist:
                 messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid form submission.")
-
     else:
         form = LoginForm()
 

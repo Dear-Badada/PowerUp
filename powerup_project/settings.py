@@ -86,6 +86,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.User'  # 指定自定义用户模型
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
@@ -108,6 +109,6 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Username (leave blank to use 'dell'):
-# Email address: badada.cc@gmail.com
+# Username: Yuxi
+# Email address: 972858425@qq.com
 # Password:Zhao123456

@@ -97,17 +97,47 @@ nav a:hover {
 }
 
 .navbar {
-    background-color: #1e8449;
-    padding: 8px 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
 }
 
 .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    text-decoration: none !important;
+    margin-left: 0 ;
+    padding-left: 10px;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto;
+}
+
+.navbar-right a {
+    text-decoration: none !important;
+    color: white;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-right a:hover {
+    opacity: 0.8;
     text-decoration: none !important;
 }
-.navbar-brand:hover {
+
+
+.navbar-right a b {
     text-decoration: none !important;
 }
+
 .navbar-logo {
     width: 40px;
     height: auto;
@@ -239,4 +269,201 @@ button:disabled {
 .action-btn {
     min-width: 60px;
     text-align: center;
+}
+
+/* 站点卡片样式 */
+.station-card {
+    background: rgba(255, 255, 255, 0.9); /* 半透明白色 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 5px solid #1e8449;
+    border-radius: 12px;
+    min-height: 240px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* 增加柔和阴影 */
+}
+
+.station-card .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.station-card p {
+    word-break: break-word; /* 避免地址太长导致按钮被挤压 */
+    margin-bottom: 10px;
+}
+
+.welcome-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1e8449;
+}
+
+.station-btn {
+    display: block;
+    color: #1e8449;
+    border: 2px solid #1e8449;
+    background-color: transparent;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    margin-top: auto;
+}
+
+.station-btn:hover {
+    background-color: #1e8449;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* 站点详情页面 */
+.station-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    max-width: 750px;
+    margin: auto;
+}
+
+/* 站点标题 */
+.station-title {
+    font-size: 28px;
+    color: #1e8449;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 站点位置 */
+.station-location {
+    text-align: center;
+    font-size: 16px;
+    color: #444;
+}
+
+/* 充电宝列表 */
+.power-bank-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 充电宝卡片 */
+.power-bank-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.power-bank-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 充电宝 ID */
+.power-bank-info {
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 电池图标 */
+.power-bank-icon {
+    font-size: 22px;
+    color: #1e8449;
+}
+
+/* 进度条 */
+.power-bank-progress {
+    width: 250px;
+    height: 8px;
+    border-radius: 4px;
+    background: #eee;
+    overflow: hidden;
+}
+
+.power-bank-progress .progress-bar {
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+}
+
+/* 进度条颜色 */
+.progress-bar.bg-success {
+    background: linear-gradient(to right, #27ae60, #2ecc71);
+}
+
+.progress-bar.bg-warning {
+    background: linear-gradient(to right, #f1c40f, #f39c12);
+}
+
+.progress-bar.bg-danger {
+    background: linear-gradient(to right, #e74c3c, #c0392b);
+}
+
+/* 电量百分比 */
+.battery-level {
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 50px;
+    text-align: center;
+}
+
+/* 租借按钮 */
+.rent-btn {
+    background: #1e8449;
+    color: white;
+    border: none;
+    padding: 6px 15px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.rent-btn:hover {
+    background: #00b74a;
+    transform: scale(1.05);
+}
+
+/* 禁用按钮 */
+.disabled-btn {
+    background: #bdc3c7;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: not-allowed;
+}
+
+/* 返回按钮 */
+.back-btn {
+    display: inline-block;
+    background: #ffffff;
+    border: 2px solid #1e8449;
+    color: #1e8449;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #1e8449;
+    color: white;
+    transform: scale(1.05);
 }

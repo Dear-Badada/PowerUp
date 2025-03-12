@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.views import LogoutView
 from django.urls import path
 from payment.views import create_order, return_order, report_feedback, view_order
 from powerbank.views import station_list, station_detail
@@ -12,8 +13,9 @@ urlpatterns = [
 
     # 用户相关 URL
     path('login/', user_login, name='login'),
+    path("logout/", LogoutView.as_view(next_page="home"), name="logout"),
     path('register/', register, name='register'),
-    path('rent/<int:powerbank_id>/', rent_powerbank, name='rent_powerbank'),  # ✅ 删除默认租借
+    path('rent/<int:powerbank_id>/', rent_powerbank, name='rent_powerbank'),
     path('return/', return_powerbank, name='return_powerbank'),
     path('recharge/', recharge_wallet, name='recharge_wallet'),
     path('wallet/', view_wallet, name='view_wallet'),

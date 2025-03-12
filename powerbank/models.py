@@ -26,10 +26,10 @@ class PowerBank(models.Model):
 
     STATUS_CHOICES = [
         ("available", "Available"),
-        ("in_use", "In Use"),
-        ("charging", "Charging"),
+        ("rented", "Rented"),
         ("damaged", "Damaged"),
     ]
+
     status = models.CharField(
         max_length=10,
         choices=STATUS_CHOICES,

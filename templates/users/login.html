@@ -11,7 +11,7 @@
         {% csrf_token %}
 
         <div class="mb-3">
-            <label for="username" class="form-label"><strong>Username or Email</strong></label>
+            <label for="username" class="form-label"><strong>Username</strong></label>
             <input type="text" class="form-control" name="username" id="username" required>
         </div>
 
@@ -37,7 +37,7 @@
     </form>
 
     <div class="text-center mt-3">
-        <p>Don't have an account? <a href="{% url 'custom_register' %}" class="text-success">Register here</a></p>
+        <p>Don't have an account? <a href="{% url 'register' %}" class="text-success">Register here</a></p>
     </div>
 </div>
 

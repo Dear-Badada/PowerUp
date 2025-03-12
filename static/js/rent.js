@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let rentForm = document.getElementById("rentForm");
-    let stationSelect = document.getElementById("rental_station");
-    let selectedStationInput = document.getElementById("selected_station");
+    let rentButton = document.getElementById("rentButton");
+    let powerbankSelect = document.getElementById("powerbankSelect");
 
-    rentForm.addEventListener("submit", function (event) {
-        if (!stationSelect.value) {
-            event.preventDefault();
-            alert("Please select a rental station.");
+    rentButton.addEventListener("click", function () {
+        let selectedPowerbank = powerbankSelect.value;
+
+        if (!selectedPowerbank) {
+            alert("Please select a power bank before renting.");
         } else {
-            selectedStationInput.value = stationSelect.value;
+            window.location.href = `/rent/${selectedPowerbank}/`;
         }
     });
 });

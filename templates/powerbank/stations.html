@@ -1,17 +1,32 @@
 {% extends "includes/base.html" %}
 
 {% block content %}
-<h2>Available Stations</h2>
-
-{% if stations %}
-    <ul>
+<div class="container mt-4">
+    <h2 class="text-center welcome-text">
+        <span style="font-size: 1.5rem;">📍</span> Stations
+    </h2>
+    <div class="row mt-4">
         {% for station in stations %}
-            <li>
-                <a href="{% url 'station_detail' station.id %}">{{ station.name }}</a> - {{ station.location }}
-            </li>
+        <div class="col-md-6 col-lg-4 d-flex align-items-stretch">  <!-- 让卡片撑满父容器 -->
+            <div class="card station-card shadow-sm border-0 rounded-4 mb-4 w-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="card-title text-success fw-bold">
+                            <i class="fas fa-map-marker-alt"></i> {{ station.name }}
+                        </h5>
+                        <p class="card-text text-muted">
+                            📍 {{ station.location }}
+                        </p>
+                    </div>
+                    <a href="{% url 'station_detail' station.id %}" class="btn station-btn mt-auto">
+                        🚀 View Power Banks
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-danger">No stations available.</p>
         {% endfor %}
-    </ul>
-{% else %}
-    <p>No stations available.</p>
-{% endif %}
+    </div>
+</div>
 {% endblock %}

@@ -1,22 +1,54 @@
 {% extends "includes/base.html" %}
 
 {% block content %}
-<h2>Power Banks at {{ station.name }}</h2>
+<div class="container station-container">
+    <h2 class="station-title">📍 {{ station.name }} Power Banks</h2>
 
-<p>Location: {{ station.location }}</p>
+    <p class="station-location">Location: <strong>{{ station.location }}</strong></p>
 
-{% if power_banks %}
-    <ul>
-        {% for power_bank in power_banks %}
-            <li>
-                Power Bank ID: {{ power_bank.id }} - Battery: {{ power_bank.battery_level }}%
-                <a href="{% url 'create_order' power_bank.id %}" class="btn btn-primary">Rent</a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No available power banks at this station.</p>
-{% endif %}
+    {% if power_banks %}
+        <div class="power-bank-list">
+            {% for power_bank in power_banks %}
+                <div class="power-bank-card d-flex align-items-center justify-content-between">
+                    <!-- ID + 电池图标 -->
+                    <div class="power-bank-info d-flex align-items-center">
+                        <span class="power-bank-icon">🔋</span>
+                        <strong>ID: {{ power_bank.id }}</strong>
+                    </div>
 
-<a href="{% url 'station_list' %}" class="btn btn-secondary">Back to Stations</a>
+                    <!-- 进度条 -->
+                    <div class="power-bank-progress">
+                        <div class="progress-bar {% if power_bank.battery_level > 50 %} bg-success
+                            {% elif power_bank.battery_level > 20 %} bg-warning
+                            {% else %} bg-danger {% endif %}"
+                            style="width: {{ power_bank.battery_level }}%;">
+                        </div>
+                    </div>
+
+                    <!-- 电量百分比 -->
+                    <span class="battery-level {% if power_bank.battery_level > 50 %} text-success
+                        {% elif power_bank.battery_level > 20 %} text-warning
+                        {% else %} text-danger {% endif %}">
+                        {{ power_bank.battery_level }}%
+                    </span>
+
+                    <!-- 租借按钮 -->
+                    {% if power_bank.battery_level > 20 %}
+                        <a href="{% url 'create_order' power_bank.id %}" class="btn rent-btn">Rent</a>
+                    {% else %}
+                        <button class="btn disabled-btn" disabled>Low Battery</button>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center">
+            <p>No available power banks at this station. Please try another one.</p>
+        </div>
+    {% endif %}
+
+    <div class="text-center mt-4">
+        <a href="{% url 'station_list' %}" class="btn back-btn">Back to Stations</a>
+    </div>
+</div>
 {% endblock %}
