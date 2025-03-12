@@ -14,20 +14,20 @@
         </div>
         <div class="d-flex justify-content-between">
             <strong>Remaining Wallet Balance:</strong>
-            <span class="text-warning">£{{ remaining_balance }}</span>
+            <span class="text-warning">£{{ rental.user_id.balance|floatformat:2 }}</span>
         </div>
 
         <table class="table mt-3">
-            <tr><th>Customer Info</th><td>{{ rental.customer_id.customer_name }}</td></tr>
-            <tr><th>Usage Hours</th><td>{{ payment.usage_hours }} Hours</td></tr>
+            <tr><th><strong>Customer Info</strong></th><td><strong>{{ rental.user_id.username }}</strong></td></tr>
+            <tr><th><strong>Usage Hours</strong></th><td><strong>{{ payment.usage_hours }} Hours</strong></td></tr>
             <tr><th>Start Time</th><td>{{ rental.start_time | date:"Y-m-d H:i:s" }}</td></tr>
             <tr><th>End Time</th><td>{{ rental.end_time | date:"Y-m-d H:i:s" }}</td></tr>
             <tr><th>Start Station</th><td>{{ start_station_name }}</td></tr>
             <tr><th>End Station</th><td>{{ end_station_name }}</td></tr>
-            <tr><th>Power Bank ID</th><td>{{ rental.vehicle_id.vehicle_id }}</td></tr>
+            <tr><th><strong>Power Bank ID</strong></th><td><strong>{{ rental.power_bank_id }}</strong></td></tr>
         </table>
 
-        <form action="{% url 'payment_success' rental_id=rental_id %}" method="get">
+        <form action="{% url 'payment_success' rental_id=rental.id %}" method="get">
             <button type="submit" class="btn btn-success w-100">Confirm Payment</button>
         </form>
     </div>

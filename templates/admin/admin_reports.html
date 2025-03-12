@@ -4,57 +4,91 @@
 {% block title %}Admin Reports{% endblock %}
 
 {% block content %}
-<!--<script>-->
-<!--document.addEventListener("DOMContentLoaded", function () {-->
-<!--    if (!localStorage.getItem("isAdmin")) {-->
-<!--        alert("Unauthorized access. Redirecting to login.");-->
-<!--        window.location.href = "admin_login.html";-->
-<!--    }-->
-<!--});-->
-<!--</script>-->
-
 <div class="container mt-5">
-    <h2 class="text-center text-warning"><i class="fas fa-chart-bar"></i> Reports & Analytics</h2>
+    <h2 class="text-center text-primary"><i class="fas fa-chart-line"></i> Admin Reports</h2>
 
-    <div class="row mt-4 align-items-center">
-        <div class="col-md-4">
-            <label class="fw-bold">Choose Start Date:</label>
-            <input type="date" class="form-control form-control-lg">
+    <!-- 交易记录 -->
+    <div class="card p-4 shadow mt-4">
+        <h4><i class="fas fa-file-invoice-dollar"></i> Recent Transactions</h4>
+
+        {% if transactions %}
+        <table class="table mt-3">
+            <thead class="table-success">
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>User</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.id }}</td>
+                    <td>{{ transaction.user_id.username }}</td>
+                    <td>
+                        <span class="badge {% if transaction.type == 'rental_fee' %}bg-warning{% elif transaction.type == 'deposit' %}bg-primary{% else %}bg-danger{% endif %}">
+                            {{ transaction.type|title }}
+                        </span>
+                    </td>
+                    <td class="text-success">£{{ transaction.amount }}</td>
+                    <td>{{ transaction.created_at | date:"Y-m-d H:i:s" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="alert alert-warning text-center mt-3">
+            <i class="fas fa-exclamation-circle"></i> No recent transactions found.
         </div>
-        <div class="col-md-4">
-            <label class="fw-bold">Choose End Date:</label>
-            <input type="date" class="form-control form-control-lg">
+        {% endif %}
+    </div>
+
+    <!-- 订单记录 -->
+    <div class="card p-4 shadow mt-4">
+        <h4><i class="fas fa-file-invoice"></i> Recent Orders</h4>
+
+        {% if orders %}
+        <table class="table mt-3">
+            <thead class="table-success">
+                <tr>
+                    <th>Order ID</th>
+                    <th>User</th>
+                    <th>Power Bank</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.user_id.username }}</td>
+                    <td>{{ order.power_bank_id }}</td>
+                    <td>{{ order.start_time | date:"Y-m-d H:i:s" }}</td>
+                    <td>{{ order.end_time | date:"Y-m-d H:i:s" }}</td>
+                    <td>
+                        <span class="badge {% if order.order_status == 'ongoing' %}bg-warning{% elif order.order_status == 'completed' %}bg-success{% else %}bg-danger{% endif %}">
+                            {{ order.order_status|title }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="alert alert-warning text-center mt-3">
+            <i class="fas fa-exclamation-circle"></i> No recent orders found.
         </div>
-        <div class="col-md-4">
-            <label class="fw-bold">Report Type:</label>
-            <select class="form-select form-select-lg">
-                <option>Customer Feedback</option>
-                <option>Power Bank Usage</option>
-                <option>Station Usage Ratio</option>
-            </select>
-        </div>
+        {% endif %}
     </div>
 
-
-    <div class="text-center">
-         <button class="btn btn-success w-50 mt-3">View Report</button>
-    </div>
-
-
-    <div class="mt-5">
-        <h3>Customer Feedback Report</h3>
-        <canvas id="feedbackChart"></canvas>
-    </div>
-
-    <div class="mt-5">
-        <h3>Power Bank Usage</h3>
-        <canvas id="usageChart"></canvas>
-    </div>
-
-    <div class="mt-5">
-        <h3>Station Usage Ratio</h3>
-        <canvas id="stationChart"></canvas>
+    <div class="text-center mt-4">
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
     </div>
 </div>
-
 {% endblock %}

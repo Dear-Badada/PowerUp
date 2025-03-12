@@ -14,16 +14,29 @@
     <div class="card p-4 shadow">
         <p class="h4"><strong>Rental Info</strong></p>
         <table class="table mt-3">
-            <tr><th>Payment ID</th><td>{{ payment.payment_id }}</td></tr>
-            <tr><th>Customer Info</th><td>{{ rental.customer_id.customer_name }}</td></tr>
-            <tr><th>Wallet Balance</th><td><strong class="text-success">£{{ wallet_balance|floatformat:2 }}</strong></td></tr>
+            <tr><th>Payment ID</th><td>{{ payment.id }}</td></tr>
+            <tr><th>Customer Info</th><td>{{ rental.user_id.username }}</td></tr>
+            <tr><th>Wallet Balance</th><td><strong class="text-success">£{{ rental.user_id.balance|floatformat:2 }}</strong></td></tr>
             <tr><th>Payment Amount</th><td><strong class="text-success">£{{ payment.payment_amount }}</strong></td></tr>
             <tr><th>Usage Hours</th><td>{{ payment.usage_hours }} Hours</td></tr>
         </table>
 
-        <div class="d-flex justify-content-center">
-            <a href="{% url 'payment_history' rental.rental_id %}" class="btn btn-success me-2">View Payment History</a>
-            <a href="{% url 'rent.html' %}" class="btn btn-outline-success">Rent Again</a>
+       <div class="d-flex justify-content-center gap-3">
+            <form action="{% url 'payment_history' user_id=rental.user_id.id %}" method="get">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-receipt"></i> View Receipt
+                </button>
+            </form>
+            <form action="{% url 'rent_default' %}" method="get">
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="fas fa-bolt"></i> Rent Again
+                </button>
+            </form>
+            <form action="{% url 'home' %}" method="get">
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fas fa-home"></i> Back to Home
+                </button>
+            </form>
         </div>
     </div>
 </div>

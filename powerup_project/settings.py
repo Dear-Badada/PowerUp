@@ -19,9 +19,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',  # 用户管理
-    'powerbank',  # 充电宝租借
     'adminn',  # 管理员控制台
+    'payment', # 支付详情
+    'powerbank',  # 充电宝租借
+    'users',  # 用户管理
 ]
 
 MIDDLEWARE = [
@@ -59,13 +60,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'powerup',
-        'USER': 'eeatem',
-        'PASSWORD': '',
+        'USER': 'postgres',
+        'PASSWORD': '120045',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5288',
     }
 }
-
 
 # Password validation
 
@@ -95,7 +95,7 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),

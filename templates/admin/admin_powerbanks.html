@@ -1,50 +1,53 @@
 {% extends 'includes/base.html' %}
 {% load static %}
 
-{% block title %}Power Bank Management{% endblock %}
+{% block title %}Power Banks Management{% endblock %}
 
 {% block content %}
-<!--<script>-->
-<!--document.addEventListener("DOMContentLoaded", function () {-->
-<!--    if (!localStorage.getItem("isAdmin")) {-->
-<!--        alert("Unauthorized access. Redirecting to login.");-->
-<!--        window.location.href = "admin_login.html";-->
-<!--    }-->
-<!--});-->
-<!--</script>-->
-
 <div class="container mt-5">
-    <h2 class="text-center text-warning"><i class="fas fa-battery-half"></i> Power Bank Management</h2>
+    <h2 class="text-center text-primary"><i class="fas fa-battery-full"></i> Power Banks Management</h2>
 
-    <table class="table table-bordered table-hover mt-3">
-        <thead class="table-success">
-            <tr>
-                <th>Power Bank ID</th>
-                <th>Battery Balance</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>001</td>
-                <td>70%</td>
-                <td class="text-info">In-use</td>
-                <td><a href="admin_powerbank_details.html?id=001" class="btn btn-warning btn-sm">View Details</a></td>
-            </tr>
-            <tr>
-                <td>002</td>
-                <td>50%</td>
-                <td class="text-danger">Unavailable</td>
-                <td><a href="admin_powerbank_details.html?id=002" class="btn btn-warning btn-sm">View Details</a></td>
-            </tr>
-            <tr>
-                <td>003</td>
-                <td>30%</td>
-                <td class="text-success">Available</td>
-                <td><a href="admin_powerbank_details.html?id=003" class="btn btn-warning btn-sm">View Details</a></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered table-hover">
+            <thead class="table-success">
+                <tr>
+                    <th>Power Bank ID</th>
+                    <th>Battery Level</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for power_bank in power_banks %}
+                <tr>
+                    <td>{{ power_bank.id }}</td>
+                    <td>{{ power_bank.battery_level }}%</td>
+                    <td class="{% if power_bank.status == 'available' %}text-success{% elif power_bank.status == 'rented' %}text-warning{% else %}text-danger{% endif %}">
+                        {{ power_bank.status|title }}
+                    </td>
+                    <td>
+                        <a href="{% url 'admin_powerbank_details' power_bank.id %}" class="btn btn-success btn-sm">
+                            <i class="fas fa-info-circle"></i> Details
+                        </a>
+                        {% if power_bank.status == 'damaged' %}
+                        <form method="POST" action="{% url 'fix_powerbank' power_bank.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="fas fa-tools"></i> Fix
+                            </button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
 </div>
 {% endblock %}

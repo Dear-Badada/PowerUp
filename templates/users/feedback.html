@@ -1,31 +1,36 @@
 {% extends 'includes/base.html' %}
 {% load static %}
 
-{% block title %}Power Bank Feedback{% endblock %}
+{% block title %}Submit Feedback{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="text-center text-success">
-        <i class="fas fa-comment-alt"></i> Power Bank Feedback
-    </h2>
+    <h2 class="text-center"><i class="fas fa-comment-dots"></i> Submit Feedback</h2>
 
-    <form method="POST" class="card p-4 shadow mt-4">
+    <form method="POST" class="card p-4 shadow mt-4" id="feedbackForm">
         {% csrf_token %}
 
         <div class="mb-3">
-            <label class="form-label"><strong>Power Bank Condition:</strong></label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="status" id="normal" value="Normal" required>
-                <label class="form-check-label" for="normal">
-                    <i class="fas fa-check-circle text-success"></i> Normal
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="status" id="broken" value="Broken">
-                <label class="form-check-label" for="broken">
-                    <i class="fas fa-exclamation-circle text-danger"></i> Broken
-                </label>
-            </div>
+            <label for="user_display" class="form-label"><strong>User</strong></label>
+            <input type="text" class="form-control" id="user_display" value="{{ request.user.username }}" disabled>
+
+            <!-- 隐藏 user_id，用于表单提交 -->
+            <input type="hidden" name="user_id" value="{{ request.user.id }}">
+        </div>
+
+
+        <div class="mb-3">
+            <label for="feedback_type" class="form-label"><strong>Feedback Type</strong></label>
+            <select class="form-select" name="feedback_type" id="feedback_type" required>
+                <option value="">-- Select --</option>
+                <option value="normal">Normal</option>
+                <option value="abnormal">Abnormal</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="message" class="form-label"><strong>Message</strong></label>
+            <textarea class="form-control" name="message" id="message" rows="4" required></textarea>
         </div>
 
         <button type="submit" class="btn btn-success w-100">
@@ -33,4 +38,6 @@
         </button>
     </form>
 </div>
+
+<script src="{% static 'js/feedback.js' %}"></script>
 {% endblock %}

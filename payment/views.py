@@ -1,60 +1,69 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from .models import Rental
 # 支付主页
+@login_required
 def payment_home(request):
     return render(request, 'payment/payment.html')
 
 # 支付详情
+@login_required
 def payment_details(request, rental_id):
-    mock_data = {
-        "payment_amount": 12.50,
-        "remaining_balance": 50.00,
-        "rental": {
-            "customer_id": {"customer_name": "John Doe"},
-            "start_time": "2025-03-05 12:00:00",
-            "end_time": "2025-03-05 14:00:00",
-            "start_station_name": "Station A",
-            "end_station_name": "Station B",
-            "vehicle_id": {"vehicle_id": 12345},
-        },
-        "rental_id": rental_id,
+    rental = get_object_or_404(Rental, id=rental_id, user=request.user)
+
+    if rental.total_cost is None:
+        return JsonResponse({"message": "Rental cost not calculated yet"}, status=400)
+
+    payment_data = {
+        "payment_amount": rental.total_cost,
+        "rental_id": rental.id,
+        "start_time": rental.start_time.strftime("%Y-%m-%d %H:%M:%S"),
+        "end_time": rental.end_time.strftime("%Y-%m-%d %H:%M:%S") if rental.end_time else "Ongoing",
+        "status": rental.payment_status
     }
-    return render(request, 'payment/payment_details.html', mock_data)
+    return JsonResponse(payment_data)
 
 # 支付历史
-def payment_history(request, customer_id):
-    mock_data = {
-        "customer": {"customer_name": "John Doe"},
-        "payments": [
-            {
-                "payment_id": 1,
-                "rental": {"rental_id": 101},
-                "payment_amount": 10.00,
-                "payment_time": "2025-03-04 10:30:00",
-                "usage_hours": 2,
-            },
-            {
-                "payment_id": 2,
-                "rental": {"rental_id": 102},
-                "payment_amount": 15.00,
-                "payment_time": "2025-03-03 14:20:00",
-                "usage_hours": 3,
-            },
-        ],
+@login_required
+def payment_history(request):
+    rentals = Rental.objects.filter(user=request.user, payment_status="paid").order_by("-end_time")
+
+    payment_records = []
+    for rental in rentals:
+        payment_records.append({
+            "payment_id": rental.id,
+            "rental": {"rental_id": rental.powerbank.id},
+            "payment_amount": float(rental.total_cost),
+            "payment_time": rental.end_time.strftime("%Y-%m-%d %H:%M:%S") if rental.end_time else "Ongoing",
+            "usage_hours": round((rental.end_time - rental.start_time).total_seconds() / 3600, 2) if rental.end_time else "Ongoing",
+        })
+
+    context = {
+        "customer": {"customer_name": request.user.username},
+        "payments": payment_records
     }
-    return render(request, 'payment/payment_history.html', mock_data)
+
+    return render(request, 'payment/payment_history.html', context)
+
 
 # 支付成功
+@login_required
 def payment_success(request, rental_id):
+    rental = get_object_or_404(Rental, id=rental_id, user=request.user)
+
+    if rental.payment_status != "paid":
+        return redirect('payment_home')  # 如果未支付，跳转回支付首页
+
     mock_data = {
         "payment": {
-            "payment_id": 20250305,
-            "payment_amount": 12.50,
-            "usage_hours": 2,
+            "payment_id": rental.id,
+            "payment_amount": rental.total_cost,
         },
         "rental": {
-            "customer_id": {"customer_name": "John Doe"},
+            "customer_name": request.user.username,
+            "start_time": rental.start_time.strftime("%Y-%m-%d %H:%M:%S"),
+            "end_time": rental.end_time.strftime("%Y-%m-%d %H:%M:%S") if rental.end_time else "Ongoing",
         },
-        "wallet_balance": 50.00,
     }
     return render(request, 'payment/payment_success.html', mock_data)

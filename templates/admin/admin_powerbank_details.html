@@ -4,41 +4,44 @@
 {% block title %}Power Bank Details{% endblock %}
 
 {% block content %}
-<!--<script>-->
-<!--document.addEventListener("DOMContentLoaded", function () {-->
-<!--    if (!localStorage.getItem("isAdmin")) {-->
-<!--        alert("Unauthorized access. Redirecting to login.");-->
-<!--        window.location.href = "admin_login.html";-->
-<!--    }-->
-<!--});-->
-<!--</script>-->
-
 <div class="container mt-5">
-    <h2 class="text-center text-warning"><i class="fas fa-toolbox"></i> Power Bank Details</h2>
+    <h2 class="text-center text-primary"><i class="fas fa-info-circle"></i> Power Bank Details</h2>
 
     <div class="card p-4 shadow mt-4">
-        <p><strong>Power Bank ID:</strong> <span id="powerbank-id">001</span></p>
-        <p><strong>Battery Balance:</strong> <span id="battery">70%</span></p>
-        <p><strong>Status:</strong> <span class="text-info" id="status">In-use</span></p>
+        <table class="table">
+            <tr>
+                <th>Power Bank ID</th>
+                <td>{{ power_bank.id }}</td>
+            </tr>
+            <tr>
+                <th>Battery Level</th>
+                <td>{{ power_bank.battery_level }}%</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td class="{% if power_bank.status == 'available' %}text-success{% elif power_bank.status == 'rented' %}text-warning{% else %}text-danger{% endif %}">
+                    {{ power_bank.status|title }}
+                </td>
+            </tr>
+            <tr>
+                <th>Station</th>
+                <td>{{ power_bank.station.name }}</td>
+            </tr>
+        </table>
 
-        <button class="btn btn-primary w-100 mt-3" onclick="checkPowerbank()">Check</button>
-        <button class="btn btn-danger w-100 mt-2" onclick="repairPowerbank()">Mark as Repair</button>
+        <div class="text-center mt-3">
+            {% if power_bank.status == 'damaged' %}
+            <form method="POST" action="{% url 'fix_powerbank' power_bank.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-tools"></i> Fix
+                </button>
+            </form>
+            {% endif %}
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary mt-2">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
     </div>
 </div>
-
-<!--<script>-->
-<!--function checkPowerbank() {-->
-<!--    alert("Power bank has been checked. Status updated!");-->
-<!--    document.getElementById("status").classList.remove("text-danger");-->
-<!--    document.getElementById("status").classList.add("text-success");-->
-<!--    document.getElementById("status").innerText = "Available";-->
-<!--}-->
-
-<!--function repairPowerbank() {-->
-<!--    alert("Power bank is marked for repair!");-->
-<!--    document.getElementById("status").classList.remove("text-success");-->
-<!--    document.getElementById("status").classList.add("text-danger");-->
-<!--    document.getElementById("status").innerText = "Under Maintenance";-->
-<!--}-->
-<!--</script>-->
 {% endblock %}
