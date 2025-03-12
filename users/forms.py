@@ -13,12 +13,3 @@ class RegistrationForm(forms.ModelForm):
 class LoginForm(forms.Form):
     username = forms.CharField(label="Username", required=True)
     password = forms.CharField(widget=forms.PasswordInput, label="Password", required=True)
-
-
-class RechargeForm(forms.Form):
-    amount = forms.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        min_value=0.01,  # Ensure the recharge amount is greater than 0.01
-        label="Amount"
-    )

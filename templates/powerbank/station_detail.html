@@ -1,0 +1,22 @@
+{% extends "includes/base.html" %}
+
+{% block content %}
+<h2>Power Banks at {{ station.name }}</h2>
+
+<p>Location: {{ station.location }}</p>
+
+{% if power_banks %}
+    <ul>
+        {% for power_bank in power_banks %}
+            <li>
+                Power Bank ID: {{ power_bank.id }} - Battery: {{ power_bank.battery_level }}%
+                <a href="{% url 'create_order' power_bank.id %}" class="btn btn-primary">Rent</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No available power banks at this station.</p>
+{% endif %}
+
+<a href="{% url 'station_list' %}" class="btn btn-secondary">Back to Stations</a>
+{% endblock %}

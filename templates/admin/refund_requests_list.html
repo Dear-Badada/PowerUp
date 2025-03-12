@@ -1,0 +1,38 @@
+{% extends "includes/base.html" %}
+
+{% block content %}
+<h2>Refund Requests</h2>
+
+<!-- 退款申请列表 -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>User</th>
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Processed At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for refund_request in refund_requests %}
+        <tr>
+            <td>{{ refund_request.order.id }}</td>
+            <td>{{ refund_request.user.username }} ({{ refund_request.user.email }})</td>
+            <td>{{ refund_request.reason }}</td>
+            <td>{{ refund_request.status }}</td>
+            <td>{% if refund_request.processed_at %}{{ refund_request.processed_at }}{% else %}pending{% endif %}</td>
+            <td>
+                <a href="{% url 'handle_refund_request' refund_request.id %}" class="btn btn-primary">View Details</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if not refund_requests %}
+    <p>No refund requests found.</p>
+{% endif %}
+
+{% endblock %}

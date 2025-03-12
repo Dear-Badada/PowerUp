@@ -1,0 +1,27 @@
+{% extends "includes/base.html" %}
+
+{% block content %}
+<h2>Power Banks at {{ station.name }}</h2>
+
+<!-- 添加充电宝按钮 -->
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success">Add Power Bank</button>
+</form>
+
+<!-- 显示所有充电宝 -->
+<ul>
+    {% for power_bank in power_banks %}
+        <li>
+            Power Bank ID: {{ power_bank.id }} - Battery: {{ power_bank.battery_level }}% - Status: {{ power_bank.status }}
+
+            <!-- 维修按钮，将充电宝状态设置为 available -->
+            <a href="{% url 'update_powerbank_status' power_bank.id %}" class="btn btn-info">Repair</a>
+
+            <a href="{% url 'delete_powerbank' power_bank.id %}" class="btn btn-danger">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'station_list_admin' %}" class="btn btn-secondary">Back to Stations</a>
+{% endblock %}

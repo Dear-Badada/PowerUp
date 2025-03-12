@@ -1,9 +1,13 @@
+from decimal import Decimal
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+
+from powerbank.models import Pricing
 from .models import User
 
-from users.forms import RegistrationForm, LoginForm, RechargeForm
+from users.forms import RegistrationForm, LoginForm
 
 
 def register(request):
@@ -54,22 +58,37 @@ def view_wallet(request):
     return render(request, "users/wallet.html", {"username": user.username,
         "balance": user.balance})
 
+
 def recharge_wallet(request):
+    # 获取定价表中的押金金额
+    pricing = Pricing.objects.first()  # 假设只有一个定价记录
+    deposit_amount = pricing.deposit_amount
+
     if request.method == "POST":
-        form = RechargeForm(request.POST)
-        if form.is_valid():
-            amount = form.cleaned_data["amount"]
-            user = User.objects.get(id=request.session['user_id'])  # Fetch the user again to get the latest balance
-            user.balance += amount  # Update the balance
+        try:
+            amount = Decimal(request.POST.get("amount"))  # 获取表单提交的充值金额
+
+            # 验证充值金额是否大于或等于押金金额
+            if amount < deposit_amount:
+                messages.error(request, f"The minimum recharge amount is ${deposit_amount:.2f}, which is the deposit for a power bank.")
+                return redirect("recharge_wallet")  # 返回充值页面
+
+            # 获取当前用户并更新余额
+            user = User.objects.get(id=request.session['user_id'])  # 根据 session 获取当前用户
+            user.balance += amount  # 增加余额
             user.save()
+
+            # 提示成功并跳转
             messages.success(request, f"Successfully recharged ${amount:.2f}.")
-            return redirect("view_wallet")  # Redirect to wallet page after successful recharge
-        else:
+            return redirect("view_wallet")  # 成功后跳转到钱包页面
+
+        except (ValueError, TypeError):
             messages.error(request, "Invalid amount. Please enter a valid number.")
     else:
-        form = RechargeForm()
+        # 默认金额设置为 0
+        amount = Decimal('0.00')
 
-    return render(request, "users/recharge.html", {"form": form})
+    return render(request, "users/recharge.html", {"amount": amount, "deposit_amount": deposit_amount})
 
 def home(request):
     return render(request, 'includes/home.html')

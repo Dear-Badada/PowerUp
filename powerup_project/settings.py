@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'users',  # 用户管理
     'powerbank',  # 充电宝租借
     'adminn',  # 管理员控制台
+    'payment'
 ]
 
 MIDDLEWARE = [

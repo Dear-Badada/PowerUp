@@ -15,10 +15,13 @@
 <!-- Recharge form -->
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <label for="amount">Amount:</label>
+    <input type="number" name="amount" value="{{ amount }}" min="{{ deposit_amount }}" step="0.01" required>
+    <span>Minimum: ${{ deposit_amount }}</span>
     <button type="submit" class="btn btn-success">Recharge</button>
 </form>
 
 <!-- Back to wallet page -->
 <a href="{% url 'view_wallet' %}" class="btn btn-secondary">Back to Wallet</a>
+
 {% endblock %}

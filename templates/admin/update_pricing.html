@@ -1,0 +1,15 @@
+{% extends "includes/base.html" %}
+
+{% block content %}
+    <h2>Update Pricing</h2>
+
+    <!-- 表单 -->
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-success">Save Changes</button>
+    </form>
+
+    <a href="{% url 'station_list_admin' %}" class="btn btn-secondary">Back to Admin Panel</a>
+{% endblock %}

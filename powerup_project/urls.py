@@ -1,8 +1,12 @@
 from django.contrib import admin
 from django.urls import path
 from payment import views as payment_views
+from payment.views import create_order, return_order, report_feedback, view_order
+from powerbank.views import station_list, station_detail
 from users.views import home, user_login, rent_powerbank, return_powerbank, register, recharge_wallet, view_wallet
-from adminn.views import admin_login, admin_dashboard, admin_reports
+from adminn.views import station_list_admin, create_station, \
+    delete_station, powerbank_list, delete_powerbank, update_powerbank_status, update_pricing, handle_refund_request, \
+    refund_requests_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),  # Django 管理后台
@@ -17,15 +21,28 @@ urlpatterns = [
     path('recharge/', recharge_wallet, name='recharge_wallet'),
     path('wallet/', view_wallet, name='view_wallet'),
 
+    # 订单 URL
+    path("order/<int:power_bank_id>/create/", create_order, name="create_order"),  # 开启租借
+    path("order/<int:order_id>/return/", return_order, name="return_order"),  # 结束租借
+    path("order/<int:order_id>/feedback/", report_feedback, name="report_feedback"),  # 提交反馈
+    path("order/<int:order_id>/", view_order, name="view_order"),  # 查看订单
 
-    # 支付相关 URL
-    path('payment/', payment_views.payment_home, name='payment_home'),
-    path('payment/details/<int:rental_id>/', payment_views.payment_details, name='payment_details'),
-    path('payment/history/<int:customer_id>/', payment_views.payment_history, name='payment_history'),
-    path('payment/success/<int:rental_id>/', payment_views.payment_success, name='payment_success'),
+    # 充电宝及站点 URL
+    path("stations/", station_list, name="station_list"),  # 显示所有站点
+    path("stations/<int:station_id>/", station_detail, name="station_detail"),  # 查看站点内的充电宝
 
-    # 管理员相关 URL
-    path('admin-login/', admin_login, name='admin_login'),
-    path('admin-dashboard/', admin_dashboard, name='admin_dashboard'),
-    path('admin-reports/', admin_reports, name='admin_reports'),
+    # 站点管理
+    path("manager/stations/", station_list_admin, name="station_list_admin"),
+    path("manager/stations/create/", create_station, name="create_station"),
+    path("manager/stations/<int:station_id>/delete/", delete_station, name="delete_station"),
+
+    # 充电宝管理
+    path("manager/stations/<int:station_id>/powerbanks/", powerbank_list, name="powerbank_list"),
+    path("manager/powerbanks/<int:powerbank_id>/delete/", delete_powerbank, name="delete_powerbank"),
+    path("manager/powerbanks/<int:powerbank_id>/", update_powerbank_status,name="update_powerbank_status"),
+    path("manager/pricing/update/", update_pricing, name="update_pricing"),
+
+    # 退款管理
+    path('manager/refund-requests/', refund_requests_list, name='refund_requests_list'),
+    path('manager/refund-request/<int:refund_request_id>/handle/', handle_refund_request, name='handle_refund_request'),
 ]
