@@ -1,17 +1,26 @@
-{% extends "includes/base.html" %}
-
-{% block title %}Your Wallet{% endblock %}
-
+{% extends 'includes/base.html' %}
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center text-primary"><i class="fas fa-wallet"></i> Your Wallet</h2>
+<div class="wallet-container">
+    <h2 class="wallet-title"><i class="fas fa-wallet"></i> Wallet</h2>
 
-    <div class="card p-4 shadow mt-4">
-        <!-- Display the wallet balance -->
-        <p>Current Balance: <strong>${{ balance }}</strong></p>
+    <!-- 余额显示 -->
+    <div class="balance-card">
+        <p class="current-balance">Current Balance: <strong>￡{{ balance }}</strong></p>
+    </div>
 
-        <!-- Link to recharge page -->
-        <a href="{% url 'recharge_wallet' %}" class="btn btn-success">Recharge</a>
+    <!-- 按钮组 -->
+    <div class="button-group">
+        <a href="{% url 'recharge_wallet' %}" class="btn btn-primary"><i class="fas fa-bolt icon-spacing"></i> Recharge</a>
+
+        {% if powerbank %}
+            <a href="{% url 'rent_powerbank' powerbank_id=powerbank.id %}" class="btn btn-secondary">
+                <i class="fas fa-plug icon-spacing icon-spacing"></i>Rent
+            </a>
+        {% else %}
+            <a href="{% url 'station_list' %}" class="btn btn-secondary">
+                <i class="fas fa-map-marker-alt icon-spacing"></i>Stations
+            </a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

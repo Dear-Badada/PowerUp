@@ -1,30 +1,33 @@
-{% extends "includes/base.html" %}
+{% extends 'includes/base.html' %}
+{% load static %}
 
 {% block content %}
-<h2>Order Details</h2>
+<link rel="stylesheet" type="text/css" href="{% static 'css/order_detail.css' %}">
 
-<p>Order ID: {{ order.id }}</p>
-<p>Power Bank: {{ order.power_bank.id }}</p>
-<p>Status: {{ order.order_status }}</p>
-<p>Start Time: {{ order.start_time }}</p>
-<p>End Time: {{ order.end_time }}</p>
-<p>Total Cost: ${{ order.total_cost }}</p>
-<p>Deposit: ${{ order.deposit }}</p>
-<p>Feedback: {{ order.feedback }}</p>
+<div class="order-container">
+    <h2 class="order-title">Order Details</h2>
 
-{% if order.order_status == 'ongoing' %}
-    <form method="post" action="{% url 'return_order' order.id %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-success">Return Power Bank</button>
-    </form>
-{% endif %}
+    <div class="order-card">
+        <table class="order-table">
+            <tr><td><strong>Order ID:</strong></td><td>{{ order.id }}</td></tr>
+            <tr><td><strong>Power Bank:</strong></td><td>{{ order.power_bank.id }}</td></tr>
+            <tr><td><strong>Status:</strong></td><td>{{ order.status }}</td></tr>
+            <tr><td><strong>Start Time:</strong></td><td>{{ order.start_time }}</td></tr>
+            <tr><td><strong>End Time:</strong></td><td>{{ order.end_time|default:"Not returned" }}</td></tr>
+            <tr><td><strong>Total Cost:</strong></td><td>£{{ order.total_cost|default:"0.00" }}</td></tr>
+            <tr><td><strong>Deposit:</strong></td><td>£{{ order.deposit }}</td></tr>
+            <tr><td><strong>Feedback:</strong></td><td>{{ order.feedback|default:"None" }}</td></tr>
+        </table>
+    </div>
 
-{% if order.feedback == 'abnormal' %}
-    <p>Refund request is in progress.</p>
-{% else %}
-    <form method="post" action="{% url 'report_feedback' order.id %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-warning">Report Feedback (Abnormal)</button>
-    </form>
-{% endif %}
+    <div class="order-buttons">
+        <a href="{% url 'return_order' order.id %}" class="order-btn order-btn-primary">
+            <i class="fas fa-undo"></i> Return Power Bank
+        </a>
+        <a href="{% url 'report_feedback' order.id %}" class="order-btn order-btn-warning">
+            <i class="fas fa-exclamation-triangle"></i> Report Feedback (Abnormal)
+        </a>
+    </div>
+</div>
+
 {% endblock %}

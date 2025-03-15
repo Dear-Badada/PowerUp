@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -50,16 +51,28 @@ def create_order(request, power_bank_id):
     """用户开启租借，支付押金"""
     power_bank = get_object_or_404(PowerBank, id=power_bank_id, status='available')
 
+    user_id = request.session.get('user_id')
+
+    # 如果用户未登录，跳转到登录页面
+    if not user_id:
+        messages.error(request, "You must log in to rent a power bank.")
+        return redirect('login')
+
+    # 获取用户
+    user = get_object_or_404(User, id=user_id)
+
     # 获取租赁单价和押金
     pricing = Pricing.objects.first()
     deposit = pricing.deposit_amount if pricing else Decimal("15.00")
     hourly_rate = pricing.hourly_rate if pricing else Decimal("1.00")
 
-    user = get_object_or_404(User, id=request.session['user_id'])
+    from django.http import HttpResponseRedirect
 
     if user.balance < deposit:
         messages.error(request, "Insufficient balance. Please recharge.")
-        return redirect('recharge_wallet')
+        next_url = request.get_full_path()
+        recharge_url = f"{reverse('recharge_wallet')}?next={next_url}"
+        return HttpResponseRedirect(recharge_url)
 
     # 创建订单
     order = Order.objects.create(
@@ -72,7 +85,7 @@ def create_order(request, power_bank_id):
     )
 
     # 更新充电宝状态
-    power_bank.status = 'in_use'
+    power_bank.status = 'rented'
     power_bank.save()
 
     # 从用户余额扣除押金

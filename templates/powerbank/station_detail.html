@@ -9,19 +9,21 @@
     {% if power_banks %}
         <div class="power-bank-list">
             {% for power_bank in power_banks %}
-                <div class="power-bank-card d-flex align-items-center justify-content-between">
+                <div class="power-bank-card">
                     <!-- ID + 电池图标 -->
-                    <div class="power-bank-info d-flex align-items-center">
+                    <div class="power-bank-info">
                         <span class="power-bank-icon">🔋</span>
                         <strong>ID: {{ power_bank.id }}</strong>
                     </div>
 
-                    <!-- 进度条 -->
-                    <div class="power-bank-progress">
-                        <div class="progress-bar {% if power_bank.battery_level > 50 %} bg-success
-                            {% elif power_bank.battery_level > 20 %} bg-warning
-                            {% else %} bg-danger {% endif %}"
-                            style="width: {{ power_bank.battery_level }}%;">
+                    <!-- 进度条容器 -->
+                    <div class="progress-container">
+                        <div class="power-bank-progress">
+                            <div class="progress-bar {% if power_bank.battery_level > 50 %} bg-success
+                                {% elif power_bank.battery_level > 20 %} bg-warning
+                                {% else %} bg-danger {% endif %}"
+                                style="width: {{ power_bank.battery_level }}%;">
+                            </div>
                         </div>
                     </div>
 
@@ -32,23 +34,29 @@
                         {{ power_bank.battery_level }}%
                     </span>
 
-                    <!-- 租借按钮 -->
-                    {% if power_bank.battery_level > 20 %}
-                        <a href="{% url 'create_order' power_bank.id %}" class="btn rent-btn">Rent</a>
-                    {% else %}
-                        <button class="btn disabled-btn" disabled>Low Battery</button>
-                    {% endif %}
+                    <!-- 按钮 -->
+                    <div class="power-bank-action">
+                        {% if request.user.is_authenticated %}
+                            {% if power_bank.battery_level > 20 %}
+                                <a href="{% url 'create_order' power_bank_id=power_bank.id %}" class="btn action-btn rent-btn">Rent</a>
+                        {% else %}
+                                <button class="btn action-btn low-battery-btn" onclick="alertLowBattery()">Low</button>
+                            {% endif %}
+                        {% else %}
+                            <button class="btn action-btn rent-btn" onclick="alertNotLoggedIn()">Rent</button>
+                        {% endif %}
+                    </div>
                 </div>
             {% endfor %}
         </div>
     {% else %}
-        <div class="alert alert-warning text-center">
-            <p>No available power banks at this station. Please try another one.</p>
-        </div>
+         <h2 class="station-title text-center">No available power banks at this station. Please try another one.</h2>
     {% endif %}
 
     <div class="text-center mt-4">
-        <a href="{% url 'station_list' %}" class="btn back-btn">Back to Stations</a>
+        <a href="{% url 'station_list' %}" class="btn station-back-btn">Stations</a>
+
     </div>
+
 </div>
 {% endblock %}

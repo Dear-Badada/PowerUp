@@ -28,7 +28,7 @@ def rent_powerbank(request, powerbank_id):
 
         # 获取租赁单价和押金
         pricing = Pricing.objects.first()
-        deposit = pricing.deposit_amount if pricing else Decimal("15.00")
+        deposit = pricing.deposit_amount if pricing else Decimal("5.00")
         hourly_rate = pricing.hourly_rate if pricing else Decimal("1.00")
 
         # 创建订单
@@ -42,7 +42,7 @@ def rent_powerbank(request, powerbank_id):
         )
 
         # 更新充电宝状态
-        powerbank.status = "in_use"
+        powerbank.status = "rented"
         powerbank.save()
 
         return JsonResponse({"message": "PowerBank rented successfully", "order_id": order.id})

@@ -1,44 +1,38 @@
-{% extends "includes/base.html" %}
-
-{% block title %}Recharge Wallet{% endblock %}
+{% extends 'includes/base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center text-primary"><i class="fas fa-credit-card"></i> Recharge Wallet</h2>
+<div class="recharge-container">
+    <h2 class="page-title"><i class="fas fa-credit-card"></i> Recharge Wallet</h2>
 
-    <!-- Display messages (e.g., success or error) -->
-    {% if messages %}
-    <div class="alert alert-info mt-4">
-        <ul class="list-unstyled mb-0">
-            {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
-
-    <!-- Recharge form -->
-    <div class="card p-4 shadow mt-4">
-        <form method="post">
-            {% csrf_token %}
-
-            <!-- 充值金额输入框 -->
-            <div class="mb-3">
-                <label for="amount" class="form-label"><strong>Amount ($):</strong></label>
-                <input type="number" id="amount" name="amount" class="form-control"
-                       value="{{ amount }}" min="{{ deposit_amount }}" step="0.01" required>
-                <small class="text-muted">Minimum recharge: ${{ deposit_amount }}</small>
-            </div>
-
-            <button type="submit" class="btn btn-success w-100"><i class="fas fa-check-circle"></i> Recharge</button>
-        </form>
+    <!-- 余额显示 -->
+    <div class="balance-card">
+        <p class="current-balance">Current Balance: <strong>￡{{ balance }}</strong></p>
     </div>
 
-    <!-- Back to wallet page -->
-    <div class="text-center mt-4">
-        <a href="{% url 'view_wallet' %}" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Back to Wallet
+    <form id="recharge-form" class="recharge-card">
+        <label for="amount">Amount ( £ )</label>
+        <input type="text" name="amount" id="amount" class="form-input" required placeholder="Enter amount"
+               oninput="this.value = this.value.replace(/[^0-9.]/g, '')">
+        <p class="input-helper">Minimum recharge: £{{ deposit_amount|default:"5.00" }}</p>
+
+        <button type="button" class="btn btn-primary" onclick="submitRecharge()">
+            <i class="fas fa-check-circle icon-spacing"></i> Recharge
+        </button>
+    </form>
+
+
+    <!-- 按钮组 -->
+    <div class="vertical-buttons">
+        <a href="{% url 'view_wallet' %}" class="btn btn-secondary full-width">
+            <i class="fas fa-wallet icon-spacing"></i> Wallet
+        </a>
+        <a href="{% url 'station_list' %}" class="btn btn-secondary full-width">
+            <i class="fas fa-map-marker-alt icon-spacing"></i> Stations
         </a>
     </div>
+
 </div>
+<script src="{% static 'js/recharge.js' %}"></script>
+
 {% endblock %}

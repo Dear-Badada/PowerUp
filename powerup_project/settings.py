@@ -63,7 +63,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': '120045',
         'HOST': 'localhost',
-        'PORT': '5288',
+        'PORT': '5432',
     }
 }
 
@@ -108,7 +108,11 @@ STATICFILES_DIRS = [
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Session 配置
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+SESSION_COOKIE_AGE = 86400
+SESSION_SAVE_EVERY_REQUEST = True
 
 # Username: Yuxi
-# Email address: 972858425@qq.com
-# Password:Zhao123456
+# Email address: badada.cc@gmail.com
+# Password:Z123456

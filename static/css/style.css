@@ -267,8 +267,13 @@ button:disabled {
 }
 
 .action-btn {
-    min-width: 60px;
+    width: 110px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
+    font-size: 16px;
 }
 
 /* 站点卡片样式 */
@@ -302,6 +307,7 @@ button:disabled {
     color: #1e8449;
 }
 
+/* 查看具体站点信息 */
 .station-btn {
     display: block;
     color: #1e8449;
@@ -358,14 +364,14 @@ button:disabled {
 
 /* 充电宝卡片 */
 .power-bank-card {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr; /* ID - 进度条 - 百分比 - 按钮 */
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 12px;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .power-bank-card:hover {
@@ -417,10 +423,14 @@ button:disabled {
 
 /* 电量百分比 */
 .battery-level {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
-    min-width: 50px;
     text-align: center;
+    width: 50px;
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* 租借按钮 */
@@ -432,6 +442,7 @@ button:disabled {
     font-weight: bold;
     border-radius: 8px;
     transition: all 0.3s ease;
+    width: 80px;
 }
 
 .rent-btn:hover {
@@ -462,8 +473,460 @@ button:disabled {
     transition: all 0.3s ease;
 }
 
-.back-btn:hover {
+.low-battery-btn {
+    background: #c0392b;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(192, 57, 43, 0.3);
+    width: 80px;
+}
+
+.low-battery-btn:hover {
+    background: #e74c3c;
+    transform: scale(1.05);
+}
+
+
+/* 充值页面样式 */
+.recharge-container {
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #1e8449;
+    margin-bottom: 15px;
+}
+
+/* 充值表单 */
+.recharge-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    max-width: 350px;
+    margin: auto;
+}
+
+/* 输入框 */
+.input-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.input-group .form-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #d5dbdb;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group .form-input:focus {
+    border-color: #1e8449;
+    box-shadow: 0 0 6px rgba(30, 132, 73, 0.4);
+    outline: none;
+}
+
+.input-helper {
+    font-size: 13px;
+    color: #666;
+}
+
+/* 提示信息 (Alert) */
+.alert-box {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.alert {
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.alert.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.alert.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* 充值按钮 */
+.btn-recharge {
+    background: #1e8449;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 8px;
+    width: 100%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-recharge:hover {
+    background: #00b74a;
+    transform: scale(1.05);
+}
+
+/* 返回按钮 */
+.btn-back {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 2px solid #1e8449;
+    color: #1e8449;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.btn-back:hover {
     background: #1e8449;
     color: white;
     transform: scale(1.05);
+}
+
+/* 页面容器 */
+.wallet-container {
+    max-width: 600px;
+    margin: auto;
+    text-align: center;
+}
+
+/* 标题样式 */
+.wallet-title, .page-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1e8449;
+    margin-top: 10px;
+}
+
+.wallet-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    margin: 20px auto;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e8449;
+    text-align: center;
+}
+
+/* 余额样式 */
+.wallet-balance {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* 余额文本 */
+.current-balance {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e8449;
+    text-align: center;
+    margin: auto;
+}
+
+/* 充值页面容器 */
+.recharge-container {
+    text-align: center;
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-container {
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+}
+
+/* 充值卡片 */
+.recharge-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+/* 充值按钮 */
+.btn-recharge {
+    background: #1e8449;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    width: 100%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.btn-recharge:hover {
+    background: #00b74a;
+    transform: scale(1.05);
+}
+
+/* 按钮组 */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* 返回按钮 */
+.btn-back {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 2px solid #1e8449;
+    color: #1e8449;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background: #1e8449;
+    color: white;
+    transform: scale(1.05);
+}
+
+.wallet-container {
+    text-align: center;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-title {
+    font-size: 24px;
+    color: #2d7d5f;
+    margin-bottom: 20px;
+}
+
+/* 站点详情页的返回按钮 */
+.station-back-btn {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 3px solid #1e8449;
+    color: #1e8449;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.station-back-btn:hover {
+    background: #1e8449;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 充值页面整体布局 */
+.recharge-container {
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* 页面标题 */
+.page-title {
+    font-size: 24px;
+    color: #1E8449;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* 余额卡片 */
+.balance-card {
+    background: #E8F5E9;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1E8449;
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+/* 充值表单 */
+.recharge-card {
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 100%;
+    max-width: 380px;
+}
+
+/* 输入框 */
+.form-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #D5D8DC;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+/* 输入框提示信息 */
+.input-helper {
+    font-size: 14px;
+    color: #7D7D7D;
+    margin-top: 5px;
+}
+
+/* 按钮组 */
+.button-group {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 按钮间距 */
+.icon-spacing {
+    margin-right: 8px;
+}
+
+/* 充值按钮 */
+.btn-primary {
+    background: #1E8449;
+    color: white;
+    border: 3px solid #1E8449;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+.btn-primary:hover {
+    background: #166534;
+    transform: scale(1.05);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 其他按钮（钱包、站点） */
+.btn-secondary {
+    background: white;
+    color: #1E8449;
+    border: 3px solid #1E8449;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+    height: 50px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+    background: #1E8449;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 让钱包和站点按钮垂直排列 */
+.vertical-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+/* 让按钮宽度与充值按钮对齐 */
+.full-width {
+    width: 100%;
+}
+
+.btn-secondary:hover {
+    background: #1E8449;
+    color: white;
+}
+
+/* 让钱包和站点按钮垂直排列 */
+.vertical-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
 }

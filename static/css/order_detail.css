@@ -1,0 +1,81 @@
+/* 订单详情容器 */
+.order-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* 订单标题 */
+.order-title {
+    color: #1E8449;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* 订单信息卡片 */
+.order-card {
+    background: #F8F9FA;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 订单信息表格 */
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 订单详情按钮 */
+.order-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 主要操作按钮 */
+.order-btn {
+    display: block;
+    padding: 12px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* 归还按钮 */
+.order-btn-primary {
+    background: #1E8449;
+    color: white;
+    border: 2px solid #1E8449;
+}
+
+.order-btn-primary:hover {
+    background: #145A32;
+    border-color: #145A32;
+}
+
+/* 反馈按钮 */
+.order-btn-warning {
+    background: #FFC107;
+    color: #333;
+    border: 2px solid #FFC107;
+}
+
+.order-btn-warning:hover {
+    background: #E0A800;
+    border-color: #E0A800;
+}
