@@ -1,0 +1,97 @@
+/* 站点详情页面的样式 */
+
+.station-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    max-width: 750px;
+    margin: auto;
+}
+
+/* 站点标题 */
+.station-title {
+    font-size: 28px;
+    color: #1e8449;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 站点位置 */
+.station-location {
+    text-align: center;
+    font-size: 16px;
+    color: #444;
+}
+
+/* 充电宝列表 */
+.power-bank-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 充电宝卡片 */
+.power-bank-card {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.power-bank-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 进度条样式 */
+.power-bank-progress {
+    width: 250px;
+    height: 8px;
+    border-radius: 4px;
+    background: #eee;
+    overflow: hidden;
+}
+
+.power-bank-progress .progress-bar {
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+}
+
+.progress-bar.bg-success {
+    background: linear-gradient(to right, #27ae60, #2ecc71);
+}
+
+.progress-bar.bg-warning {
+    background: linear-gradient(to right, #f1c40f, #f39c12);
+}
+
+.progress-bar.bg-danger {
+    background: linear-gradient(to right, #e74c3c, #c0392b);
+}
+/* 站点详情页的返回按钮 */
+.station-back-btn {
+    display: inline-block;
+    background: #ffffff;
+    border: 2px solid #1e8449;
+    color: #1e8449;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.station-back-btn:hover {
+    background: #1e8449;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}

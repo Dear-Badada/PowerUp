@@ -1,6 +1,11 @@
 {% extends "includes/base.html" %}
 
 {% block content %}
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stations.css' %}">
+</head>
+
 <div class="container mt-4">
     <h2 class="text-center welcome-text">
         <span style="font-size: 1.5rem;">📍</span> Stations

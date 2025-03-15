@@ -17,8 +17,13 @@
                         <span class="nav-link text-white fw-bold">Welcome, {{ request.user.username }} !</span>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-white fw-bold" href="{% url 'view_wallet' %}">
+                            <i class="fas fa-wallet icon-spacing"></i> Wallet
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-white fw-bold" href="{% url 'logout' %}">
-                            <i class="fas fa-sign-out-alt"></i> Logout
+                            <i class="fas fa-sign-out-alt icon-spacing"></i> Logout
                         </a>
                     </li>
                 {% else %}

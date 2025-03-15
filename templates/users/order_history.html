@@ -1,0 +1,61 @@
+{% extends 'includes/base.html' %}
+{% load static %}
+
+{% block title %}Order History{% endblock %}
+
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/order_history.css' %}">
+</head>
+
+<div class="container mt-5">
+    <h2 class="text-center text-success"><i class="fas fa-history"></i> Order History</h2>
+
+    <div class="card p-4 shadow mt-4">
+        <p><strong>Customer Name:</strong> {{ user.username }}</p>
+
+        {% if orders %}
+        <table class="table mt-3 order-table">
+            <thead class="table-success">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Power Bank ID</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Total Cost</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.power_bank.id }}</td>
+                    <td>{{ order.start_time | date:"Y-m-d H:i:s" }}</td>
+                    <td>{{ order.end_time | default:"Not Returned" }}</td>
+                    <td class="text-success">£{{ order.total_cost|default:"0.00" }}</td>
+                    <td>
+                        {% if order.order_status == "completed" %}
+                        <span class="badge bg-success">Completed</span>
+                        {% elif order.order_status == "ongoing" %}
+                        <span class="badge bg-warning text-dark">Ongoing</span>
+                        {% else %}
+                        <span class="badge bg-danger">Cancelled</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="alert alert-warning text-center mt-3">
+            <i class="fas fa-exclamation-circle"></i> No order history found.
+        </div>
+        {% endif %}
+
+        <a href="{% url 'wallet' %}" class="btn btn-outline-success w-100 mt-3">
+            <i class="fas fa-arrow-left"></i> Back to Wallet
+        </a>
+    </div>
+</div>
+{% endblock %}

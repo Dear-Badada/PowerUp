@@ -1,0 +1,87 @@
+/* 订单历史页面的样式 */
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1e8449;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.table thead th {
+    background: #1e8449;
+    color: white;
+}
+
+.table tbody tr:hover {
+    background: #f0fdf4;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.bg-success {
+    background: #2ecc71;
+    color: white;
+}
+
+.bg-warning {
+    background: #f39c12;
+    color: white;
+}
+
+.bg-danger {
+    background: #e74c3c;
+    color: white;
+}
+
+.alert {
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.btn-outline-success {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1e8449;
+    border: 2px solid #1e8449;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.btn-outline-success:hover {
+    background: #1e8449;
+    color: white;
+}

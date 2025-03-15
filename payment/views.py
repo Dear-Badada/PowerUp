@@ -111,67 +111,112 @@ def return_order(request, order_id):
 
     # 计算租借费用
     end_time = timezone.now()
-    duration = (end_time - order.start_time).total_seconds() / 3600  # 小时计算
-    total_cost = max(Decimal(duration) * order.hourly_rate, Decimal("0.00"))  # 避免负数
+    duration = (end_time - order.start_time).total_seconds() / 3600  # 计算小时数
+    total_cost = max(Decimal(duration) * order.hourly_rate, Decimal("0.00"))  # 确保金额不会是负数
 
-    # 计算退款金额
-    remaining_balance = max(order.deposit - total_cost, Decimal("0.00"))
+    # 计算用户应退款额
+    refund_amount = order.deposit - total_cost  # 押金 - 租借费用
+    if refund_amount < 0:
+        refund_amount = Decimal("0.00")  # 防止负数退款
+
+    # 处理欠费情况
+    user = order.user
+    if total_cost > order.deposit:  # 如果租金 > 押金，用户需要额外支付
+        extra_payment_due = total_cost - order.deposit
+        user.balance -= extra_payment_due
+        if user.balance < 0:
+            messages.error(request, "Your balance is insufficient to cover the rental cost. Please recharge.")
+            return redirect("recharge_wallet")
+    else:
+        # 退款给用户
+        user.balance += refund_amount
+
+    # 更新用户余额
+    user.save()
 
     # 更新订单状态
     order.end_time = end_time
     order.total_cost = total_cost
-    order.payment_status = 'paid' if remaining_balance == 0 else 'pending'
-    order.order_status = 'completed'
+    order.payment_status = "paid"
+    order.order_status = "completed"
     order.save()
 
-    # 更新充电宝状态
-    order.power_bank.status = 'available'
-    order.power_bank.save()
+    # 记录交易（押金退款或额外支付）
+    Transaction.objects.create(user=user, type="rental_fee", amount=total_cost, order=order)
+    if refund_amount > 0:
+        Transaction.objects.create(user=user, type="refund", amount=refund_amount, order=order)
 
-    # 退款到用户钱包
-    user = order.user
-    user.balance += remaining_balance
-    user.save()
-
-    # 记录支付交易
-    Transaction.objects.create(user=user, type='rental_fee', amount=total_cost, order=order)
-
-    messages.success(request, f"Order completed. Total cost: ${total_cost}. Remaining balance: ${remaining_balance}.")
-    return redirect('view_order', order_id=order.id)
+    messages.success(request, f"Order completed. Total cost: £{total_cost}. Refund: £{refund_amount}.")
+    return redirect("view_order", order_id=order.id)
 
 
 @login_required
 def view_order(request, order_id):
-    """查看订单详情"""
     order = get_object_or_404(Order, id=order_id)
-    return render(request, "users/order_detail.html", {"order": order})
+
+    # 确保所有值都是 Decimal 类型
+    deposit = order.deposit if order.deposit else Decimal("0.00")
+    total_cost = order.total_cost if order.total_cost else Decimal("0.00")
+
+    # 计算退款金额（确保 Decimal 运算）
+    refund_amount = deposit - total_cost
+    context = {
+            "order": order,
+            "refund_amount": refund_amount.quantize(Decimal("0.01")),  # 保留 2 位小数
+        }
+    return render(request, "users/order_detail.html", context)
 
 
 # ======【用户反馈】======
 @login_required
 def report_feedback(request, order_id):
-    """ 用户反馈充电宝状态，申请退款 """
+    """ 用户反馈充电宝状态，选择异常可申请退款 """
     order = get_object_or_404(Order, id=order_id)
 
-    if order.order_status == 'completed':
-        messages.error(request, "This order has already been completed.")
-        return redirect('home')
+    if request.method == "POST":
+        # 如果订单已完成，不允许反馈
+        if order.order_status == 'completed':
+            messages.error(request, "This order has already been completed.")
+            return redirect(reverse('view_order', kwargs={'order_id': order.id}))
 
-    feedback = request.POST.get('feedback', 'abnormal')
+        # 获取用户提交的反馈类型
+        feedback_type = request.POST.get('feedback_type', '').strip().lower()
+        feedback_message = request.POST.get('message', '').strip()
 
-    if feedback == 'abnormal':
-        RefundRequest.objects.create(
-            order=order,
-            user=order.user,
-            status='pending',
-            reason="Abnormal feedback on power bank.",
-        )
-        order.feedback = 'abnormal'
-        order.save()
-        messages.success(request, "Refund request submitted successfully.")
-    else:
-        order.feedback = 'normal'
-        order.save()
-        messages.success(request, "Feedback recorded as normal.")
+        # 校验反馈类型是否合法
+        if feedback_type not in ['abnormal', 'normal']:
+            messages.error(request, "Invalid feedback type.")
+            return redirect(reverse('report_feedback', kwargs={'order_id': order.id}))
 
-    return redirect('view_order', order_id=order.id)
+        if feedback_type == 'abnormal':
+            # 检查是否已提交退款申请，避免重复创建
+            existing_refund = RefundRequest.objects.filter(order=order).first()
+            if existing_refund:
+                messages.warning(request, "A refund request for this order has already been submitted.")
+                return redirect(reverse('handle_refund_request', kwargs={'refund_request_id': existing_refund.id}))
+            else:
+                # 创建退款申请
+                refund_request = RefundRequest.objects.create(
+                    order=order,
+                    user=order.user,
+                    status="pending",
+                    reason=feedback_message or "User reported an issue with the power bank."
+                )
+                order.order_status = "cancelled"  # 订单取消
+                order.save()
+                messages.success(request, "Refund request submitted successfully.")
+
+                # 提交反馈后跳转到退款详情页
+                return redirect(reverse('handle_refund_request', kwargs={'refund_request_id': refund_request.id}))
+
+        else:
+            # 正常反馈，无需退款
+            order.feedback = feedback_message
+            order.save()
+            messages.success(request, "Feedback recorded as normal.")
+
+            # 只有非异常反馈才跳转回订单页面
+        return redirect(reverse('view_order', kwargs={'order_id': order.id}))
+
+        # 处理 GET 请求，渲染反馈页面
+        return render(request, "users/feedback.html", {"order": order})

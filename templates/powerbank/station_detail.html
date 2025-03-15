@@ -1,6 +1,11 @@
 {% extends "includes/base.html" %}
 
 {% block content %}
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/station_detail.css' %}">
+</head>
+
 <div class="container station-container">
     <h2 class="station-title">📍 {{ station.name }} Power Banks</h2>
 

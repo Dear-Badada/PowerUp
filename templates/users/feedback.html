@@ -4,37 +4,42 @@
 {% block title %}Submit Feedback{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center"><i class="fas fa-comment-dots"></i> Submit Feedback</h2>
+<link rel="stylesheet" type="text/css" href="{% static 'css/feedback.css' %}">
 
-    <form method="POST" class="card p-4 shadow mt-4" id="feedbackForm">
+<div class="feedback-container">
+    <h2 class="feedback-title"><i class="fas fa-comment-dots icon-spacing"></i> Feedback</h2>
+
+    <form method="POST" class="feedback-card" id="feedbackForm">
         {% csrf_token %}
 
         <div class="mb-3">
             <label for="user_display" class="form-label"><strong>User</strong></label>
-            <input type="text" class="form-control" id="user_display" value="{{ request.user.username }}" disabled>
-
-            <!-- 隐藏 user_id，用于表单提交 -->
+            <input type="text" class="feedback-input" id="user_display" value="{{ request.user.username }}" disabled>
             <input type="hidden" name="user_id" value="{{ request.user.id }}">
         </div>
 
-
         <div class="mb-3">
             <label for="feedback_type" class="form-label"><strong>Feedback Type</strong></label>
-            <select class="form-select" name="feedback_type" id="feedback_type" required>
+
+            <select class="feedback-select" name="feedback_type" id="feedback_type" required>
                 <option value="">-- Select --</option>
                 <option value="normal">Normal</option>
                 <option value="abnormal">Abnormal</option>
             </select>
+            <!-- 退款提示信息 -->
+            <p id="default-warning" class="default-warning">
+                ⚠️ Only select "Abnormal" if the device is unusable.<br>
+            </p>
+
         </div>
 
         <div class="mb-3">
             <label for="message" class="form-label"><strong>Message</strong></label>
-            <textarea class="form-control" name="message" id="message" rows="4" required></textarea>
+            <textarea class="feedback-textarea" name="message" id="message" rows="4" required></textarea>
         </div>
 
-        <button type="submit" class="btn btn-success w-100">
-            <i class="fas fa-paper-plane"></i> Submit Feedback
+        <button type="submit" class="feedback-btn">
+            <i class="fas fa-paper-plane icon-spacing"></i> Submit Feedback
         </button>
     </form>
 </div>

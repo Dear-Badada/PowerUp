@@ -23,20 +23,20 @@
 
     <p class="lead subtext">Rent and return power banks easily and efficiently.</p>
 
-    <!-- 只有在用户登录后才显示 -->
-    {% if request.user.is_authenticated %}
-        <div class="user-welcome">
-            <p>Welcome, {{ request.user.username }}!</p>
-        </div>
-    {% endif %}
-
     <!-- 开始按钮 -->
-    <div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center">
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'station_list' %}" class="btn btn-success btn-lg start-now-button d-flex flex-column align-items-center justify-content-center">
+            <i class="fa-solid fa-map-marked-alt"></i>
+            <span>Start</span>
+        </a>
+    {% else %}
         <a href="{% url 'login' %}" class="btn btn-success btn-lg start-now-button d-flex flex-column align-items-center justify-content-center">
             <i class="fa-solid fa-seedling"></i>
             <span>Start</span>
         </a>
-    </div>
+    {% endif %}
+</div>
 
     <!-- 用户租借/归还（已登录用户显示） -->
     <div id="user-options" style="display: none;">

@@ -3,17 +3,14 @@ from decimal import Decimal, InvalidOperation
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.http import url_has_allowed_host_and_scheme
 
 from powerbank.models import Pricing, Station
 from payment.models import Order, Transaction
 from .models import User
 from .forms import RegistrationForm, LoginForm
 from payment.views import return_order
-from django.urls import reverse
-
 
 # ======【用户注册】======
 def register(request):

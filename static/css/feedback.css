@@ -1,0 +1,109 @@
+/* 反馈页面整体布局 */
+.feedback-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* 页面标题 */
+.feedback-title {
+    font-size: 24px;
+    color: #1E8449;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* 反馈表单 */
+.feedback-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    width: 100%;
+    margin: auto;
+}
+
+/* 标签靠左对齐 */
+.feedback-card label {
+    display: block;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+/* 用户输入框 */
+.feedback-input {
+    width: 100%;
+    height: 40px;
+    padding: 6px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.feedback-input:focus {
+    border-color: #1E8449;
+    box-shadow: 0 0 6px rgba(30, 132, 73, 0.4);
+    outline: none;
+}
+
+/* 选择框样式 */
+.feedback-select {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #D5D8DC;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+/* 反馈文本框 */
+.feedback-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #D5D8DC;
+    border-radius: 8px;
+    margin-top: 8px;
+    resize: none;
+}
+
+/* 按钮样式 */
+.feedback-btn {
+    background: #1E8449;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    width: 100%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.feedback-btn:hover {
+    background: #00b74a;
+    transform: scale(1.05);
+}
+
+.default-warning {
+    font-size: 12px;
+    color: #D35400;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.icon-spacing {
+    margin-right: 8px;
+}
