@@ -19,7 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'adminn',  # 管理员控制台
+    'manager',  # 管理员控制台
     'payment', # 支付详情
     'powerbank',  # 充电宝租借
     'users',  # 用户管理
@@ -87,6 +87,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'users.User'  # 指定自定义用户模型
+
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'

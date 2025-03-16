@@ -1,13 +1,29 @@
 from decimal import Decimal
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-
-from payment.models import RefundRequest, Transaction, Order
+from payment.models import RefundRequest
 from powerbank.models import Station, PowerBank, Pricing
-from .models import Admin
 from .forms import StationForm, PricingForm
+
+
+def manager_login_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None and user.is_staff:  # 确保是管理员
+            login(request, user)
+            messages.success(request, "Admin login successful!")
+            return redirect("station_list_admin")  # 进入后台管理页面
+        else:
+            messages.error(request, "Invalid username, password, or not an admin.")
+
+    return render(request, "manager/manager_login.html")
 
 
 # ======【充电宝管理】======
@@ -17,7 +33,7 @@ def powerbank_list(request, station_id):
     station = get_object_or_404(Station, id=station_id)
     power_banks = PowerBank.objects.filter(station=station)
 
-    return render(request, "admin/powerbank_list.html", {"station": station, "power_banks": power_banks})
+    return render(request, "manager/powerbank_list.html", {"station": station, "power_banks": power_banks})
 
 
 @login_required
@@ -54,7 +70,7 @@ def delete_powerbank(request, powerbank_id):
 def station_list_admin(request):
     """ 显示所有站点（管理员视角） """
     stations = Station.objects.all()
-    return render(request, "admin/station_list.html", {"stations": stations})
+    return render(request, "manager/station_list.html", {"stations": stations})
 
 
 @login_required
@@ -71,7 +87,7 @@ def create_station(request):
     else:
         form = StationForm()
 
-    return render(request, "admin/create_station.html", {"form": form})
+    return render(request, "manager/create_station.html", {"form": form})
 
 
 @login_required
@@ -88,7 +104,7 @@ def delete_station(request, station_id):
 def refund_requests_list(request):
     """ 显示所有退款申请 """
     refund_requests = RefundRequest.objects.all()
-    return render(request, "admin/refund_requests_list.html", {"refund_requests": refund_requests})
+    return render(request, "manager/refund_requests_list.html", {"refund_requests": refund_requests})
 
 
 @login_required
@@ -123,7 +139,7 @@ def handle_refund_request(request, refund_request_id):
 
         return redirect("refund_requests_list")
 
-    return render(request, "admin/refund_request_detail.html", {"refund_request": refund_request})
+    return render(request, "manager/refund_request_detail.html", {"refund_request": refund_request})
 
 @login_required
 def update_pricing(request):
@@ -143,4 +159,4 @@ def update_pricing(request):
     else:
         form = PricingForm(instance=pricing)
 
-    return render(request, "admin/update_pricing.html", {"form": form})
+    return render(request, "manager/update_pricing.html", {"form": form})

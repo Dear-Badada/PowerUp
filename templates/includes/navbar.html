@@ -9,17 +9,26 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
+
        <div class="collapse navbar-collapse justify-content-between">
            <div></div>
             <ul class="navbar-nav ms-auto">
                 {% if request.user.is_authenticated %}
+                    {% if request.user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link text-white fw-bold" href="{% url 'station_list_admin' %}">
+                                <i class="fas fa-cogs icon-spacing"></i> Admin Dashboard
+                            </a>
+                        </li>
+                     {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-bold" href="{% url 'view_wallet' %}">
+                                    <i class="fas fa-wallet icon-spacing"></i> Wallet
+                                </a>
+                            </li>
+                    {% endif %}
                     <li class="nav-item">
                         <span class="nav-link text-white fw-bold">Welcome, {{ request.user.username }} !</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white fw-bold" href="{% url 'view_wallet' %}">
-                            <i class="fas fa-wallet icon-spacing"></i> Wallet
-                        </a>
                     </li>
                     <li class="nav-item">
                         <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
@@ -33,12 +42,17 @@
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link text-white fw-bold" href="{% url 'login' %}">
-                            <i class="fas fa-sign-in-alt"></i> Login
+                           <i class="fa-solid fa-circle-user"></i> User
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-bold" href="{% url 'manager_login' %}">
+                            <i class="fas fa-user-shield"></i> Manager
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white fw-bold" href="{% url 'register' %}">
-                            <i class="fas fa-user"></i> Register
+                            <i class="fa-solid fa-pen-to-square"></i> Register
                         </a>
                     </li>
                 {% endif %}

@@ -4,8 +4,8 @@ from django.urls import path
 from payment.views import create_order, return_order, report_feedback, view_order
 from powerbank.views import station_list, station_detail
 from users.views import home, user_login, rent_powerbank, return_powerbank, register, recharge_wallet, view_wallet
-from adminn.views import station_list_admin, create_station, delete_station, powerbank_list, delete_powerbank, \
-    update_powerbank_status, update_pricing, handle_refund_request, refund_requests_list
+from manager.views import manager_login_view, station_list_admin, create_station, delete_station, powerbank_list, \
+    delete_powerbank, update_powerbank_status, update_pricing, handle_refund_request, refund_requests_list
 
 urlpatterns = [
     path('', home, name='home'),  # 主页
@@ -29,6 +29,9 @@ urlpatterns = [
     # 充电宝及站点 URL
     path("stations/", station_list, name="station_list"),  # 显示所有站点
     path("stations/<int:station_id>/", station_detail, name="station_detail"),  # 查看站点内的充电宝
+
+    # 管理员登录
+    path('manager/login/', manager_login_view, name='manager_login'),
 
     # 站点管理
     path("manager/stations/", station_list_admin, name="station_list_admin"),
