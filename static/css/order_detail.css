@@ -19,16 +19,31 @@
 
 /* 订单信息表格 */
 .order-table {
-    width: 90%;
+    width: 100%;
+    max-width: 500px;
     border-collapse: collapse;
-    border-radius: 10px;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     margin: auto;
+    border: 3px solid #58D68D;
 }
 
 .order-table td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
+}
+
+.order-table td {
+    padding: 12px 15px;
+    border-left: 1px solid #d5dbdb;
+}
+
+.order-table td:first-child {
+    font-weight: bold;
+    background: #E8F5E9;
+    color: #1E8449;
 }
 
 /* 订单详情按钮 */
@@ -83,9 +98,12 @@
 .icon-spacing {
     margin-right: 8px;
 }
-
 .total-cost {
     color: #1E8449;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
+}
+/* 站点按钮，默认隐藏 */
+.station-btn {
+    display: none;
 }

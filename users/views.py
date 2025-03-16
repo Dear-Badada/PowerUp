@@ -5,6 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 
 from powerbank.models import Pricing, Station
 from payment.models import Order, Transaction
@@ -82,9 +83,9 @@ def view_wallet(request):
 @login_required
 def recharge_wallet(request):
     pricing = Pricing.objects.first()
-    deposit_amount = pricing.deposit_amount if pricing else Decimal('5.00')
+    deposit_amount = pricing.deposit_amount if pricing else Decimal('15.00')
     user = get_object_or_404(User, id=request.session.get("user_id"))
-
+    next_url = request.GET.get("next", reverse("view_wallet"))
     if request.method == "POST":
         try:
             # 确保请求的内容是 JSON
@@ -113,7 +114,11 @@ def recharge_wallet(request):
             # 记录充值交易
             Transaction.objects.create(user=user, type='deposit', amount=amount)
 
-            return JsonResponse({"success": True, "new_balance": float(user.balance)})
+            return JsonResponse({
+                "success": True,
+                "new_balance": float(user.balance),
+                "redirect_url": next_url
+            })
 
         except (json.JSONDecodeError, ValueError, InvalidOperation):
             return JsonResponse({"success": False, "error": "Invalid request format."}, status=400)
@@ -121,6 +126,7 @@ def recharge_wallet(request):
     return render(request, "users/recharge.html", {
         "balance": user.balance,
         "deposit_amount": deposit_amount,
+        "next": next_url
     })
 
 

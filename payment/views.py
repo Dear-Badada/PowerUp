@@ -107,7 +107,7 @@ def return_order(request, order_id):
 
     if order.order_status == 'completed':
         messages.info(request, "This order is already completed.")
-        return redirect('home')
+        return redirect('view_order', order_id=order.id)
 
     # 计算租借费用
     end_time = timezone.now()
@@ -123,10 +123,11 @@ def return_order(request, order_id):
     user = order.user
     if total_cost > order.deposit:  # 如果租金 > 押金，用户需要额外支付
         extra_payment_due = total_cost - order.deposit
-        user.balance -= extra_payment_due
         if user.balance < 0:
             messages.error(request, "Your balance is insufficient to cover the rental cost. Please recharge.")
-            return redirect("recharge_wallet")
+            return redirect(
+                f"{reverse('recharge_wallet')}?next={reverse('return_order', args=[order.id])}")
+        user.balance -= extra_payment_due
     else:
         # 退款给用户
         user.balance += refund_amount
@@ -141,12 +142,17 @@ def return_order(request, order_id):
     order.order_status = "completed"
     order.save()
 
+    # 更新充电宝状态为已归还
+    if order.power_bank.status != "available":
+        order.power_bank.status = "available"
+        order.power_bank.save()
+
     # 记录交易（押金退款或额外支付）
     Transaction.objects.create(user=user, type="rental_fee", amount=total_cost, order=order)
     if refund_amount > 0:
         Transaction.objects.create(user=user, type="refund", amount=refund_amount, order=order)
 
-    messages.success(request, f"Order completed. Total cost: £{total_cost}. Refund: £{refund_amount}.")
+    messages.success(request, f"Order completed. Total cost: £{total_cost:.2f}. Refund: £{refund_amount:.2f}.")
     return redirect("view_order", order_id=order.id)
 
 

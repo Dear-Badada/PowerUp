@@ -2,8 +2,18 @@
 {% load static %}
 
 {% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/recharge.css' %}">
+    <script src="{% static 'js/recharge.js' %}" defer></script>
+</head>
+
 <div class="recharge-container">
-    <h2 class="page-title"><i class="fas fa-credit-card"></i> Recharge Wallet</h2>
+    <h2 class="page-title"><i class="fas fa-credit-card icon-spacing"></i> Recharge Wallet</h2>
+
+    <!-- 充值后自动跳转提示 -->
+    {% if request.GET.next %}
+    <p class="alert alert-info">After recharging, you will be redirected to complete your payment.</p>
+    {% endif %}
 
     <!-- 余额显示 -->
     <div class="balance-card">
@@ -14,7 +24,7 @@
         <label for="amount">Amount ( £ )</label>
         <input type="text" name="amount" id="amount" class="form-input" required placeholder="Enter amount"
                oninput="this.value = this.value.replace(/[^0-9.]/g, '')">
-        <p class="input-helper">Minimum recharge: £{{ deposit_amount|default:"5.00" }}</p>
+        <p class="input-helper">Minimum recharge: £{{ deposit_amount|default:"15.00" }}</p>
 
         <button type="button" class="btn btn-primary" onclick="submitRecharge()">
             <i class="fas fa-check-circle icon-spacing"></i> Recharge

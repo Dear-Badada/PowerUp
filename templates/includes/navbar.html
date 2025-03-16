@@ -22,7 +22,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white fw-bold" href="{% url 'logout' %}">
+                        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+
+                        <a class="nav-link text-white fw-bold" href="#" onclick="document.getElementById('logout-form').submit(); return false;">
                             <i class="fas fa-sign-out-alt icon-spacing"></i> Logout
                         </a>
                     </li>

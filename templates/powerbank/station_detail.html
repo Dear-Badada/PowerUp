@@ -4,6 +4,7 @@
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/station_detail.css' %}">
+    <script src="{% static 'js/station_detail.js' %}" defer></script>
 </head>
 
 <div class="container station-container">
@@ -43,8 +44,11 @@
                     <div class="power-bank-action">
                         {% if request.user.is_authenticated %}
                             {% if power_bank.battery_level > 20 %}
-                                <a href="{% url 'create_order' power_bank_id=power_bank.id %}" class="btn action-btn rent-btn">Rent</a>
-                        {% else %}
+                                <a href="#" class="btn action-btn rent-btn"
+                                   data-rent-url="{% url 'create_order' power_bank_id=power_bank.id %}">
+                                   Rent
+                                </a>
+                             {% else %}
                                 <button class="btn action-btn low-battery-btn" onclick="alertLowBattery()">Low</button>
                             {% endif %}
                         {% else %}

@@ -7,7 +7,7 @@ function submitRecharge() {
         return;
     }
 
-    fetch("/recharge/", {
+    fetch(window.location.pathname, {  // 发送请求到当前 URL
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -19,12 +19,21 @@ function submitRecharge() {
     .then(data => {
         if (data.success) {
             alert(`Recharge successful! New balance: £${data.new_balance}`);
-            location.reload();  // 重新加载页面更新余额
+
+            // **自动跳转到 `redirect_url`，如果存在**
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url;
+            } else {
+                location.reload();  // 如果没有跳转 URL，则刷新页面
+            }
         } else {
             alert(`Error: ${data.error}`);
         }
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Recharge failed. Please try again.");
+    });
 }
 
 // 获取 CSRF 令牌的函数（Django 需要）

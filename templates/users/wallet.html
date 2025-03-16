@@ -1,5 +1,11 @@
 {% extends 'includes/base.html' %}
+{% load static %}
 {% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/wallet.css' %}">
+</head>
+
 <div class="wallet-container">
     <h2 class="wallet-title"><i class="fas fa-wallet"></i> Wallet</h2>
 
