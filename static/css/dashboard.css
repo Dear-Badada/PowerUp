@@ -1,0 +1,155 @@
+/* 统计卡片整体布局 */
+.stat-row {
+    display: flex;
+    justify-content: space-between; /* 让卡片等间距排列 */
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    gap: 20px;
+    max-width: 1200px;
+}
+
+/* 统计卡片样式 */
+.stat-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.stat-card:hover {
+    transform: scale(1.05);
+}
+
+/* 统计标题颜色 */
+.stat-title.text-primary { color: #1e8449; }  /* 绿色 */
+.stat-title.text-warning { color: #e67e22; } /* 橙色 */
+.stat-title.text-danger { color: #c0392b; }   /* 红色 */
+
+/* 统计数字 */
+.stat-number {
+    margin: 10px 15px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* 充电宝管理和订单管理的卡片 */
+.management-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* 充电宝管理标题 */
+.title-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e8449;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.title-text i {
+    margin-right: 8px;
+}
+
+/* 表格优化 */
+.custom-table {
+    width: 90%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.custom-table th {
+    background-color: #1e8449;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    border-right: 2px solid #ffffff;
+}
+
+.custom-table td {
+    padding: 10px;
+    text-align: center;
+    background: white;
+}
+
+
+/* 根据电池电量调整颜色 */
+/* 低电量 */
+.text-danger {
+    color: #e74c3c !important;
+    font-weight: bold;
+}
+
+/* 中电量 */
+.text-warning {
+    color: #e67e22 !important;
+    font-weight: bold;
+}
+
+/* 高电量 */
+.text-success {
+    color: #2ecc71 !important;
+    font-weight: bold;
+}
+
+/* 按钮优化 */
+.btn-orange, .btn-danger {
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-orange {
+    background-color: #e67e22;
+    color: white;
+}
+
+.btn-orange:hover {
+    background-color: #d35400;
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background-color: #c0392b;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #a93226;
+    transform: scale(1.05);
+}
+
+/* Logout 按钮 */
+.logout-btn {
+    width: 150px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.logout-btn:hover {
+    background-color: #a93226;
+    transform: scale(1.05);
+    text-decoration: none;
+}

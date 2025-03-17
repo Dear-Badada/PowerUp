@@ -1,57 +1,77 @@
 from decimal import Decimal
+from django.contrib.auth import login
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from payment.models import RefundRequest
+from order.models import Order, RefundRequest
 from powerbank.models import Station, PowerBank, Pricing
 from .forms import StationForm, PricingForm
-
+from users.models import User
 
 def manager_login_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-        user = authenticate(request, username=username, password=password)
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            messages.error(request, "User does not exist")
+            return render(request, "manager_login.html")
 
-        if user is not None and user.is_staff:  # 确保是管理员
-            login(request, user)
+        if user.check_password(password):
+            login(request, user)  # 直接使用 login() 登录
             messages.success(request, "Admin login successful!")
-            return redirect("station_list_admin")  # 进入后台管理页面
+            return redirect("manager_dashboard")
         else:
-            messages.error(request, "Invalid username, password, or not an admin.")
+            messages.error(request, "Invalid username or password.")
 
     return render(request, "manager/manager_login.html")
 
+@login_required
+def manager_dashboard(request):
+    """管理员仪表盘视图"""
+    total_users = User.objects.count()
+    total_rentals = Order.objects.count()
+    available_power_banks = PowerBank.objects.filter(status="available").count()
+    powerbanks = PowerBank.objects.all()
+
+    return render(request, "manager/manager_dashboard.html", {
+        "total_users": total_users,
+        "total_rentals": total_rentals,
+        "available_power_banks": available_power_banks,
+        "powerbanks": powerbanks
+    })
 
 # ======【充电宝管理】======
 @login_required
 def powerbank_list(request, station_id):
-    """管理员查看某个站点的所有充电宝"""
+    """查看指定站点的充电宝列表"""
     station = get_object_or_404(Station, id=station_id)
-    power_banks = PowerBank.objects.filter(station=station)
+    powerbanks = PowerBank.objects.filter(station=station)
 
-    return render(request, "manager/powerbank_list.html", {"station": station, "power_banks": power_banks})
-
+    return render(request, "manager/powerbank_list.html", {
+        "powerbanks": powerbanks,
+        "station": station
+    })
 
 @login_required
 def update_powerbank_status(request, powerbank_id):
     """管理员更新充电宝状态"""
     power_bank = get_object_or_404(PowerBank, id=powerbank_id)
 
-    # 轮换充电宝状态
     if power_bank.status == "available":
-        power_bank.status = "in_use"
-    elif power_bank.status == "in_use":
-        power_bank.status = "charging"
-    elif power_bank.status == "charging":
+        power_bank.status = "rented"
+    elif power_bank.status == "rented":
         power_bank.status = "available"
+    elif power_bank.status == "damaged":
+        messages.warning(request, "Damaged power banks must be repaired manually.")
+        return redirect("powerbank_list", station_id=power_bank.station.id)
 
     power_bank.save()
-    messages.success(request, f"Power bank status updated to {power_bank.status}.")
-
+    messages.success(request, f"Power bank status updated to {power_bank.get_status_display()}.")
     return redirect("powerbank_list", station_id=power_bank.station.id)
 
 
@@ -64,10 +84,20 @@ def delete_powerbank(request, powerbank_id):
     messages.success(request, "Power bank deleted successfully.")
     return redirect("powerbank_list", station_id=station_id)
 
+@login_required
+def repair_powerbank(request, powerbank_id):
+    """修复充电宝"""
+    power_bank = get_object_or_404(PowerBank, id=powerbank_id)
+    if power_bank.status == "damaged":
+        power_bank.status = "available"
+        power_bank.save()
+        return JsonResponse({"success": True, "message": "Power bank repaired successfully."})
+    return JsonResponse({"success": False, "message": "Invalid status for repair."})
+
 
 # ======【站点管理】======
 @login_required
-def station_list_admin(request):
+def station_list_manager(request):
     """ 显示所有站点（管理员视角） """
     stations = Station.objects.all()
     return render(request, "manager/station_list.html", {"stations": stations})

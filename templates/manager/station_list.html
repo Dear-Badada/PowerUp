@@ -1,17 +1,46 @@
 {% extends "includes/base.html" %}
+{% load static %}
+
+{% block title %}Manage Stations{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/station_list.css' %}">
+{% endblock %}
 
 {% block content %}
-<h2>Manage Stations</h2>
+<div class="container">
+    <h2 class="text-center text-green">
+        <i class="fas fa-map-marker-alt"></i> Manage Stations
+    </h2>
 
-<a href="{% url 'create_station' %}" class="btn btn-success">Add Station</a>
+    <div class="text-end">
+        <a href="{% url 'create_station' %}" class="btn btn-success">Add Station</a>
+    </div>
 
-<ul>
-    {% for station in stations %}
-        <li>
-            {{ station.name }} - {{ station.location }}
-            <a href="{% url 'powerbank_list' station.id %}">Manage Power Banks</a>
-            <a href="{% url 'delete_station' station.id %}" class="btn btn-danger">Delete</a>
-        </li>
-    {% endfor %}
-</ul>
+    <div class="station-list">
+        {% for station in stations %}
+        <div class="station-card">
+            <h4>{{ station.name }}</h4>
+            <p><i class="fas fa-map-marker-alt"></i> {{ station.location }}</p>
+            <div class="station-actions">
+                <a href="{% url 'powerbank_list' station.id %}" class="btn btn-orange">Manage Power Banks</a>
+                <button class="btn btn-danger delete-station-btn" data-id="{{ station.id }}">Delete</button>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">No stations available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- 删除确认模态框 -->
+<div id="confirmDeleteModal" class="modal">
+    <div class="modal-content">
+        <h4>Confirm Deletion</h4>
+        <p>Are you sure you want to delete this station?</p>
+        <button id="confirmDelete" class="btn btn-danger">Yes, Delete</button>
+        <button id="cancelDelete" class="btn btn-secondary">Cancel</button>
+    </div>
+</div>
+
+<script src="{% static 'js/station_list.js' %}"></script>
 {% endblock %}

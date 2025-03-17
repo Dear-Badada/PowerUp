@@ -8,10 +8,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
 from powerbank.models import Pricing, Station
-from payment.models import Order, Transaction
+from order.models import Order, Transaction
 from .models import User
 from .forms import RegistrationForm, LoginForm
-from payment.views import return_order
+from order.views import return_order
 
 # ======【用户注册】======
 def register(request):

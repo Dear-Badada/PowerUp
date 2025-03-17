@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
-from payment.models import Order, Transaction, RefundRequest
+from order.models import Order, Transaction, RefundRequest
 from powerbank.models import PowerBank, Pricing
 from users.models import User
 
@@ -16,7 +16,7 @@ from users.models import User
 def payment_details(request, order_id):
     """支付详情"""
     order = get_object_or_404(Order, id=order_id)
-    return render(request, 'payment/payment_details.html', {
+    return render(request, 'order/payment_details.html', {
         "order": order,
         "payment_amount": order.total_cost,
         "remaining_balance": order.user.balance,
@@ -30,14 +30,14 @@ def payment_history(request, customer_id):
     """查看用户支付历史"""
     user = get_object_or_404(User, id=customer_id)
     transactions = Transaction.objects.filter(user=user).order_by('-created_at')
-    return render(request, 'payment/payment_history.html', {"user": user, "transactions": transactions})
+    return render(request, 'order/payment_history.html', {"user": user, "transactions": transactions})
 
 
 @login_required
 def payment_success(request, order_id):
     """支付成功页面"""
     order = get_object_or_404(Order, id=order_id)
-    return render(request, 'payment/payment_success.html', {
+    return render(request, 'order/payment_success.html', {
         "order": order,
         "message": "Payment Successful!",
         "total_cost": order.total_cost,
@@ -95,7 +95,7 @@ def create_order(request, power_bank_id):
     # 记录押金交易
     Transaction.objects.create(user=user, type='deposit', amount=deposit, order=order)
 
-    messages.success(request, f"Order created successfully. Your deposit is ${deposit}.")
+    messages.success(request, f"order created successfully. Your deposit is ${deposit}.")
     return redirect('view_order', order_id=order.id)
 
 
@@ -152,7 +152,7 @@ def return_order(request, order_id):
     if refund_amount > 0:
         Transaction.objects.create(user=user, type="refund", amount=refund_amount, order=order)
 
-    messages.success(request, f"Order completed. Total cost: £{total_cost:.2f}. Refund: £{refund_amount:.2f}.")
+    messages.success(request, f"order completed. Total cost: £{total_cost:.2f}. Refund: £{refund_amount:.2f}.")
     return redirect("view_order", order_id=order.id)
 
 

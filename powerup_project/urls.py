@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView
 from django.urls import path
-from payment.views import create_order, return_order, report_feedback, view_order
+from order.views import create_order, return_order, report_feedback, view_order
 from powerbank.views import station_list, station_detail
 from users.views import home, user_login, rent_powerbank, return_powerbank, register, recharge_wallet, view_wallet
-from manager.views import manager_login_view, station_list_admin, create_station, delete_station, powerbank_list, \
-    delete_powerbank, update_powerbank_status, update_pricing, handle_refund_request, refund_requests_list
+from manager.views import manager_login_view, create_station, delete_station, powerbank_list, \
+    delete_powerbank, update_powerbank_status, update_pricing, handle_refund_request, refund_requests_list, \
+    manager_dashboard, station_list_manager, repair_powerbank
 
 urlpatterns = [
     path('', home, name='home'),  # 主页
@@ -32,16 +33,18 @@ urlpatterns = [
 
     # 管理员登录
     path('manager/login/', manager_login_view, name='manager_login'),
+    path("manager/dashboard/", manager_dashboard, name="manager_dashboard"),
 
     # 站点管理
-    path("manager/stations/", station_list_admin, name="station_list_admin"),
+    path("manager/stations/", station_list_manager, name="station_list_manager"),
     path("manager/stations/create/", create_station, name="create_station"),
     path("manager/stations/<int:station_id>/delete/", delete_station, name="delete_station"),
 
     # 充电宝管理
     path("manager/stations/<int:station_id>/powerbanks/", powerbank_list, name="powerbank_list"),
+    path("manager/powerbanks/<int:powerbank_id>/repair/", repair_powerbank, name="repair_powerbank"),
     path("manager/powerbanks/<int:powerbank_id>/delete/", delete_powerbank, name="delete_powerbank"),
-    path("manager/powerbanks/<int:powerbank_id>/update-status/", update_powerbank_status, name="update_powerbank_status"),  # ✅ 更新 URL
+    path("manager/powerbanks/<int:powerbank_id>/update-status/", update_powerbank_status, name="update_powerbank_status"),
 
     # 价格管理
     path("manager/pricing/update/", update_pricing, name="update_pricing"),

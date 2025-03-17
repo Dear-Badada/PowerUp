@@ -4,7 +4,7 @@ from users.models import User
 
 
 class Order(models.Model):
-    """ Order model """
+    """ order model """
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     power_bank = models.ForeignKey(PowerBank, on_delete=models.SET_NULL, null=True)
@@ -34,7 +34,7 @@ class Order(models.Model):
         db_table = "orders"
 
     def __str__(self):
-        return f"Order {self.id} - {self.user.username}"
+        return f"order {self.id} - {self.user.username}"
 
 
 class Transaction(models.Model):

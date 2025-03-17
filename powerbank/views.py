@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from decimal import Decimal
 
-from payment.models import Order
+from order.models import Order
 from .models import PowerBank, Station, Pricing
 
 

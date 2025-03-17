@@ -1,113 +1,85 @@
 {% extends 'includes/base.html' %}
 {% load static %}
+{% block title %}Manager Dashboard{% endblock %}
 
-{% block title %}Admin Dashboard{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center text-success"><i class="fas fa-tools"></i> Admin Dashboard</h2>
+<div class="container mt-4">
+    <h2 class="text-center text-green"><i class="fas fa-tools"></i> Manager Dashboard</h2>
 
-    <!-- 统计信息 -->
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <div class="card text-center shadow p-3">
-                <h4><i class="fas fa-users text-success"></i> Total Users</h4>
-                <p class="h3 text-success">{{ total_users }}</p>
-            </div>
+    <!-- 统计卡片 -->
+    <div class="stat-row">
+        <div class="stat-card">
+            <h5 class="stat-title text-primary"><i class="fas fa-users"></i> Total Users</h5>
+            <p class="stat-number">{{ total_users }}</p>
         </div>
-        <div class="col-md-4">
-            <div class="card text-center shadow p-3">
-                <h4><i class="fas fa-battery-full text-warning"></i> Total Rentals</h4>
-                <p class="h3 text-warning">{{ total_rentals }}</p>
-            </div>
+        <div class="stat-card">
+            <h5 class="stat-title text-warning"><i class="fas fa-clipboard-list"></i> Total Rentals</h5>
+            <p class="stat-number">{{ total_rentals }}</p>
         </div>
-        <div class="col-md-4">
-            <div class="card text-center shadow p-3">
-                <h4><i class="fas fa-charging-station text-primary"></i> Available Power Banks</h4>
-                <p class="h3 text-primary">{{ available_power_banks }}</p>
-            </div>
+        <div class="stat-card">
+            <h5 class="stat-title text-danger"><i class="fas fa-battery-full"></i> Available Power Banks</h5>
+            <p class="stat-number">{{ available_power_banks }}</p>
         </div>
     </div>
 
     <!-- 充电宝管理 -->
-    <div class="container text-center mt-4">
-        <table class="table table-bordered table-hover" style="width: 80%; margin: 0 auto;">
-            <thead class="table-success">
+    <div class="management-card">
+        <h3 class="title-text"><i class="fas fa-bolt"></i> Power Bank Management</h3>
+        <table class="custom-table text-center">
+            <thead>
                 <tr>
-                    <th>Power Bank ID</th>
+                    <th>ID</th>
                     <th>Battery</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                {% for power_bank in power_banks %}
+                {% for powerbank in powerbanks %}
                 <tr>
-                    <td>{{ power_bank.id }}</td>
-                    <td>{{ power_bank.battery_level }}%</td>
-                    <td class="{% if power_bank.status == 'available' %}text-success{% elif power_bank.status == 'rented' %}text-warning{% else %}text-danger{% endif %}">
-                        {{ power_bank.status|title }}
+                    <td>{{ powerbank.id }}</td>
+                    <td class="{% if powerbank.battery_level < 30 %}text-danger
+                                {% elif powerbank.battery_level < 60 %}text-warning
+                                {% else %}text-success{% endif %}">
+                        {{ powerbank.battery_level }}%
+                    </td>
+                    <td class="{% if powerbank.battery_level < 30 %}text-danger
+                                {% elif powerbank.battery_level < 60 %}text-warning
+                                {% else %}text-success{% endif %}">
+                        {{ powerbank.status }}
                     </td>
                     <td>
-                        <a href="{% url 'admin_powerbank_details' power_bank.id %}" class="btn btn-success btn-sm">Details</a>
-                        {% if power_bank.status == 'damaged' %}
-                        <button class="btn btn-danger btn-sm">Fix</button>
-                        {% endif %}
+                        <a href="{% url 'powerbank_list' powerbank.station.id %}" class="btn btn-sm btn-orange">Update</a>
+                        <a href="{% url 'delete_powerbank' powerbank.id %}" class="btn btn-sm btn-danger delete-btn">Delete</a>
                     </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-muted text-center">No power banks available.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <!-- 近期订单 -->
-    <div class="card p-4 shadow mt-4">
-        <h4><i class="fas fa-file-invoice"></i> Recent Orders</h4>
-
-        {% if recent_orders %}
-        <table class="table mt-3">
-            <thead class="table-success">
-                <tr>
-                    <th>Order ID</th>
-                    <th>User</th>
-                    <th>Power Bank</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in recent_orders %}
-                <tr>
-                    <td>{{ order.id }}</td>
-                    <td>{{ order.user_id.username }}</td>
-                    <td>{{ order.power_bank_id }}</td>
-                    <td>{{ order.start_time | date:"Y-m-d H:i:s" }}</td>
-                    <td>{{ order.end_time | date:"Y-m-d H:i:s" }}</td>
-                    <td>
-                        {% if order.order_status == "ongoing" %}
-                        <span class="badge bg-warning text-dark">Ongoing</span>
-                        {% elif order.order_status == "completed" %}
-                        <span class="badge bg-success">Completed</span>
-                        {% else %}
-                        <span class="badge bg-danger">Cancelled</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <div class="alert alert-warning text-center mt-3">
+    <!-- 最近订单 -->
+    <div class="management-card">
+        <h3 class="title-text"><i class="fas fa-receipt"></i> Recent Orders</h3>
+        <div class="alert alert-warning text-center">
             <i class="fas fa-exclamation-circle"></i> No recent orders found.
         </div>
-        {% endif %}
     </div>
 
-    <!-- 管理员登出 -->
+    <!-- Logout 按钮 -->
     <div class="text-center mt-4">
-        <button id="admin-logout" class="btn btn-danger w-25" onclick="logoutAdmin();">Logout</button>
+        <a href="#" class="logout-btn" onclick="logoutUser()">Logout</a>
     </div>
+
 </div>
-<script src="{% static 'js/logout.js' %}"></script>
+
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}

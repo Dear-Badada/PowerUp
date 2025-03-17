@@ -16,8 +16,8 @@
                 {% if request.user.is_authenticated %}
                     {% if request.user.is_staff %}
                         <li class="nav-item">
-                            <a class="nav-link text-white fw-bold" href="{% url 'station_list_admin' %}">
-                                <i class="fas fa-cogs icon-spacing"></i> Admin Dashboard
+                            <a class="nav-link text-white fw-bold" href="{% url 'manager_dashboard' %}">
+                                <i class="fas fa-cogs icon-spacing"></i> Dashboard
                             </a>
                         </li>
                      {% else %}
@@ -27,9 +27,11 @@
                                 </a>
                             </li>
                     {% endif %}
-                    <li class="nav-item">
-                        <span class="nav-link text-white fw-bold">Welcome, {{ request.user.username }} !</span>
-                    </li>
+                   {% if not request.user.is_staff %}
+                        <li class="nav-item">
+                            <span class="nav-link text-white fw-bold">Welcome, {{ request.user.username }} !</span>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
                             {% csrf_token %}

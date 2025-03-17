@@ -20,7 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'manager',  # 管理员控制台
-    'payment', # 支付详情
+    'order', # 支付详情
     'powerbank',  # 充电宝租借
     'users',  # 用户管理
 ]

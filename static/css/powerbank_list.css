@@ -1,0 +1,97 @@
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* 统一表头样式 */
+.custom-table th {
+    background-color: #1e8449;
+    color: white;
+    padding: 14px;
+    border-bottom: 2px solid white;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* 表格行统一格式 */
+.custom-table td {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+    height: 40px;
+}
+
+/* 交替颜色 */
+.custom-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.custom-table tr:hover {
+    background-color: #eaf2e3;
+}
+
+/* 统一按钮格式 */
+.btn {
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    min-width: 90px;
+    height: 40px;
+    text-align: center;
+}
+
+/* 统一 update 按钮 */
+.btn-warning {
+    background-color: #f39c12;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #e67e22;
+}
+
+/* 统一 delete 按钮 */
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* 统一 repair 按钮 */
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+/* 让按钮在操作列内居中 */
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 确保 Repair 按钮宽度一致 */
+.actions .btn-info {
+    width: 90px;
+}
+
+/* 让按钮之间的间距更美观 */
+.actions .btn {
+    margin: 2px;
+}

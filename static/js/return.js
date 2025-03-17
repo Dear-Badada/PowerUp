@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert("Power bank returned successfully! Redirecting to payment page...");
-                    window.location.href = "/payment/";
+                    alert("Power bank returned successfully! Redirecting to order page...");
+                    window.location.href = "../../order/";
                 } else {
                     alert("Error returning power bank: " + data.message);
                 }

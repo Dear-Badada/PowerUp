@@ -38,3 +38,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         """ 验证用户输入的密码是否正确 """
         hashed_password = hashlib.sha256((raw_password + self.salt).encode()).hexdigest()
         return hashed_password == self.password
+
+    def get_by_natural_key(self, username):
+        return self.__class__.objects.get(username=username)
