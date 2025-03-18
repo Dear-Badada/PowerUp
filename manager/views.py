@@ -168,6 +168,19 @@ def manager_reports(request):
         "recent_orders": recent_orders
     })
 
+@login_required
+def all_transactions(request):
+    """ 显示所有交易记录 """
+    transactions = Transaction.objects.all().order_by('-created_at')
+    return render(request, "manager/all_transactions.html", {"transactions": transactions})
+
+
+@login_required
+def all_orders(request):
+    """ 显示所有订单记录 """
+    orders = Order.objects.all().order_by('-start_time')
+    return render(request, "manager/all_orders.html", {"orders": orders})
+
 # ======【价格管理】======
 @login_required
 def update_pricing(request):

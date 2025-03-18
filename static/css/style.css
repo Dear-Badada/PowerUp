@@ -476,7 +476,7 @@ button:disabled {
     font-weight: bold;
     border-radius: 8px;
     padding: 12px;
-    background-color: #6c757d;
+    background-color: #3498db;
     color: white;
     text-align: center;
     display: block;
@@ -485,6 +485,6 @@ button:disabled {
 }
 
 .btn-dashboard:hover {
-    background-color: #5a6268;
+    background-color: #2274b0;
     transform: scale(1.05);
 }

@@ -1,8 +1,10 @@
-/* 退款请求页面样式 */
 .container {
-    max-width: 900px;
-    margin: 0 auto;
+    max-width: 800px;
+    margin: 30px auto;
     padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* 退款表格 */
@@ -13,11 +15,12 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
+    margin-bottom: 30px;
 }
 
 /* 表头 */
 .refund-table th {
-    background-color: #d63384;
+    background-color: #f48fb1;
     color: white;
     padding: 12px;
     text-align: center;
@@ -28,6 +31,11 @@
     padding: 12px;
     text-align: center;
     font-size: 16px;
+}
+
+/* 交替行颜色 */
+.refund-table tr:nth-child(even) {
+    background-color: #f8f9fa;
 }
 
 /* 状态颜色 */
@@ -46,13 +54,8 @@
     font-weight: bold;
 }
 
-/* 交替行颜色 */
-.refund-table tr:nth-child(even) {
-    background-color: #f8f9fa;
-}
-
 .btn-pink {
-    background-color: #d63384;
+    background-color: #f5a6c0;
     color: white;
     padding: 10px 18px;
     border-radius: 6px;
@@ -62,6 +65,6 @@
 }
 
 .btn-pink:hover {
-    background-color: #b82e75;
+    background-color: #f06292;
     transform: scale(1.05);
 }

@@ -1,13 +1,20 @@
-.report-container {
+.container {
+    margin: 30px auto;
+    padding: 20px;
     background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+}
+
+.report-container {
+    width: 100%;
     border-radius: 10px;
+    background: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin-bottom: 30px;
+    margin: 30px auto;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 1200px;
 }
 
 /* 标题和 View All 按钮 */
@@ -15,7 +22,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .report-header h3 {
@@ -37,6 +44,12 @@
     overflow: hidden;
 }
 
+.report-table thead {
+    background-color: #c2beef !important;
+    color: white !important;
+    font-weight: bold;
+}
+
 .report-table th, .report-table td {
     border: 1px solid #ddd;
     padding: 10px;
@@ -45,8 +58,10 @@
 }
 
 .report-table th {
-    background-color: #c2beef;
-    color: black;
+    background-color: #c2beef !important;
+    color: #4236a4 !important;
+    text-align: center;
+    padding: 12px;
 }
 
 .text-left{
@@ -59,11 +74,11 @@
 }
 
 .report-table tbody tr:nth-child(odd) {
-    background-color: #f8f9fa;
+    background-color: #f8f9fa !important;
 }
 
 .report-table tbody tr:hover {
-    background-color: #dfe6e9;
+    background-color: #dfe6e9 !important;
 }
 
 /* View All 按钮 */
@@ -71,8 +86,8 @@
     padding: 8px 16px;
     font-size: 14px;
     font-weight: bold;
-    background-color: #a29bfe;
-    color: black;
+    background-color: #c2beef;
+    color: #4236a4;
     border: none;
     border-radius: 6px;
     cursor: pointer;

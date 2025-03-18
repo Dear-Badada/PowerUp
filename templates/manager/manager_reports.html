@@ -3,87 +3,87 @@
 
 {% block title %}Manager Reports{% endblock %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/manager_repoerts.css' %}">
+<link rel="stylesheet" href="{% static 'css/manager_repoerts.css' %}">
 {% endblock %}
 {% block content %}
 
 <h2 class="page-title">
     <i class="fas fa-chart-line icon-spacing"></i> Manager Reports
 </h2>
-
-<!-- Recent Transactions -->
-<div class="report-container">
-    <div class="report-header">
-        <h3><i class="fas fa-dollar-sign"></i> Recent Transactions</h3>
-        <button class="btn-view-all" onclick="showAllTransactions()">View All</button>
+<div class="container">
+    <!-- Recent Transactions -->
+    <div class="report-container">
+        <div class="report-header">
+            <h3><i class="fas fa-dollar-sign"></i> Recent Transactions</h3>
+            <button class="btn-view-all" onclick="showAllTransactions()">View All</button>
+        </div>
+        {% if recent_transactions %}
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>User</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in recent_transactions %}
+                    <tr>
+                        <td>{{ transaction.id }}</td>
+                        <td>{{ transaction.type }}</td>
+                        <td>￡{{ transaction.amount }}</td>
+                        <td>{{ transaction.user.username }}</td>
+                        <td class="text-left">{{ transaction.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-data">⚠ No recent transactions found.</p>
+        {% endif %}
     </div>
-    {% if recent_transactions %}
-        <table class="report-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Type</th>
-                    <th>Amount</th>
-                    <th>User</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for transaction in recent_transactions %}
-                <tr>
-                    <td>{{ transaction.id }}</td>
-                    <td>{{ transaction.type }}</td>
-                    <td>￡{{ transaction.amount }}</td>
-                    <td>{{ transaction.user.username }}</td>
-                    <td class="text-left">{{ transaction.created_at }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p class="no-data">⚠ No recent transactions found.</p>
-    {% endif %}
-</div>
 
-<!-- Recent Orders -->
-<div class="report-container">
-    <div class="report-header">
-        <h3><i class="fas fa-file-invoice"></i> Recent Orders</h3>
-        <button class="btn-view-all" onclick="showAllOrders()">View All</button>
+    <!-- Recent Orders -->
+    <div class="report-container">
+        <div class="report-header">
+            <h3><i class="fas fa-file-invoice"></i> Recent Orders</h3>
+            <button class="btn-view-all" onclick="showAllOrders()">View All</button>
+        </div>
+            {% if recent_orders %}
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Power Bank</th>
+                        <th>Status</th>
+                        <th>Total Cost</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in recent_orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.user.username }}</td>
+                        <td>{{ order.power_bank.id }}</td>
+                        <td>{{ order.order_status }}</td>
+                        <td>￡{{ order.total_cost }}</td>
+                        <td class="text-left">{{ order.start_time }}</td>
+                        <td class="text-left">{{ order.end_time|default:"-" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-data">⚠ No recent orders found.</p>
+        {% endif %}
     </div>
-        {% if recent_orders %}
-        <table class="report-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>User</th>
-                    <th>Power Bank</th>
-                    <th>Status</th>
-                    <th>Total Cost</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in recent_orders %}
-                <tr>
-                    <td>{{ order.id }}</td>
-                    <td>{{ order.user.username }}</td>
-                    <td>{{ order.power_bank.id }}</td>
-                    <td>{{ order.order_status }}</td>
-                    <td>￡{{ order.total_cost }}</td>
-                    <td class="text-left">{{ order.start_time }}</td>
-                    <td class="text-left">{{ order.end_time|default:"-" }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p class="no-data">⚠ No recent orders found.</p>
-    {% endif %}
-</div>
 
-<div class="text-center">
     <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
 </div>
+<script src="{% static 'js/manager_reports.js' %}"></script>
 {% endblock %}

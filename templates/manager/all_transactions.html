@@ -1,0 +1,44 @@
+{% extends "includes/base.html" %}
+{% load static %}
+{% block title %}All Transactions{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/manager_reports.css' %}">
+{% endblock %}
+{% block content %}
+
+<h2 class="page-title">
+    <i class="fas fa-dollar-sign icon-spacing"></i> All Transactions
+</h2>
+
+<div class="container">
+    <div class="report-container">
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.id }}</td>
+                    <td>{{ transaction.user.username }}</td>
+                    <td>￡{{ transaction.amount }}</td>
+                    <td>{{ transaction.created_at }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No transactions found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a href="{% url 'manager_reports' %}" class="btn btn-dashboard">Reports</a>
+</div>
+
+{% endblock %}

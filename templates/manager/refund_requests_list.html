@@ -13,34 +13,34 @@
 <div class="container">
     <table class="refund-table">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Reason</th>
-                <th>Status</th>
-                <th>Processed At</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Processed At</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
-            {% for request in refund_requests %}
-            <tr>
-                <td>{{ request.id }}</td>
-                <td>{{ request.reason }}</td>
-                <td class="status-{{ request.status|lower }}">{{ request.status }}</td>
-                <td>{{ request.processed_at|default:"Pending" }}</td>
-                <td>
-                    <a href="{% url 'refund_request_detail' request.id %}" class="btn btn-pink">View Details</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5" class="text-center">No refund requests found.</td>
-            </tr>
-            {% endfor %}
+        {% for request in refund_requests %}
+        <tr>
+            <td>{{ request.id }}</td>
+            <td>{{ request.reason }}</td>
+            <td class="status-{{ request.status|lower }}">{{ request.status }}</td>
+            <td>{{ request.processed_at|default:"Pending" }}</td>
+            <td>
+                <a href="{% url 'refund_request_detail' request.id %}" class="btn btn-pink">View Details</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center">No refund requests found.</td>
+        </tr>
+        {% endfor %}
         </tbody>
     </table>
 
     <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
-
 </div>
+
 {% endblock %}

@@ -34,22 +34,26 @@
         </tr>
         <tr>
             <th>User ID</th>
-            <td>{{ refund_request.user_id }}</td>
+            <td>{{ refund_request.user_id|default:"N/A" }}</td>
         </tr>
     </table>
 
     {% if refund_request.status == "pending" %}
     <form method="post" action="{% url 'handle_refund_request' refund_request.id %}">
         {% csrf_token %}
-        <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
-        <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+        <div class="btn-vertical-group">
+            <button type="submit" name="action" value="approve" class="btn btn-approve">Approve</button>
+            <button type="submit" name="action" value="reject" class="btn btn-reject">Reject</button>
+        </div>
     </form>
     {% endif %}
 
+    <!-- 让按钮也在 container 里 -->
     <div class="btn-group">
         <a href="{% url 'refund_requests_list' %}" class="btn btn-pink">Refund List</a>
-        <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
+        <a href="{% url 'manager_dashboard' %}" class="btn btn-dash">Dashboard</a>
     </div>
-
 </div>
+
+<script src="{% static 'js/refund_request_detail.js' %}"></script>
 {% endblock %}

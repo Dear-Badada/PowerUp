@@ -6,7 +6,8 @@ from powerbank.views import station_list, station_detail
 from users.views import home, user_login, rent_powerbank, return_powerbank, register, recharge_wallet, view_wallet
 from manager.views import manager_login_view, create_station, delete_station, powerbank_list, \
     delete_powerbank, update_powerbank_status, update_pricing, handle_refund_request, refund_requests_list, \
-    manager_dashboard, station_list_manager, repair_powerbank, powerbank_details, manager_reports, refund_request_detail
+    manager_dashboard, station_list_manager, repair_powerbank, powerbank_details, manager_reports, \
+    refund_request_detail, all_transactions, all_orders
 
 urlpatterns = [
     path('', home, name='home'),  # 主页
@@ -49,6 +50,8 @@ urlpatterns = [
 
     # 报告管理
     path("manager/reports/", manager_reports, name="manager_reports"),
+    path("manager/reports/transactions/", all_transactions, name="all_transactions"),
+    path("manager/reports/orders/", all_orders, name="all_orders"),
 
     # 价格管理
     path("manager/pricing/update/", update_pricing, name="update_pricing"),
