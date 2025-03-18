@@ -1,26 +1,31 @@
 {% extends 'includes/base.html' %}
 {% load static %}
-
 {% block title %}Power Bank Details{% endblock %}
-
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/manager_powerbank_details.css' %}">
+{% endblock %}
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center text-primary"><i class="fas fa-info-circle"></i> Power Bank Details</h2>
+<div class="container mt-4">
+    <h2 class="text-center page-title">
+        <i class="fas fa-info-circle"></i> Power Bank Details
+    </h2>
 
-    <div class="card p-4 shadow mt-4">
-        <table class="table">
+    <div class="powerbank-card">
+        <table class="details-table">
             <tr>
                 <th>Power Bank ID</th>
                 <td>{{ power_bank.id }}</td>
             </tr>
             <tr>
                 <th>Battery Level</th>
-                <td>{{ power_bank.battery_level }}%</td>
+                <td class="{% if power_bank.battery_level < 30 %}text-danger{% elif power_bank.battery_level < 60 %}text-warning{% else %}text-success{% endif %}">
+                    {{ power_bank.battery_level }}%
+                </td>
             </tr>
             <tr>
                 <th>Status</th>
                 <td class="{% if power_bank.status == 'available' %}text-success{% elif power_bank.status == 'rented' %}text-warning{% else %}text-danger{% endif %}">
-                    {{ power_bank.status|title }}
+                    {{ power_bank.get_status_display }}
                 </td>
             </tr>
             <tr>
@@ -29,18 +34,16 @@
             </tr>
         </table>
 
-        <div class="text-center mt-3">
+        <div class="button-group">
             {% if power_bank.status == 'damaged' %}
             <form method="POST" action="{% url 'fix_powerbank' power_bank.id %}">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-danger">
+                <button type="submit" class="btn btn-repair">
                     <i class="fas fa-tools"></i> Fix
                 </button>
             </form>
             {% endif %}
-            <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary mt-2">
-                <i class="fas fa-arrow-left"></i> Back to Dashboard
-            </a>
+            <a href="{% url 'manager_dashboard' %}" class="btn btn-back">Dashboard</a>
         </div>
     </div>
 </div>

@@ -1,36 +1,48 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const deleteButtons = document.querySelectorAll(".delete-btn");
-    const repairButtons = document.querySelectorAll(".repair-btn");
-    const modal = document.getElementById("confirmDeleteModal");
-    const confirmDeleteButton = document.getElementById("confirmDelete");
-    const cancelDeleteButton = document.getElementById("cancelDelete");
+    const actionButtons = document.querySelectorAll(".delete-btn, .repair-btn, .update-btn");
+    const modal = document.getElementById("confirmActionModal");
+    const confirmButton = document.getElementById("confirmAction");
+    const cancelButton = document.getElementById("cancelAction");
+    let actionType = "";
     let powerBankId = null;
 
-    // 监听删除按钮
-    deleteButtons.forEach(button => {
+    // 监听按钮点击
+    actionButtons.forEach(button => {
         button.addEventListener("click", function () {
             powerBankId = this.getAttribute("data-id");
-            modal.style.display = "block";
+
+            if (this.classList.contains("delete-btn")) {
+                actionType = "delete";
+                showModal("⚠️ Are you sure delete this power bank?", "This action cannot be undone!", "Delete");
+            } else if (this.classList.contains("repair-btn")) {
+                actionType = "repair";
+                showModal("⚠️ Are you sure repair this power bank?", "This action will mark it as repaired.", "Confirm");
+            } else if (this.classList.contains("update-btn")) {
+                actionType = "update";
+                showModal("⚠️ Are you sure update this power bank?", "This action will update the status of the power bank.", "Update");
+            }
         });
     });
 
-    // 确认删除
-    confirmDeleteButton.addEventListener("click", function () {
-        if (powerBankId) {
-            window.location.href = `/manager/powerbanks/${powerBankId}/delete/`;
+    // 确认操作
+    confirmButton.addEventListener("click", function () {
+        if (!powerBankId) {
+            console.error("No power bank ID found for action.");
+            return;
         }
-    });
 
-    // 取消删除
-    cancelDeleteButton.addEventListener("click", function () {
-        modal.style.display = "none";
-    });
+        let url = "";
+        if (actionType === "delete") {
+            url = `/manager/powerbanks/${powerBankId}/delete/`;
+        } else if (actionType === "repair") {
+            url = `/manager/powerbanks/${powerBankId}/repair/`;
+        } else if (actionType === "update") {
+            window.location.href = `/manager/powerbanks/${powerBankId}/update-status/`;
+            return;
+        }
 
-    // 监听维修按钮
-    repairButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            let powerBankId = this.getAttribute("data-id");
-            fetch(`/manager/powerbanks/${powerBankId}/repair/`, {
+        if (url) {
+            fetch(url, {
                 method: "POST",
                 headers: {
                     "X-CSRFToken": getCSRFToken(),
@@ -40,15 +52,30 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.reload();  // 修复后刷新页面
+                    window.location.reload();
                 } else {
-                    alert("Failed to repair power bank.");
+                    alert(`Failed to ${actionType} power bank.`);
                 }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while processing the action.");
             });
-        });
+        }
+        modal.style.display = "none";
     });
 
-    // 获取 CSRF 令牌
+    cancelButton.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    function showModal(title, message, confirmText) {
+        document.getElementById("actionTitle").textContent = title;
+        document.getElementById("actionMessage").textContent = message;
+        document.getElementById("confirmAction").textContent = confirmText;
+        modal.style.display = "block";
+    }
+
     function getCSRFToken() {
         return document.querySelector("[name=csrfmiddlewaretoken]").value;
     }

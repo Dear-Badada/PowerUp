@@ -6,7 +6,7 @@ from powerbank.views import station_list, station_detail
 from users.views import home, user_login, rent_powerbank, return_powerbank, register, recharge_wallet, view_wallet
 from manager.views import manager_login_view, create_station, delete_station, powerbank_list, \
     delete_powerbank, update_powerbank_status, update_pricing, handle_refund_request, refund_requests_list, \
-    manager_dashboard, station_list_manager, repair_powerbank
+    manager_dashboard, station_list_manager, repair_powerbank, powerbank_details, manager_reports
 
 urlpatterns = [
     path('', home, name='home'),  # 主页
@@ -39,12 +39,16 @@ urlpatterns = [
     path("manager/stations/", station_list_manager, name="station_list_manager"),
     path("manager/stations/create/", create_station, name="create_station"),
     path("manager/stations/<int:station_id>/delete/", delete_station, name="delete_station"),
+    path("manager/stations/<int:station_id>/powerbanks/", powerbank_list, name="powerbank_list"),
 
     # 充电宝管理
-    path("manager/stations/<int:station_id>/powerbanks/", powerbank_list, name="powerbank_list"),
+    path("manager/powerbanks/<int:powerbank_id>/", powerbank_details, name="powerbank_details"),
     path("manager/powerbanks/<int:powerbank_id>/repair/", repair_powerbank, name="repair_powerbank"),
     path("manager/powerbanks/<int:powerbank_id>/delete/", delete_powerbank, name="delete_powerbank"),
     path("manager/powerbanks/<int:powerbank_id>/update-status/", update_powerbank_status, name="update_powerbank_status"),
+
+    # 报告管理
+    path("manager/reports/", manager_reports, name="manager_reports"),
 
     # 价格管理
     path("manager/pricing/update/", update_pricing, name="update_pricing"),

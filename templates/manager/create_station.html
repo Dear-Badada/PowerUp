@@ -1,16 +1,46 @@
 {% extends "includes/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/create_station.css' %}">
+{% endblock %}
 
 {% block content %}
-<h2>Create New Station</h2>
+<div class="container">
+    <h2>Create New Station</h2>
 
-<!-- 显示创建站点的表单 -->
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}  <!-- Django 会渲染表单的字段 -->
-    
-    <button type="submit" class="btn btn-success">Create Station</button>
-</form>
+    <!-- 显示创建站点的表单 -->
+    <form id="createStationForm" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-<!-- 返回到站点列表页面 -->
-<a href="{% url 'station_list_admin' %}" class="btn btn-secondary">Back to Stations</a>
+        <button type="button" id="openConfirmModal" class="create-station-btn">Create Station</button>
+    </form>
+
+    <!-- 返回到站点列表页面 -->
+    <a href="{% url 'station_list_manager' %}" class="create-station-back-btn">Stations</a>
+</div>
+
+<!-- 统一确认操作弹窗 -->
+<div id="confirmActionModal" class="modal">
+    <h2>Confirm Creation</h2>
+    <p>⚠️ Are you sure create this station?</p>
+    <div class="modal-buttons">
+        <button id="confirmAction" class="btn btn-primary">Confirm</button>
+        <button id="cancelAction" class="btn btn-secondary">Cancel</button>
+    </div>
+</div>
+{% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ field|capfirst }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<script src="{% static 'js/create_station.js' %}"></script>
 {% endblock %}

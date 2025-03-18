@@ -372,3 +372,84 @@ button:disabled {
 .icon-spacing {
     margin-right: 8px;
 }
+
+/* 统一弹窗样式 */
+.modal {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 500px;
+    height: auto;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #ddd;
+    z-index: 1050;
+}
+
+/* 弹窗标题 */
+.modal h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* 弹窗内容 */
+.modal p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* 统一按钮容器 */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* 统一弹窗按钮大小 */
+.modal-buttons .btn {
+    flex: 1;
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 统一确认按钮（绿色） */
+.modal-buttons .btn-primary {
+    background-color: #1e8449;
+    color: white;
+    border: none;
+}
+
+.modal-buttons .btn-primary:hover {
+    background-color: #145a32;
+}
+
+/* 统一取消按钮（红色） */
+.modal-buttons .btn-secondary {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+}
+
+.modal-buttons .btn-secondary:hover {
+    background-color: #c0392b;
+}

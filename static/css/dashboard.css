@@ -36,6 +36,47 @@
     font-weight: bold;
 }
 
+/* 统一管理按钮 */
+.management-tools {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+/* 价格管理按钮 */
+.btn-blue {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-blue:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+/* 数据报告按钮 */
+.btn-purple {
+    background-color: #8e44ad;
+    color: white;
+    padding: 10px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-purple:hover {
+    background-color: #732d91;
+    transform: scale(1.05);
+}
+
 /* 充电宝管理和订单管理的卡片 */
 .management-card {
     background: rgba(255, 255, 255, 0.9);
@@ -84,7 +125,6 @@
     background: white;
 }
 
-
 /* 根据电池电量调整颜色 */
 /* 低电量 */
 .text-danger {
@@ -104,12 +144,19 @@
     font-weight: bold;
 }
 
-/* 按钮优化 */
-.btn-orange, .btn-danger {
-    border-radius: 6px;
-    padding: 6px 12px;
+.text-primary{
     font-weight: bold;
+}
+
+/* 统一按钮格式 */
+.btn {
+    border-radius: 6px;
+    padding: 8px 12px;
+    text-align: center;
+    display: inline-block;
     transition: all 0.3s ease-in-out;
+    color: white;
+    font-weight: bold;
 }
 
 .btn-orange {
@@ -129,6 +176,16 @@
 
 .btn-danger:hover {
     background-color: #a93226;
+    transform: scale(1.05);
+}
+
+.btn-green{
+    background-color: #1e8449;
+    color: white;
+}
+
+.btn-green:hover {
+    background-color: #145a32;
     transform: scale(1.05);
 }
 

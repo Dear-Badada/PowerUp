@@ -1,9 +1,8 @@
 {% extends 'includes/base.html' %}
 {% load static %}
 {% block title %}Power Banks in {{ station.name }}{% endblock %}
-
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/powerbank_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/powerbank_list.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -31,11 +30,11 @@
                 <td class="{% if powerbank.status == 'available' %}text-success{% elif powerbank.status == 'rented' %}text-warning{% else %}text-danger{% endif %}">
                     {{ powerbank.get_status_display }}
                 </td>
-                <td>
+                <td class="actions">
                     {% if powerbank.status == "damaged" %}
-                        <button class="btn btn-info repair-btn" data-id="{{ powerbank.id }}">Repair</button>
+                        <button class="btn btn-repair repair-btn" data-id="{{ powerbank.id }}">Repair</button>
                     {% else %}
-                        <a href="{% url 'update_powerbank_status' powerbank.id %}" class="btn btn-warning">Update</a>
+                        <button class="btn btn-warning update-btn" data-id="{{ powerbank.id }}">Update</button>
                     {% endif %}
                     <button class="btn btn-danger delete-btn" data-id="{{ powerbank.id }}">Delete</button>
                 </td>
@@ -48,20 +47,22 @@
         </tbody>
     </table>
 
-    <!-- 删除确认模态框 -->
-    <div id="confirmDeleteModal" class="modal">
-        <div class="modal-content">
-            <h4>Confirm Deletion</h4>
-            <p>Are you sure you want to delete this power bank?</p>
-            <button id="confirmDelete" class="btn btn-danger">Yes, Delete</button>
-            <button id="cancelDelete" class="btn btn-secondary">Cancel</button>
+    <!-- 统一确认操作弹窗 -->
+    <div id="confirmActionModal" class="modal">
+        <h2><span id="actionTitle">Confirm Action</span></h2>
+        <p id="actionMessage">Are you sure you want to proceed?</p>
+        <div class="modal-buttons">
+            <button id="confirmAction" class="btn btn-primary">Confirm</button>
+            <button id="cancelAction" class="btn btn-secondary">Cancel</button>
         </div>
     </div>
 
+
     <div class="text-center mt-4">
-        <a href="{% url 'station_list_manager' %}" class="btn btn-secondary">Stations</a>
-        <a href="{% url 'manager_dashboard' %}" class="btn btn-success ms-3">Dashboard</a>
+        <a href="{% url 'station_list_manager' %}" class="btn btn-secondary custom-nav-btn">Stations</a>
+        <a href="{% url 'manager_dashboard' %}" class="btn btn-success custom-nav-btn">Dashboard</a>
     </div>
+
 </div>
 
 <script src="{% static 'js/powerbank_list.js' %}"></script>

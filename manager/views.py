@@ -1,9 +1,11 @@
 from decimal import Decimal
 from django.contrib.auth import login
+from django.db import IntegrityError
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from django.utils import timezone
 from order.models import Order, RefundRequest
 from powerbank.models import Station, PowerBank, Pricing
@@ -23,7 +25,7 @@ def manager_login_view(request):
 
         if user.check_password(password):
             login(request, user)  # 直接使用 login() 登录
-            messages.success(request, "Admin login successful!")
+            messages.success(request, "<Manager login successful!")
             return redirect("manager_dashboard")
         else:
             messages.error(request, "Invalid username or password.")
@@ -47,6 +49,12 @@ def manager_dashboard(request):
 
 # ======【充电宝管理】======
 @login_required
+def powerbank_details(request, powerbank_id):
+    """ 充电宝详情页面 """
+    power_bank = get_object_or_404(PowerBank, id=powerbank_id)
+    return render(request, "manager/manager_powerbank_details.html", {"power_bank": power_bank})
+
+@login_required
 def powerbank_list(request, station_id):
     """查看指定站点的充电宝列表"""
     station = get_object_or_404(Station, id=station_id)
@@ -68,31 +76,34 @@ def update_powerbank_status(request, powerbank_id):
         power_bank.status = "available"
     elif power_bank.status == "damaged":
         messages.warning(request, "Damaged power banks must be repaired manually.")
-        return redirect("powerbank_list", station_id=power_bank.station.id)
+        return redirect(reverse("powerbank_list", kwargs={"station_id": power_bank.station.id}))
 
     power_bank.save()
     messages.success(request, f"Power bank status updated to {power_bank.get_status_display()}.")
-    return redirect("powerbank_list", station_id=power_bank.station.id)
-
-
-@login_required
-def delete_powerbank(request, powerbank_id):
-    """删除充电宝"""
-    power_bank = get_object_or_404(PowerBank, id=powerbank_id)
-    station_id = power_bank.station.id
-    power_bank.delete()
-    messages.success(request, "Power bank deleted successfully.")
-    return redirect("powerbank_list", station_id=station_id)
+    return redirect(reverse("powerbank_list", kwargs={"station_id": power_bank.station.id}))
 
 @login_required
 def repair_powerbank(request, powerbank_id):
-    """修复充电宝"""
+    """管理员修复损坏的充电宝"""
     power_bank = get_object_or_404(PowerBank, id=powerbank_id)
+
     if power_bank.status == "damaged":
         power_bank.status = "available"
         power_bank.save()
         return JsonResponse({"success": True, "message": "Power bank repaired successfully."})
-    return JsonResponse({"success": False, "message": "Invalid status for repair."})
+
+    return JsonResponse({"success": False, "message": "Power bank is not damaged."}, status=400)
+
+@login_required
+def delete_powerbank(request, powerbank_id):
+    """管理员删除充电宝"""
+    power_bank = get_object_or_404(PowerBank, id=powerbank_id)
+
+    if request.method == "POST":
+        power_bank.delete()
+        return JsonResponse({"success": True, "message": "Power bank deleted successfully."})
+
+    return JsonResponse({"success": False, "message": "Invalid request."}, status=400)
 
 
 # ======【站点管理】======
@@ -102,31 +113,54 @@ def station_list_manager(request):
     stations = Station.objects.all()
     return render(request, "manager/station_list.html", {"stations": stations})
 
-
 @login_required
 def create_station(request):
     """ 创建新站点 """
     if request.method == "POST":
         form = StationForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Station created successfully.")
-            return redirect("station_list_admin")
+            try:
+                name = form.cleaned_data["name"]
+                location = form.cleaned_data["location"]
+
+                if Station.objects.filter(name=name).exists():
+                    messages.error(request, "A station with this name already exists.")
+                    return render(request, "manager/create_station.html", {"form": form})
+
+                if Station.objects.filter(location=location).exists():
+                    messages.error(request, "A station at this location already exists.")
+                    return render(request, "manager/create_station.html", {"form": form})
+
+                form.save()
+                messages.success(request, "Station created successfully.")
+                return redirect("station_list_manager")
+
+            except IntegrityError:
+                messages.error(request, "Database error: This station already exists.")
         else:
             messages.error(request, "Invalid data. Please check the form.")
+
     else:
         form = StationForm()
 
     return render(request, "manager/create_station.html", {"form": form})
 
-
 @login_required
 def delete_station(request, station_id):
     """ 删除站点 """
     station = get_object_or_404(Station, id=station_id)
-    station.delete()
-    messages.success(request, "Station deleted successfully.")
-    return redirect("station_list_admin")
+
+    if request.method == "POST":
+        station.delete()
+        return JsonResponse({"success": True, "message": "Station deleted successfully."})
+
+    return JsonResponse({"success": False, "message": "Invalid request."}, status=400)
+
+# ======【报告管理】======
+@login_required
+def manager_reports(request):
+    """ 管理员查看数据报告 """
+    return render(request, "manager/manager_reports.html")
 
 
 # ======【退款管理】======
@@ -171,6 +205,7 @@ def handle_refund_request(request, refund_request_id):
 
     return render(request, "manager/refund_request_detail.html", {"refund_request": refund_request})
 
+# ======【价格管理】======
 @login_required
 def update_pricing(request):
     """管理员修改租赁价格和押金"""

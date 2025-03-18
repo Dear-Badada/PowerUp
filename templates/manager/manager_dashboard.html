@@ -26,6 +26,12 @@
         </div>
     </div>
 
+    <!-- 管理员工具 -->
+    <div class="management-tools">
+        <a href="{% url 'update_pricing' %}" class="btn btn-blue">Update Pricing</a>
+        <a href="{% url 'manager_reports' %}" class="btn btn-purple">Reports</a>
+    </div>
+
     <!-- 充电宝管理 -->
     <div class="management-card">
         <h3 class="title-text"><i class="fas fa-bolt"></i> Power Bank Management</h3>
@@ -53,8 +59,9 @@
                         {{ powerbank.status }}
                     </td>
                     <td>
-                        <a href="{% url 'powerbank_list' powerbank.station.id %}" class="btn btn-sm btn-orange">Update</a>
-                        <a href="{% url 'delete_powerbank' powerbank.id %}" class="btn btn-sm btn-danger delete-btn">Delete</a>
+                        <a href="{% url 'powerbank_details' powerbank.id %}" class="btn btn-green">Details</a>
+                        <a href="{% url 'powerbank_list' powerbank.station.id %}" class="btn btn-orange">Manage</a>
+                        <a href="{% url 'delete_powerbank' powerbank.id %}" class="btn btn-danger delete-btn">Delete</a>
                     </td>
                 </tr>
                 {% empty %}
