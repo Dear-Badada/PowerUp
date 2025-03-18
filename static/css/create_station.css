@@ -9,15 +9,6 @@
     text-align: center;
 }
 
-/* 标题样式 */
-h2 {
-    font-size: 26px;
-    color: #1e8449;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
 /* 表单样式 */
 form {
     background-color: #ffffff;

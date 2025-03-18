@@ -1,38 +1,46 @@
 {% extends "includes/base.html" %}
-
+{% load static %}
+{% block title %}Refund Requests{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/refund_requests_list.css' %}">
+{% endblock %}
 {% block content %}
-<h2>Refund Requests</h2>
 
-<!-- 退款申请列表 -->
-<table class="table">
-    <thead>
-        <tr>
-            <th>Order ID</th>
-            <th>User</th>
-            <th>Reason</th>
-            <th>Status</th>
-            <th>Processed At</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for refund_request in refund_requests %}
-        <tr>
-            <td>{{ refund_request.order.id }}</td>
-            <td>{{ refund_request.user.username }} ({{ refund_request.user.email }})</td>
-            <td>{{ refund_request.reason }}</td>
-            <td>{{ refund_request.status }}</td>
-            <td>{% if refund_request.processed_at %}{{ refund_request.processed_at }}{% else %}pending{% endif %}</td>
-            <td>
-                <a href="{% url 'handle_refund_request' refund_request.id %}" class="btn btn-primary">View Details</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<h2 class="page-title">
+    <i class="fa-solid fa-circle-xmark icon-spacing"></i> Refund Requests
+</h2>
 
-{% if not refund_requests %}
-    <p>No refund requests found.</p>
-{% endif %}
+<div class="container">
+    <table class="refund-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Processed At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in refund_requests %}
+            <tr>
+                <td>{{ request.id }}</td>
+                <td>{{ request.reason }}</td>
+                <td class="status-{{ request.status|lower }}">{{ request.status }}</td>
+                <td>{{ request.processed_at|default:"Pending" }}</td>
+                <td>
+                    <a href="{% url 'refund_request_detail' request.id %}" class="btn btn-pink">View Details</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No refund requests found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
+    <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
+
+</div>
 {% endblock %}

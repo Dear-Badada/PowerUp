@@ -1,19 +1,11 @@
-/* 页面标题 */
-.page-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #1e8449;
-    margin-bottom: 20px;
-}
-
 /* 充电宝详情卡片 */
 .powerbank-card {
     background: rgba(255, 255, 255, 0.9);
     padding: 20px;
+    margin: 30px auto;
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
     max-width: 600px;
-    margin: 0 auto;
 }
 
 /* 详情表格 */
@@ -21,7 +13,6 @@
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    overflow: hidden;
 }
 
 .details-table th, .details-table td {
@@ -45,7 +36,7 @@
 }
 
 /* 统一按钮样式 */
-.btn-repair, .btn-back {
+.btn-repair {
     padding: 10px 15px;
     border-radius: 6px;
     font-size: 16px;
@@ -63,15 +54,5 @@
 
 .btn-repair:hover {
     background-color: #d35400;
-    transform: scale(1.05);
-}
-
-/* 返回按钮 */
-.btn-back {
-    background-color: #6c757d;
-}
-
-.btn-back:hover {
-    background-color: #5a6268;
     transform: scale(1.05);
 }

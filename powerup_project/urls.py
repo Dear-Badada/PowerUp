@@ -6,7 +6,7 @@ from powerbank.views import station_list, station_detail
 from users.views import home, user_login, rent_powerbank, return_powerbank, register, recharge_wallet, view_wallet
 from manager.views import manager_login_view, create_station, delete_station, powerbank_list, \
     delete_powerbank, update_powerbank_status, update_pricing, handle_refund_request, refund_requests_list, \
-    manager_dashboard, station_list_manager, repair_powerbank, powerbank_details, manager_reports
+    manager_dashboard, station_list_manager, repair_powerbank, powerbank_details, manager_reports, refund_request_detail
 
 urlpatterns = [
     path('', home, name='home'),  # 主页
@@ -54,6 +54,8 @@ urlpatterns = [
     path("manager/pricing/update/", update_pricing, name="update_pricing"),
 
     # 退款管理
+    # 退款管理
     path('manager/refund-requests/', refund_requests_list, name='refund_requests_list'),
-    path('manager/refund-request/<int:refund_request_id>/handle/', handle_refund_request, name='handle_refund_request'),
+    path('manager/refund-requests/<int:refund_request_id>/', refund_request_detail, name='refund_request_detail'),
+    path('manager/refund-requests/<int:refund_request_id>/handle/', handle_refund_request, name='handle_refund_request'),
 ]

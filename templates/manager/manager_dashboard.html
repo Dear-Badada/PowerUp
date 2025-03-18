@@ -7,9 +7,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2 class="text-center text-green"><i class="fas fa-tools"></i> Manager Dashboard</h2>
+<h2 class="page-title">
+    <i class="fas fa-tools icon-spacing"></i> Manager Dashboard
+</h2>
 
+<div class="dashboard-container">
     <!-- 统计卡片 -->
     <div class="stat-row">
         <div class="stat-card">
@@ -28,8 +30,15 @@
 
     <!-- 管理员工具 -->
     <div class="management-tools">
-        <a href="{% url 'update_pricing' %}" class="btn btn-blue">Update Pricing</a>
-        <a href="{% url 'manager_reports' %}" class="btn btn-purple">Reports</a>
+        <a href="{% url 'update_pricing' %}" class="btn btn-blue">
+            <i class="fas fa-dollar-sign icon-spacing"></i> Update Pricing
+        </a>
+        <a href="{% url 'manager_reports' %}" class="btn btn-purple">
+            <i class="fas fa-chart-line icon-spacing"></i> Reports
+        </a>
+        <a href="{% url 'refund_requests_list' %}" class="btn btn-pink">
+            <i class="fa-solid fa-circle-xmark icon-spacing"></i>Refund Requests
+        </a>
     </div>
 
     <!-- 充电宝管理 -->

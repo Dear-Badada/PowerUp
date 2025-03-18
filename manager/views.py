@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils import timezone
-from order.models import Order, RefundRequest
+from order.models import Order, RefundRequest, Transaction
 from powerbank.models import Station, PowerBank, Pricing
 from .forms import StationForm, PricingForm
 from users.models import User
@@ -160,20 +160,53 @@ def delete_station(request, station_id):
 @login_required
 def manager_reports(request):
     """ 管理员查看数据报告 """
-    return render(request, "manager/manager_reports.html")
+    recent_transactions = Transaction.objects.all().order_by('-created_at')[:5]
+    recent_orders = Order.objects.all().order_by('-start_time')[:5]
 
+    return render(request, "manager/manager_reports.html", {
+        "recent_transactions": recent_transactions,
+        "recent_orders": recent_orders
+    })
+
+# ======【价格管理】======
+@login_required
+def update_pricing(request):
+    """管理员修改租赁价格和押金"""
+    pricing = Pricing.objects.first()  # 获取现有的定价信息
+    if not pricing:
+        pricing = Pricing.objects.create(hourly_rate=1.00, deposit_amount=15.0)
+
+    if request.method == "POST":
+        form = PricingForm(request.POST, instance=pricing)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Pricing updated successfully.")
+            return redirect("manager_dashboard")
+        else:
+            messages.error(request, "Invalid input. Please check the form.")
+    else:
+        form = PricingForm(instance=pricing)
+
+    return render(request, "manager/update_pricing.html", {"form": form})
 
 # ======【退款管理】======
 @login_required
 def refund_requests_list(request):
     """ 显示所有退款申请 """
-    refund_requests = RefundRequest.objects.all()
+    refund_requests = RefundRequest.objects.all().order_by("-processed_at")
     return render(request, "manager/refund_requests_list.html", {"refund_requests": refund_requests})
 
 
 @login_required
+def refund_request_detail(request, refund_request_id):
+    """ 显示退款申请的详细信息 """
+    refund_request = get_object_or_404(RefundRequest, id=refund_request_id)
+    return render(request, "manager/refund_request_detail.html", {"refund_request": refund_request})
+
+
+@login_required
 def handle_refund_request(request, refund_request_id):
-    """管理员处理退款申请（同意或拒绝）"""
+    """ 管理员处理退款申请（同意或拒绝） """
     refund_request = get_object_or_404(RefundRequest, id=refund_request_id)
     order = refund_request.order
     user = refund_request.user
@@ -204,24 +237,3 @@ def handle_refund_request(request, refund_request_id):
         return redirect("refund_requests_list")
 
     return render(request, "manager/refund_request_detail.html", {"refund_request": refund_request})
-
-# ======【价格管理】======
-@login_required
-def update_pricing(request):
-    """管理员修改租赁价格和押金"""
-    pricing = Pricing.objects.first()  # 获取现有的定价信息
-    if not pricing:
-        pricing = Pricing.objects.create(hourly_rate=1.00, deposit_amount=15.00)  # 默认值
-
-    if request.method == "POST":
-        form = PricingForm(request.POST, instance=pricing)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Pricing updated successfully.")
-            return redirect("update_pricing")
-        else:
-            messages.error(request, "Invalid input. Please check the form.")
-    else:
-        form = PricingForm(instance=pricing)
-
-    return render(request, "manager/update_pricing.html", {"form": form})

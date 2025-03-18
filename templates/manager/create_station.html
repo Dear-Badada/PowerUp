@@ -6,9 +6,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>Create New Station</h2>
+<h2 class="page-title">
+    <i class="fas fa-plus-circle"></i> Create New Station
+</h2>
 
+<div class="container">
     <!-- 显示创建站点的表单 -->
     <form id="createStationForm" method="post">
         {% csrf_token %}

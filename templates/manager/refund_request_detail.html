@@ -1,21 +1,55 @@
 {% extends "includes/base.html" %}
-
+{% load static %}
+{% block title %}Refund Request Details{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/refund_request_detail.css' %}">
+{% endblock %}
 {% block content %}
-<h2>Refund Request Details</h2>
 
-<!-- 显示退款申请详细信息 -->
-<p><strong>Order ID:</strong> {{ refund_request.order.id }}</p>
-<p><strong>User:</strong> {{ refund_request.user.username }} ({{ refund_request.user.email }})</p>
-<p><strong>Reason:</strong> {{ refund_request.reason }}</p>
-<p><strong>Status:</strong> {{ refund_request.status }}</p>
-<p><strong>Processed At:</strong> {% if refund_request.processed_at %}{{ refund_request.processed_at }}{% else %}pending{% endif %}</p>
+<h2 class="page-title">
+    <i class="fa-solid fa-circle-xmark icon-spacing"></i> Refund Request Details
+</h2>
 
-<!-- 退款处理表单 -->
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" name="action" value="approve" class="btn btn-success">Approve Refund</button>
-    <button type="submit" name="action" value="reject" class="btn btn-danger">Reject Refund</button>
-</form>
+<div class="container">
+    <table class="refund-table">
+        <tr>
+            <th>ID</th>
+            <td>{{ refund_request.id }}</td>
+        </tr>
+        <tr>
+            <th>Reason</th>
+            <td>{{ refund_request.reason }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td class="status-{{ refund_request.status|lower }}">{{ refund_request.status }}</td>
+        </tr>
+        <tr>
+            <th>Processed At</th>
+            <td>{{ refund_request.processed_at|default:"Pending" }}</td>
+        </tr>
+        <tr>
+            <th>Order ID</th>
+            <td>{{ refund_request.order_id }}</td>
+        </tr>
+        <tr>
+            <th>User ID</th>
+            <td>{{ refund_request.user_id }}</td>
+        </tr>
+    </table>
 
-<a href="{% url 'refund_requests_list' %}" class="btn btn-secondary">Back to Refund Requests</a>
+    {% if refund_request.status == "pending" %}
+    <form method="post" action="{% url 'handle_refund_request' refund_request.id %}">
+        {% csrf_token %}
+        <button type="submit" name="action" value="approve" class="btn btn-success">Approve</button>
+        <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
+    </form>
+    {% endif %}
+
+    <div class="btn-group">
+        <a href="{% url 'refund_requests_list' %}" class="btn btn-pink">Refund List</a>
+        <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
+    </div>
+
+</div>
 {% endblock %}

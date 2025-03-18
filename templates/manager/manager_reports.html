@@ -1,94 +1,89 @@
 {% extends 'includes/base.html' %}
 {% load static %}
 
-{% block title %}Admin Reports{% endblock %}
-
+{% block title %}Manager Reports{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/manager_repoerts.css' %}">
+{% endblock %}
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center text-primary"><i class="fas fa-chart-line"></i> Admin Reports</h2>
 
-    <!-- 交易记录 -->
-    <div class="card p-4 shadow mt-4">
-        <h4><i class="fas fa-file-invoice-dollar"></i> Recent Transactions</h4>
+<h2 class="page-title">
+    <i class="fas fa-chart-line icon-spacing"></i> Manager Reports
+</h2>
 
-        {% if transactions %}
-        <table class="table mt-3">
-            <thead class="table-success">
+<!-- Recent Transactions -->
+<div class="report-container">
+    <div class="report-header">
+        <h3><i class="fas fa-dollar-sign"></i> Recent Transactions</h3>
+        <button class="btn-view-all" onclick="showAllTransactions()">View All</button>
+    </div>
+    {% if recent_transactions %}
+        <table class="report-table">
+            <thead>
                 <tr>
-                    <th>Transaction ID</th>
-                    <th>User</th>
+                    <th>ID</th>
                     <th>Type</th>
                     <th>Amount</th>
+                    <th>User</th>
                     <th>Date</th>
                 </tr>
             </thead>
             <tbody>
-                {% for transaction in transactions %}
+                {% for transaction in recent_transactions %}
                 <tr>
                     <td>{{ transaction.id }}</td>
-                    <td>{{ transaction.user_id.username }}</td>
-                    <td>
-                        <span class="badge {% if transaction.type == 'rental_fee' %}bg-warning{% elif transaction.type == 'deposit' %}bg-primary{% else %}bg-danger{% endif %}">
-                            {{ transaction.type|title }}
-                        </span>
-                    </td>
-                    <td class="text-success">£{{ transaction.amount }}</td>
-                    <td>{{ transaction.created_at | date:"Y-m-d H:i:s" }}</td>
+                    <td>{{ transaction.type }}</td>
+                    <td>￡{{ transaction.amount }}</td>
+                    <td>{{ transaction.user.username }}</td>
+                    <td class="text-left">{{ transaction.created_at }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        {% else %}
-        <div class="alert alert-warning text-center mt-3">
-            <i class="fas fa-exclamation-circle"></i> No recent transactions found.
-        </div>
-        {% endif %}
+    {% else %}
+        <p class="no-data">⚠ No recent transactions found.</p>
+    {% endif %}
+</div>
+
+<!-- Recent Orders -->
+<div class="report-container">
+    <div class="report-header">
+        <h3><i class="fas fa-file-invoice"></i> Recent Orders</h3>
+        <button class="btn-view-all" onclick="showAllOrders()">View All</button>
     </div>
-
-    <!-- 订单记录 -->
-    <div class="card p-4 shadow mt-4">
-        <h4><i class="fas fa-file-invoice"></i> Recent Orders</h4>
-
-        {% if orders %}
-        <table class="table mt-3">
-            <thead class="table-success">
+        {% if recent_orders %}
+        <table class="report-table">
+            <thead>
                 <tr>
-                    <th>Order ID</th>
+                    <th>ID</th>
                     <th>User</th>
                     <th>Power Bank</th>
+                    <th>Status</th>
+                    <th>Total Cost</th>
                     <th>Start Time</th>
                     <th>End Time</th>
-                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                {% for order in orders %}
+                {% for order in recent_orders %}
                 <tr>
                     <td>{{ order.id }}</td>
-                    <td>{{ order.user_id.username }}</td>
-                    <td>{{ order.power_bank_id }}</td>
-                    <td>{{ order.start_time | date:"Y-m-d H:i:s" }}</td>
-                    <td>{{ order.end_time | date:"Y-m-d H:i:s" }}</td>
-                    <td>
-                        <span class="badge {% if order.order_status == 'ongoing' %}bg-warning{% elif order.order_status == 'completed' %}bg-success{% else %}bg-danger{% endif %}">
-                            {{ order.order_status|title }}
-                        </span>
-                    </td>
+                    <td>{{ order.user.username }}</td>
+                    <td>{{ order.power_bank.id }}</td>
+                    <td>{{ order.order_status }}</td>
+                    <td>￡{{ order.total_cost }}</td>
+                    <td class="text-left">{{ order.start_time }}</td>
+                    <td class="text-left">{{ order.end_time|default:"-" }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        {% else %}
-        <div class="alert alert-warning text-center mt-3">
-            <i class="fas fa-exclamation-circle"></i> No recent orders found.
-        </div>
-        {% endif %}
-    </div>
+    {% else %}
+        <p class="no-data">⚠ No recent orders found.</p>
+    {% endif %}
+</div>
 
-    <div class="text-center mt-4">
-        <a href="{% url 'admin_dashboard' %}" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Back to Dashboard
-        </a>
-    </div>
+<div class="text-center">
+    <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
 </div>
 {% endblock %}

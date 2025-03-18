@@ -6,10 +6,12 @@
 {% endblock %}
 
 {% block content %}
+
+<h2 class="page-title">
+    <i class="fas fa-bolt icon-spacing"></i> Power Banks in {{ station.name }}
+</h2>
+
 <div class="container">
-    <h2 class="text-center text-green">
-        <i class="fas fa-bolt"></i> Power Banks in {{ station.name }}
-    </h2>
 
     <table class="custom-table">
         <thead>
@@ -57,10 +59,9 @@
         </div>
     </div>
 
-
     <div class="text-center mt-4">
-        <a href="{% url 'station_list_manager' %}" class="btn btn-secondary custom-nav-btn">Stations</a>
-        <a href="{% url 'manager_dashboard' %}" class="btn btn-success custom-nav-btn">Dashboard</a>
+        <a href="{% url 'station_list_manager' %}" class="btn btn-station">Stations</a>
+        <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
     </div>
 
 </div>

@@ -432,7 +432,7 @@ button:disabled {
     justify-content: center;
 }
 
-/* 统一确认按钮（绿色） */
+/* 统一确认按钮 */
 .modal-buttons .btn-primary {
     background-color: #1e8449;
     color: white;
@@ -443,7 +443,7 @@ button:disabled {
     background-color: #145a32;
 }
 
-/* 统一取消按钮（红色） */
+/* 统一取消按钮 */
 .modal-buttons .btn-secondary {
     background-color: #e74c3c;
     color: white;
@@ -452,4 +452,39 @@ button:disabled {
 
 .modal-buttons .btn-secondary:hover {
     background-color: #c0392b;
+}
+
+/* 页面标题 */
+.page-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1e8449;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Dashboard 按钮 */
+.btn-dashboard {
+    width: 350px;
+    height: auto;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #6c757d;
+    color: white;
+    text-align: center;
+    display: block;
+    margin: 20px auto;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-dashboard:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
 }

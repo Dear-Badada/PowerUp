@@ -1,0 +1,83 @@
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.refund-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.refund-table th,
+.refund-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.refund-table th {
+    background: #e67e22;
+    color: white;
+    text-align: left;
+}
+
+.refund-table .status-pending {
+    color: #f39c12;
+    font-weight: bold;
+}
+
+.refund-table .status-approved {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+.refund-table .status-rejected {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    min-width: 150px; /* 保证按钮大小一致 */
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+.btn-success {
+    background: #27ae60;
+    color: white;
+}
+
+.btn-danger {
+    background: #c0392b;
+    color: white;
+}
+
+.btn-pink {
+    background: #e84393;
+    color: white;
+}
+
+.btn-dashboard {
+    background: #3498db;
+    color: white;
+}

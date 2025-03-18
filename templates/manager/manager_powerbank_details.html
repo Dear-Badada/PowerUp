@@ -5,10 +5,12 @@
 <link rel="stylesheet" href="{% static 'css/manager_powerbank_details.css' %}">
 {% endblock %}
 {% block content %}
+
+<h2 class="page-title">
+    <i class="fas fa-battery-full icon-spacing"></i> Power Bank Details
+</h2>
+
 <div class="container mt-4">
-    <h2 class="text-center page-title">
-        <i class="fas fa-info-circle"></i> Power Bank Details
-    </h2>
 
     <div class="powerbank-card">
         <table class="details-table">
@@ -39,11 +41,11 @@
             <form method="POST" action="{% url 'fix_powerbank' power_bank.id %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-repair">
-                    <i class="fas fa-tools"></i> Fix
+                    <i class="fas fa-tools icon-spacing"></i> Fix
                 </button>
             </form>
             {% endif %}
-            <a href="{% url 'manager_dashboard' %}" class="btn btn-back">Dashboard</a>
+            <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
         </div>
     </div>
 </div>

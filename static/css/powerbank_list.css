@@ -118,22 +118,12 @@
     margin: 0 20px;
 }
 
-/* Stations 按钮 */
-.custom-nav-btn.btn-secondary {
+/* Station 按钮 */
+.btn-station {
     background-color: #6c757d;
     color: white;
 }
 
-.custom-nav-btn.btn-secondary:hover {
+.btn-station:hover {
     background-color: #5a6268;
-}
-
-/* Dashboard 按钮 */
-.custom-nav-btn.btn-success {
-    background-color: #1e8449;
-    color: white;
-}
-
-.custom-nav-btn.btn-success:hover {
-    background-color: #145a32;
 }
