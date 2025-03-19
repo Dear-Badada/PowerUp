@@ -1,6 +1,6 @@
 /*global DateTimeShortcuts, SelectFilter*/
 /**
- * Django manager inlines
+ * Django admin inlines
  *
  * Based on jQuery Formset 1.1
  * @author Stanislaus Madueke (stan DOT madueke AT gmail DOT com)
@@ -340,7 +340,7 @@
     };
 
     $(document).ready(function() {
-        $(".js-inline-manager-formset").each(function() {
+        $(".js-inline-admin-formset").each(function() {
             const data = $(this).data(),
                 inlineOptions = data.inlineFormset;
             let selector;
