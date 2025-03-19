@@ -1,0 +1,199 @@
+/* 仪表板整体布局 */
+.dashboard-container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 统计卡片布局 */
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    gap: 20px;
+    max-width: 1000px;
+}
+
+/* 统计卡片 */
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    min-width: 300px;
+}
+
+.stat-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: bold;
+    margin: auto;
+}
+
+/* 统计卡片的颜色 */
+.text-blue { color: #007bff; }
+.text-orange { color: #e67e22; }
+.text-red { color: #c0392b; }
+
+/* 按钮样式 */
+.btn {
+    border-radius: 8px;
+    padding: 10px 16px;
+    text-align: center;
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+}
+
+/* 价格管理 & 报告管理按钮 */
+.btn-blue, .btn-purple, .btn-pink, .btn-green {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 18px;
+    min-width: 250px;
+    font-weight: bold;
+    text-align: center;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* 价格管理按钮 */
+.btn-blue {
+    background-color: #3498db;
+    color: white;
+    border: none;
+}
+
+.btn-blue:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+/* 报告按钮 */
+.btn-purple {
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+}
+
+.btn-purple:hover {
+    background-color: #6c3483;
+    transform: scale(1.05);
+}
+
+/* 退款按钮 */
+.btn-pink {
+    background-color: #e91e63;
+    color: white;
+}
+
+.btn-pink:hover {
+    background-color: #c2185b;
+    transform: scale(1.05);
+}
+
+/* 站点管理按钮 */
+.btn-green {
+    background-color: #1e8449;
+    color: white;
+}
+
+.btn-green:hover {
+    background-color: #145a32;
+    transform: scale(1.05);
+}
+
+/* 仪表板管理工具栏 */
+.management-tools {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    height: 70px;
+    margin: 50px auto;
+}
+
+/* 充电宝管理 & 订单管理卡片 */
+.management-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* 充电宝管理标题 */
+.title-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e8449;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.title-text i {
+    margin-right: 8px;
+}
+
+/* 表格优化 */
+.custom-table {
+    width: 90%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.custom-table th {
+    background-color: #d4edda;
+    color: black;
+    padding: 12px;
+    text-align: center;
+    border-right: 2px solid #ffffff;
+}
+
+.custom-table td {
+    padding: 10px;
+    text-align: center;
+    background: white;
+    border-right: 2px solid #d4edda;
+}
+
+.text-primary {
+    font-weight: bold;
+}
+
+/* Logout 按钮 */
+.logout-btn {
+    width: 150px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 14px;
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    margin: 80px auto;
+}
+
+.logout-btn:hover {
+    background-color: #a93226;
+    transform: scale(1.05);
+    text-decoration: none;
+}

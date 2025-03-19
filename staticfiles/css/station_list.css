@@ -1,0 +1,107 @@
+/* 站点列表 */
+.station-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 35px;
+    margin: 30px;
+}
+
+/* 站点卡片优化 */
+.station-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 24px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 6px solid #1e8449;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* 站点信息区域 */
+.station-info {
+    flex-grow: 0;
+    margin-bottom: 10px;
+}
+
+/* 站点名称 */
+.station-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e8449;
+    margin-bottom: 10px;
+    height: 50px;
+}
+
+/* 站点地址 */
+.station-location {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 10px;
+    height: 50px;
+}
+
+/* 操作按钮 */
+.station-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* 统一按钮大小 */
+.station-actions .btn {
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48%;
+}
+
+/* 按钮内的图标间距 */
+.icon-spacing {
+    margin-right: 8px;
+}
+
+/* 添加站点按钮 */
+.btn-add {
+    background-color: #1e8449;
+    color: white;
+    font-weight: bold;
+    padding: 12px 18px;
+    font-size: 14px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.btn-add:hover {
+    background-color: #145a32;
+}
+
+/* 管理充电宝按钮 */
+.btn-manage {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+}
+
+.btn-manage:hover {
+    background-color: #d35400;
+}
+
+/* 删除按钮 */
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}

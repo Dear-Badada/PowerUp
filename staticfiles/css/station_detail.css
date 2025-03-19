@@ -1,0 +1,61 @@
+.station-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    max-width: 750px;
+    margin: auto;
+}
+
+/* 站点位置 */
+.station-location {
+    text-align: center;
+    font-size: 16px;
+    color: #444;
+}
+
+/* 充电宝列表 */
+.power-bank-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 充电宝卡片 */
+.power-bank-card {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.power-bank-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.powerbank-action .btn {
+    padding: 10px 12px;
+    font-size: 15px;
+    font-weight: bold;
+    height: auto;
+    width: 80px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: none;
+    color: white;
+}
+
+.btn-s {
+    margin-top: 40px;
+    min-width: 350px;
+    height: auto;
+}

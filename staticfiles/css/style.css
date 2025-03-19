@@ -1,0 +1,551 @@
+body {
+    background-image: url("../images/PowerUp-8.jpg");
+    background-size: cover;
+    background-position: center top 50%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #a9c39f;
+}
+
+/* 表单容器 */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    max-width: 420px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* 标题样式 */
+h2 {
+    font-size: 26px;
+    color: #1e8449;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 输入框样式 */
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #d5dbdb;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 输入框聚焦时的效果 */
+input[type="text"]:focus, input[type="password"]:focus, select:focus {
+    border-color: #27ae60;
+    box-shadow: 0 0 8px rgba(39, 174, 96, 0.5);
+    outline: none;
+}
+
+/* 按钮样式 */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #27ae60;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2);
+}
+
+/* 按钮 hover 效果 */
+button:hover {
+    background-color: #2ecc71;
+    transform: scale(1.02);
+}
+
+/* 页面顶部导航栏 */
+nav {
+    background-color: #1e8449;
+    padding: 12px 20px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+nav a:hover {
+    color: #d5dbdb;  /* 变浅灰色 */
+    transform: scale(1.1);  /* 轻微放大 */
+}
+
+/* 租借站点的标题加粗 */
+.form-label {
+    font-weight: bold;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    text-decoration: none !important;
+    margin-left: 0 ;
+    padding-left: 10px;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto;
+}
+
+.navbar-right a {
+    text-decoration: none !important;
+    color: white;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-right a:hover {
+    opacity: 0.8;
+    text-decoration: none !important;
+}
+
+
+.navbar-right a b {
+    text-decoration: none !important;
+}
+
+.navbar-logo {
+    width: 40px;
+    height: auto;
+}
+
+/* 错误提示框 */
+.error-message {
+    color: #e74c3c;
+    background-color: #f8d7da;
+    border: 1px solid #e74c3c;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* 输入框验证错误时的样式 */
+input:invalid {
+    border: 2px solid #e74c3c;
+}
+
+input:focus:invalid {
+    outline: none;
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.7); /* 红色阴影效果 */
+}
+
+/* 数据表格优化 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #27ae60;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f0fdf4;
+}
+
+/* 反馈单选框样式 */
+.form-check-label {
+    font-size: 1.1rem;
+}
+
+.form-check-input:checked {
+    background-color: #27ae60;
+    border-color: #27ae60;
+}
+
+/* 按钮加载动画 */
+button:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+/* 归还按钮加载动画 */
+.return-btn:disabled::after {
+    content: " ⏳";
+    animation: loadingDots 1s infinite;
+}
+
+@keyframes loadingDots {
+    0% { content: " ⏳"; }
+    33% { content: " ⏳."; }
+    66% { content: " ⏳.."; }
+    100% { content: " ⏳..."; }
+}
+
+.welcome-text {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #064224;
+    text-shadow: none;
+    margin-bottom: 25px;
+}
+
+.subtext {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #064224;
+}
+
+.btn-custom {
+    padding: 14px 28px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 15px;
+    color: white;
+    border: 3px solid #1e8449;
+}
+/* Logo 样式 */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.logo-container img {
+    width: 100px;
+    height: auto;
+}
+
+.start-now-button {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    background: #1e8449;
+}
+
+#rent-btn {
+    width: auto;
+    padding: 10px 30px;
+}
+
+.action-btn {
+    width: 110px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+}
+
+.welcome-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #1e8449;
+}
+
+/* 充电宝 ID */
+.power-bank-info {
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 电池图标 */
+.power-bank-icon {
+    font-size: 22px;
+    color: #1e8449;
+}
+
+/* 电量百分比 */
+.battery-level {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    width: 50px;
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 返回按钮 */
+.back-btn {
+    display: inline-block;
+    background: #ffffff;
+    border: 2px solid #1e8449;
+    color: #1e8449;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+
+/* 页面标题 */
+.page-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1e8449;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 单一返回按钮 */
+.btn-dashboard,.btn-greenwhite {
+    width: 350px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    display: block;
+    margin: 20px auto;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    color: white;
+}
+
+/* Dashboard 按钮 */
+.btn-dashboard {background-color: #3498db;}
+.btn-dashboard:hover {
+    background-color: #2274b0;
+    transform: scale(1.05);
+}
+
+/* 垂直按钮组 */
+.v-button-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-greenwhite {
+    background: white;
+    color: #1E8449;
+    border: 2px solid #1E8449;
+    cursor: pointer;
+    max-width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    height: 50px;
+    margin: 10px auto;
+}
+
+.btn-greenwhite:hover {
+    background: #1E8449;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-small {
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(192, 57, 43, 0.3);
+    text-decoration: none;
+    width: 80px;
+}
+
+/* 按钮 */
+.btn-low-battery {background: #c0392b;}
+.btn-low-battery:hover {background: #e74c3c; ransform: scale(1.05);}
+
+.btn-rent { background-color: #28a745; }
+.btn-rent:hover { background-color: #218838; transform: scale(1.05); }
+
+.btn-stations { background-color: #007bff; }
+.btn-stations:hover { background-color: #0056b3; transform: scale(1.05); }
+
+.btn-recharge { background-color: #f39c12; }
+.btn-recharge:hover { background-color: #e67e22; transform: scale(1.05); }
+
+
+/* 充电宝进度条样式 */
+.power-bank-progress {
+    width: 250px;
+    height: 8px;
+    border-radius: 4px;
+    background: #eee;
+    overflow: hidden;
+}
+.progress-bar {
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+}
+
+.progress-bar.bg-success {background: linear-gradient(to right, #27ae60, #2ecc71);}
+.progress-bar.bg-warning {background: linear-gradient(to right, #f1c40f, #f39c12);}
+.progress-bar.bg-danger {background: linear-gradient(to right, #e74c3c, #c0392b);}
+
+
+/* 按钮间距 */
+.icon-spacing {
+    margin-right: 8px;
+}
+
+/* 余额卡片 */
+.balance-card {
+    background: #E8F5E9;
+    padding: 30px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1E8449;
+    width: auto;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+/* 余额样式 */
+.current-balance {
+    font-size: 18px;
+    font-weight: bold;
+    color: #096336;
+    margin:auto;
+}
+
+/* 充值&钱包 */
+.wallet-container{
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* 弹窗样式 */
+.modal {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 500px;
+    height: auto;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #ddd;
+    z-index: 1050;
+}
+
+/* 弹窗标题 */
+.modal h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* 弹窗内容 */
+.modal p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* 按钮容器 */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* 弹窗按钮大小 */
+.modal-buttons .btn {
+    flex: 1;
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 确认按钮 */
+.modal-buttons .btn-primary {
+    background-color: #1e8449;
+    color: white;
+    border: none;
+}
+.modal-buttons .btn-primary:hover {background-color: #145a32;}
+
+/* 取消按钮 */
+.modal-buttons .btn-secondary {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+}
+.modal-buttons .btn-secondary:hover {background-color: #c0392b;}

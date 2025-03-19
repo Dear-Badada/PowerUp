@@ -1,0 +1,93 @@
+.report-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 标题和 View All 按钮 */
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.report-header h3 {
+    color: #6c5ce7;
+    font-size: 22px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 表格样式 */
+.report-table {
+    width: 100%;
+    table-layout: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.report-table thead {
+    background-color: #c2beef !important;
+    color: white !important;
+    text-align: center;
+}
+
+.report-table th, .report-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.report-table th {
+    background-color: #c2beef !important;
+    color: #4236a4 !important;
+    text-align: center;
+    padding: 12px;
+}
+
+.text-left{
+    text-align: left !important;
+}
+
+.report-table td.text-left {
+    white-space: normal;
+    word-break: break-word;
+}
+
+.report-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.report-table tbody tr:hover {
+    background-color: #eee7ff;
+}
+
+/* View All 按钮 */
+.btn-view-all {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #c2beef;
+    color: #4236a4;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: auto;
+    min-width: 100px;
+}
+
+.btn-view-all:hover {
+    background-color: #6c5ce7;
+    transform: scale(1.05);
+}

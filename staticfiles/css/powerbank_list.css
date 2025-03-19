@@ -1,0 +1,191 @@
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* 统一表头样式 */
+.custom-table th {
+    background-color: #1e8449;
+    color: white;
+    padding: 14px;
+    border-bottom: 2px solid white;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* 表格行统一格式 */
+.custom-table td {
+    padding: 14px;
+    text-align: center;
+    font-size: 16px;
+    /*font-weight: bold;*/
+    height: 50px;
+}
+
+/* 交替颜色 */
+.custom-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.custom-table tr:hover {
+    background-color: #eaf2e3;
+}
+
+/* 统一按钮格式 */
+.btn {
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    width: 95px;
+    height: 40px;
+    text-align: center;
+}
+
+/* 统一 update 按钮 */
+.btn-warning {
+    background-color: #f39c12;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #e67e22;
+}
+
+/* 统一 delete 按钮 */
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* 统一 repair 按钮 */
+.btn-repair {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-repair:hover {
+    background-color: #2980b9;
+}
+
+/* 让按钮在操作列内居中 */
+.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 确保 Repair 按钮宽度一致 */
+.actions .btn-info {
+    width: 90px;
+}
+
+/* 统一按钮大小 */
+.actions .btn {
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    padding: 8px 0;
+}
+
+/* 统一导航按钮格式 */
+.custom-nav-btn {
+    width: 130px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 12px 0;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    margin: 0 20px;
+}
+
+/* Stations 按钮 */
+.custom-nav-btn.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.custom-nav-btn.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Dashboard 按钮 */
+.custom-nav-btn.btn-success {
+    background-color: #1e8449;
+    color: white;
+}
+
+.custom-nav-btn.btn-success:hover {
+    background-color: #145a32;
+}
+
+/* 统一弹窗样式 */
+#confirmActionModal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 400px;
+    padding: 20px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+/* 弹窗标题 */
+#confirmActionModal h2 {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* 弹窗按钮组 */
+#confirmActionModal .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* 统一按钮样式 */
+#confirmActionModal .btn {
+    width: 48%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+}
+
+/* 确认按钮 */
+#confirmActionModal .btn-primary {
+    background-color: #1e8449;
+    border: none;
+}
+
+#confirmActionModal .btn-primary:hover {
+    background-color: #145a32;
+}
+
+/* 取消按钮 */
+#confirmActionModal .btn-secondary {
+    background-color: #e74c3c;
+    border: none;
+}
+
+#confirmActionModal .btn-secondary:hover {
+    background-color: #c0392b;
+}

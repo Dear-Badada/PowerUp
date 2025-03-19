@@ -1,0 +1,51 @@
+/* 表单样式 */
+.pricing-form-container {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+/* 数字输入框样式 */
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #d5dbdb;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 输入框聚焦时的效果 */
+input[type="number"]:focus {
+    border-color: #27ae60;
+    box-shadow: 0 0 8px rgba(39, 174, 96, 0.5);
+    outline: none;
+}
+
+/* 表单标签样式 */
+.pricing-form-container label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #27ae60;
+}
+
+/* 保存按钮 */
+.btn-update-pricing {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #1e8449;
+    color: white;
+    border: none;
+}
+
+.btn-update-pricing:hover {
+    background-color: #145a32;
+    transform: scale(1.05);
+}

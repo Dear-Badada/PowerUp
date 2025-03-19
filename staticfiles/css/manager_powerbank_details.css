@@ -1,0 +1,103 @@
+/* 充电宝详情卡片 */
+.powerbank-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    margin: 30px auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    max-width: 600px;
+}
+
+/* 详情表格 */
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.details-table th, .details-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+.details-table th {
+    background-color: #d4edda;
+    color: #1e8449;
+    width: 35%;
+}
+
+/* 按钮组 */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* 统一按钮样式 */
+.btn-repair {
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    color: white;
+}
+
+/* 修复按钮 */
+.btn-repair {
+    background-color: #e67e22;
+}
+
+.btn-repair:hover {
+    background-color: #d35400;
+    transform: scale(1.05);
+}
+
+/* 统一按钮组 */
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin:20px auto;
+    max-width: 600px;
+    height: auto;
+}
+
+.btn-back, .btn-dash {
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px !important;
+    padding: 12px 24px;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 200px;
+    height: 50px;
+}
+
+/* back 按钮 */
+.btn-back {
+    background-color: #239f57;
+    color: white;
+}
+
+.btn-back:hover {
+    background-color: #1e8449;
+}
+
+/* Dashboard 按钮 */
+.btn-dash {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-dash:hover {
+    background-color: #0056b3;
+}
