@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from order.views import create_order, return_order, report_feedback, view_order
 from powerbank.views import station_list, station_detail
 from users.views import home, user_login, rent_powerbank, return_powerbank, register, recharge_wallet, view_wallet
@@ -8,6 +10,7 @@ from manager.views import manager_login_view, create_station, delete_station, po
     delete_powerbank, update_powerbank_status, update_pricing, handle_refund_request, refund_requests_list, \
     manager_dashboard, station_list_manager, repair_powerbank, powerbank_details, manager_reports, \
     refund_request_detail, all_transactions, all_orders
+
 
 urlpatterns = [
     path('', home, name='home'),  # 主页
@@ -62,3 +65,5 @@ urlpatterns = [
     path('manager/refund-requests/<int:refund_request_id>/', refund_request_detail, name='refund_request_detail'),
     path('manager/refund-requests/<int:refund_request_id>/handle/', handle_refund_request, name='handle_refund_request'),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
