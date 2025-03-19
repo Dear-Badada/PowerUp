@@ -12,19 +12,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // 监听 Logout 按钮
-    const logoutBtn = document.querySelector(".logout-btn");
+    const logoutBtn = document.getElementById("logout-btn");
     if (logoutBtn) {
-        logoutBtn.addEventListener("click", function (event) {
-            event.preventDefault(); // 防止默认提交行为
-            fetch("/logout/", { method: "POST", credentials: "same-origin", headers: { "X-CSRFToken": getCSRFToken() } })
-                .then(response => {
-                    if (response.ok) {
-                        window.location.href = "/"; // 跳转到 home 页
-                    } else {
-                        console.error("Logout failed");
-                    }
-                })
-                .catch(error => console.error("Error:", error));
+        logoutBtn.addEventListener("click", function () {
+            fetch("/logout/", {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "X-CSRFToken": getCSRFToken(),
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "/login/"; // 退出后跳转到登录页
+                } else {
+                    alert("⚠️ Logout failed. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Logout error:", error);
+                alert("⚠️ An error occurred while logging out.");
+            });
         });
     }
 

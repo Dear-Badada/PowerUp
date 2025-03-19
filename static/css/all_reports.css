@@ -1,0 +1,56 @@
+.report-container {
+    max-width: 1200px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 30px auto;
+    align-items: center;
+}
+
+/* 标题样式 */
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* 表格样式 */
+.report-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.report-table thead {
+    background-color: #c2beef !important;
+    color: white !important;
+    text-align: center;
+}
+
+.report-table th, .report-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.report-table th {
+    background-color: #c2beef !important;
+    color: #4236a4 !important;
+    text-align: center;
+    padding: 12px;
+}
+
+/* 隔行变色 */
+.report-table tbody tr:nth-child(odd) {
+    background-color: #f8f9fa;
+}
+
+/* 悬停变色 */
+.report-table tbody tr:hover {
+    background-color: #eee7ff;
+}

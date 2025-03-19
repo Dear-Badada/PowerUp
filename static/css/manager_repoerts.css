@@ -1,20 +1,11 @@
-.container {
-    margin: 30px auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    max-width: 1200px;
-}
-
 .report-container {
     width: 100%;
-    border-radius: 10px;
-    background: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    max-width: 1200px;
     margin: 30px auto;
-    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* 标题和 View All 按钮 */
@@ -47,7 +38,7 @@
 .report-table thead {
     background-color: #c2beef !important;
     color: white !important;
-    font-weight: bold;
+    text-align: center;
 }
 
 .report-table th, .report-table td {
@@ -73,12 +64,12 @@
     word-break: break-word;
 }
 
-.report-table tbody tr:nth-child(odd) {
-    background-color: #f8f9fa !important;
+.report-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
 }
 
 .report-table tbody tr:hover {
-    background-color: #dfe6e9 !important;
+    background-color: #eee7ff;
 }
 
 /* View All 按钮 */

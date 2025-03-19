@@ -30,69 +30,24 @@
 
     <!-- 管理员工具 -->
     <div class="management-tools">
-        <a href="{% url 'update_pricing' %}" class="btn btn-blue">
-            <i class="fas fa-dollar-sign icon-spacing"></i> Update Pricing
+        <a href="{% url 'station_list_manager' %}" class="btn btn-green">
+            <i class="fas fa-charging-station icon-spacing"></i> Manage Stations
         </a>
         <a href="{% url 'manager_reports' %}" class="btn btn-purple">
             <i class="fas fa-chart-line icon-spacing"></i> Reports
+        </a>
+        <a href="{% url 'update_pricing' %}" class="btn btn-blue">
+            <i class="fas fa-dollar-sign icon-spacing"></i> Update Pricing
         </a>
         <a href="{% url 'refund_requests_list' %}" class="btn btn-pink">
             <i class="fa-solid fa-circle-xmark icon-spacing"></i>Refund Requests
         </a>
     </div>
 
-    <!-- 充电宝管理 -->
-    <div class="management-card">
-        <h3 class="title-text"><i class="fas fa-bolt"></i> Power Bank Management</h3>
-        <table class="custom-table text-center">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Battery</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for powerbank in powerbanks %}
-                <tr>
-                    <td>{{ powerbank.id }}</td>
-                    <td class="{% if powerbank.battery_level < 30 %}text-danger
-                                {% elif powerbank.battery_level < 60 %}text-warning
-                                {% else %}text-success{% endif %}">
-                        {{ powerbank.battery_level }}%
-                    </td>
-                    <td class="{% if powerbank.battery_level < 30 %}text-danger
-                                {% elif powerbank.battery_level < 60 %}text-warning
-                                {% else %}text-success{% endif %}">
-                        {{ powerbank.status }}
-                    </td>
-                    <td>
-                        <a href="{% url 'powerbank_details' powerbank.id %}" class="btn btn-green">Details</a>
-                        <a href="{% url 'powerbank_list' powerbank.station.id %}" class="btn btn-orange">Manage</a>
-                        <a href="{% url 'delete_powerbank' powerbank.id %}" class="btn btn-danger delete-btn">Delete</a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4" class="text-muted text-center">No power banks available.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <!-- 最近订单 -->
-    <div class="management-card">
-        <h3 class="title-text"><i class="fas fa-receipt"></i> Recent Orders</h3>
-        <div class="alert alert-warning text-center">
-            <i class="fas fa-exclamation-circle"></i> No recent orders found.
-        </div>
-    </div>
-
-    <!-- Logout 按钮 -->
-    <div class="text-center mt-4">
-        <a href="#" class="logout-btn" onclick="logoutUser()">Logout</a>
+    <div class="text-center">
+        <button id="logout-btn" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
     </div>
 
 </div>

@@ -38,7 +38,7 @@
     {% endif %}
 </div>
 
-    <!-- 用户租借/归还（已登录用户显示） -->
+    <!-- 用户租借/归还 -->
     <div id="user-options" style="display: none;">
         <div class="d-flex flex-column align-items-center">
             <label for="powerbankSelect" class="form-label">Select a Power Bank:</label>
@@ -59,7 +59,7 @@
 
     <!-- 管理员面板（仅管理员显示） -->
     <div id="admin-panel" style="display: none;">
-        <a href="{% url 'station_list_admin' %}" class="btn btn-warning btn-lg btn-custom"><i class="fas fa-user-shield"></i> Admin Panel</a>
+        <a href="{% url 'station_list_manager' %}" class="btn btn-warning btn-lg btn-custom"><i class="fas fa-user-shield"></i> Manager Dashboard</a>
     </div>
 </div>
 

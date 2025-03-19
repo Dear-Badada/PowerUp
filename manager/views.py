@@ -60,7 +60,7 @@ def powerbank_list(request, station_id):
     station = get_object_or_404(Station, id=station_id)
     powerbanks = PowerBank.objects.filter(station=station)
 
-    return render(request, "manager/powerbank_list.html", {
+    return render(request, "manager/manager_powerbank_list.html", {
         "powerbanks": powerbanks,
         "station": station
     })

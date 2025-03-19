@@ -4,26 +4,22 @@
     <link rel="stylesheet" href="{% static 'css/update_pricing.css' %}">
 {% endblock %}
 {% block content %}
-    <h2 class="page-title">
-        <i class="fas fa-dollar-sign icon-spacing"></i>Update Pricing
-    </h2>
+<h2 class="page-title">
+    <i class="fas fa-dollar-sign icon-spacing"></i>Update Pricing
+</h2>
 
-    <div class="update-pricing-container">
-
-        <!-- 表单容器 -->
-        <div class="pricing-form-container">
-            <form method="post">
-                {% csrf_token %}
-                <div class="pricing-form-group">
-                    {{ form.as_p }} <!-- Django 渲染表单字段 -->
-                </div>
-                <button type="submit" class="btn btn-update-pricing">Save Changes</button>
-            </form>
+<!-- 表单容器 -->
+<div class="pricing-form-container">
+    <form method="post">
+        {% csrf_token %}
+        <div class="pricing-form-group">
+            {{ form.as_p }} <!-- Django 渲染表单字段 -->
         </div>
-
-        <!-- 返回按钮 -->
-        <div class="text-center mt-4">
-            <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
-        </div>
-    </div>
+        <button type="submit" class="btn btn-update-pricing">Save Changes</button>
+    </form>
+</div>
+<!-- 返回按钮 -->
+<div class="text-center mt-4">
+    <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
+</div>
 {% endblock %}

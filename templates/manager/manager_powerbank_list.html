@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Power Banks in {{ station.name }}{% endblock %}
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/powerbank_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/manager_powerbank_list.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -27,18 +27,28 @@
             <tr>
                 <td>{{ powerbank.id }}</td>
                 <td class="{% if powerbank.battery_level < 30 %}text-danger{% elif powerbank.battery_level < 60 %}text-warning{% else %}text-success{% endif %}">
+                    <i class="fas fa-battery-{% if powerbank.battery_level < 20 %}empty{% elif powerbank.battery_level < 40 %}quarter{% elif powerbank.battery_level < 60 %}half{% elif powerbank.battery_level < 80 %}three-quarters{% else %}full{% endif %}"></i>
                     {{ powerbank.battery_level }}%
                 </td>
                 <td class="{% if powerbank.status == 'available' %}text-success{% elif powerbank.status == 'rented' %}text-warning{% else %}text-danger{% endif %}">
                     {{ powerbank.get_status_display }}
                 </td>
                 <td class="actions">
+                    <a href="{% url 'powerbank_details' powerbank.id %}" class="btn btn-detail">
+                        <i class="fas fa-info-circle icon-spacing"></i> Details
+                    </a>
                     {% if powerbank.status == "damaged" %}
-                        <button class="btn btn-repair repair-btn" data-id="{{ powerbank.id }}">Repair</button>
+                        <button class="btn btn-repair repair-btn" data-id="{{ powerbank.id }}">
+                            <i class="fas fa-tools icon-spacing"></i> Repair
+                        </button>
                     {% else %}
-                        <button class="btn btn-warning update-btn" data-id="{{ powerbank.id }}">Update</button>
+                        <button class="btn btn-warning update-btn" data-id="{{ powerbank.id }}">
+                            <i class="fas fa-edit icon-spacing"></i> Update
+                        </button>
                     {% endif %}
-                    <button class="btn btn-danger delete-btn" data-id="{{ powerbank.id }}">Delete</button>
+                    <button class="btn btn-danger delete-btn" data-id="{{ powerbank.id }}">
+                        <i class="fas fa-trash icon-spacing"></i> Delete
+                    </button>
                 </td>
             </tr>
             {% empty %}
@@ -59,12 +69,14 @@
         </div>
     </div>
 
-    <div class="text-center mt-4">
-        <a href="{% url 'station_list_manager' %}" class="btn btn-station">Stations</a>
-        <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
+    <div class="btn-group">
+        <a href="{% url 'station_list_manager' %}" class="btn btn-station">
+            <i class="fas fa-charging-station icon-spacing"></i> Stations</a>
+        <a href="{% url 'manager_dashboard' %}" class="btn btn-dash">
+            <i class="fas fa-tachometer-alt icon-spacing"></i> Dashboard</a>
     </div>
 
 </div>
 
-<script src="{% static 'js/powerbank_list.js' %}"></script>
+<script src="{% static 'js/manager_powerbank_list.js' %}"></script>
 {% endblock %}

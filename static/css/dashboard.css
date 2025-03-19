@@ -1,10 +1,10 @@
-/* 仪表板页面主要布局 */
+/* 仪表板整体布局 */
 .dashboard-container {
     margin: 0 auto;
     padding: 20px;
 }
 
-/* 统计卡片整体布局 */
+/* 统计卡片布局 */
 .stat-row {
     display: flex;
     justify-content: space-between;
@@ -37,11 +37,11 @@
 }
 
 /* 统计卡片的颜色 */
-.text-blue {color: #007bff;}
-.text-orange {color: #e67e22;}
-.text-red {color: #c0392b;}
+.text-blue { color: #007bff; }
+.text-orange { color: #e67e22; }
+.text-red { color: #c0392b; }
 
-/* 统一按钮格式 */
+/* 按钮样式 */
 .btn {
     border-radius: 8px;
     padding: 10px 16px;
@@ -52,7 +52,7 @@
 }
 
 /* 价格管理 & 报告管理按钮 */
-.btn-blue, .btn-purple, .btn-pink {
+.btn-blue, .btn-purple, .btn-pink, .btn-green {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,7 +61,7 @@
     min-width: 250px;
     font-weight: bold;
     text-align: center;
-    height: 60px;
+    height: auto;
     transition: transform 0.3s ease-in-out;
 }
 
@@ -88,6 +88,7 @@
     background-color: #6c3483;
     transform: scale(1.05);
 }
+
 /* 退款按钮 */
 .btn-pink {
     background-color: #e91e63;
@@ -99,6 +100,17 @@
     transform: scale(1.05);
 }
 
+/* 站点管理按钮 */
+.btn-green {
+    background-color: #1e8449;
+    color: white;
+}
+
+.btn-green:hover {
+    background-color: #145a32;
+    transform: scale(1.05);
+}
+
 /* 仪表板管理工具栏 */
 .management-tools {
     display: flex;
@@ -106,10 +118,10 @@
     align-items: center;
     gap: 40px;
     height: 70px;
-    margin-top: 20px;
+    margin: 50px auto;
 }
 
-/* 充电宝管理和订单管理的卡片 */
+/* 充电宝管理 & 订单管理卡片 */
 .management-card {
     background: rgba(255, 255, 255, 0.9);
     padding: 20px;
@@ -158,67 +170,18 @@
     border-right: 2px solid #d4edda;
 }
 
-/* 根据电池电量调整颜色 */
-/* 低电量 */
-.text-danger {
-    color: #e74c3c !important;
+.text-primary {
     font-weight: bold;
-}
-
-/* 中电量 */
-.text-warning {
-    color: #e67e22 !important;
-    font-weight: bold;
-}
-
-/* 高电量 */
-.text-success {
-    color: #2ecc71 !important;
-    font-weight: bold;
-}
-
-.text-primary{
-    font-weight: bold;
-}
-
-
-.btn-orange {
-    background-color: #e67e22;
-    color: white;
-}
-
-.btn-orange:hover {
-    background-color: #d35400;
-    transform: scale(1.05);
-}
-
-.btn-danger {
-    background-color: #c0392b;
-    color: white;
-}
-
-.btn-danger:hover {
-    background-color: #a93226;
-    transform: scale(1.05);
-}
-
-.btn-green{
-    background-color: #1e8449;
-    color: white;
-}
-
-.btn-green:hover {
-    background-color: #145a32;
-    transform: scale(1.05);
 }
 
 /* Logout 按钮 */
 .logout-btn {
     width: 150px;
+    height: 50px;
     font-size: 16px;
     font-weight: bold;
     border-radius: 8px;
-    padding: 12px;
+    padding: 14px;
     background-color: #c0392b;
     color: white;
     border: none;
@@ -226,6 +189,7 @@
     display: inline-block;
     text-align: center;
     transition: all 0.3s ease-in-out;
+    margin: 80px auto;
 }
 
 .logout-btn:hover {

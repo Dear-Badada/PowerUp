@@ -12,7 +12,6 @@
 .details-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
 }
 
 .details-table th, .details-table td {
@@ -55,4 +54,50 @@
 .btn-repair:hover {
     background-color: #d35400;
     transform: scale(1.05);
+}
+
+/* 统一按钮组 */
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin:20px auto;
+    max-width: 600px;
+    height: auto;
+}
+
+.btn-back, .btn-dash {
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px !important;
+    padding: 12px 24px;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 200px;
+    height: 50px;
+}
+
+/* back 按钮 */
+.btn-back {
+    background-color: #239f57;
+    color: white;
+}
+
+.btn-back:hover {
+    background-color: #1e8449;
+}
+
+/* Dashboard 按钮 */
+.btn-dash {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-dash:hover {
+    background-color: #0056b3;
 }
