@@ -1,4 +1,3 @@
-/*  整体页面的背景颜色 */
 body {
     background-image: url("../images/PowerUp-8.jpg");
     background-size: cover;
@@ -33,7 +32,7 @@ input[type="text"], input[type="password"], select {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
-    border: 2px solid #d5dbdb; /* 默认浅灰色边框 */
+    border: 2px solid #d5dbdb;
     border-radius: 8px;
     font-size: 16px;
     box-sizing: border-box;
@@ -51,7 +50,7 @@ input[type="text"]:focus, input[type="password"]:focus, select:focus {
 button {
     width: 100%;
     padding: 12px;
-    background-color: #27ae60; /* 深绿色按钮 */
+    background-color: #27ae60;
     color: #fff;
     font-size: 18px;
     border: none;
@@ -90,7 +89,6 @@ nav a:hover {
     color: #d5dbdb;  /* 变浅灰色 */
     transform: scale(1.1);  /* 轻微放大 */
 }
-
 
 /* 租借站点的标题加粗 */
 .form-label {
@@ -184,12 +182,11 @@ th {
     color: white;
 }
 
-/* 表格行 hover 效果 */
 tr:hover {
     background-color: #f0fdf4;
 }
 
-/* 🌟 反馈单选框样式 */
+/* 反馈单选框样式 */
 .form-check-label {
     font-size: 1.1rem;
 }
@@ -238,16 +235,18 @@ button:disabled {
     font-size: 1.3rem;
     font-weight: bold;
     margin: 15px;
+    color: white;
     border: 3px solid #1e8449;
 }
+/* Logo 样式 */
 .logo-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5px;
+    margin-bottom: 10px;
 }
 .logo-container img {
-    width: 150px;
+    width: 100px;
     height: auto;
 }
 
@@ -310,33 +309,6 @@ button:disabled {
     align-items: center;
 }
 
-/* 租借按钮 */
-.rent-btn {
-    background: #1e8449;
-    color: white;
-    border: none;
-    padding: 6px 15px;
-    font-weight: bold;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    width: 80px;
-}
-
-.rent-btn:hover {
-    background: #00b74a;
-    transform: scale(1.05);
-}
-
-/* 禁用按钮 */
-.disabled-btn {
-    background: #bdc3c7;
-    color: white;
-    padding: 6px 15px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: not-allowed;
-}
-
 /* 返回按钮 */
 .back-btn {
     display: inline-block;
@@ -350,8 +322,74 @@ button:disabled {
     transition: all 0.3s ease;
 }
 
-.low-battery-btn {
-    background: #c0392b;
+
+/* 页面标题 */
+.page-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1e8449;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 单一返回按钮 */
+.btn-dashboard,.btn-greenwhite {
+    width: 350px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    display: block;
+    margin: 20px auto;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    color: white;
+}
+
+/* Dashboard 按钮 */
+.btn-dashboard {background-color: #3498db;}
+.btn-dashboard:hover {
+    background-color: #2274b0;
+    transform: scale(1.05);
+}
+
+/* 垂直按钮组 */
+.v-button-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-greenwhite {
+    background: white;
+    color: #1E8449;
+    border: 2px solid #1E8449;
+    cursor: pointer;
+    max-width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    height: 50px;
+    margin: 10px auto;
+}
+
+.btn-greenwhite:hover {
+    background: #1E8449;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-small {
     color: white;
     border: none;
     padding: 6px 10px;
@@ -360,20 +398,84 @@ button:disabled {
     border-radius: 8px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(192, 57, 43, 0.3);
+    text-decoration: none;
     width: 80px;
 }
 
-.low-battery-btn:hover {
-    background: #e74c3c;
-    transform: scale(1.05);
+/* 按钮 */
+.btn-low-battery {background: #c0392b;}
+.btn-low-battery:hover {background: #e74c3c; ransform: scale(1.05);}
+
+.btn-rent { background-color: #28a745; }
+.btn-rent:hover { background-color: #218838; transform: scale(1.05); }
+
+.btn-stations { background-color: #007bff; }
+.btn-stations:hover { background-color: #0056b3; transform: scale(1.05); }
+
+.btn-recharge { background-color: #f39c12; }
+.btn-recharge:hover { background-color: #e67e22; transform: scale(1.05); }
+
+
+/* 充电宝进度条样式 */
+.power-bank-progress {
+    width: 250px;
+    height: 8px;
+    border-radius: 4px;
+    background: #eee;
+    overflow: hidden;
 }
+.progress-bar {
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+}
+
+.progress-bar.bg-success {background: linear-gradient(to right, #27ae60, #2ecc71);}
+.progress-bar.bg-warning {background: linear-gradient(to right, #f1c40f, #f39c12);}
+.progress-bar.bg-danger {background: linear-gradient(to right, #e74c3c, #c0392b);}
+
 
 /* 按钮间距 */
 .icon-spacing {
     margin-right: 8px;
 }
 
-/* 统一弹窗样式 */
+/* 余额卡片 */
+.balance-card {
+    background: #E8F5E9;
+    padding: 30px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1E8449;
+    width: auto;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+/* 余额样式 */
+.current-balance {
+    font-size: 18px;
+    font-weight: bold;
+    color: #096336;
+    margin:auto;
+}
+
+/* 充值&钱包 */
+.wallet-container{
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* 弹窗样式 */
 .modal {
     display: none;
     position: fixed;
@@ -410,7 +512,7 @@ button:disabled {
     margin-bottom: 15px;
 }
 
-/* 统一按钮容器 */
+/* 按钮容器 */
 .modal-buttons {
     display: flex;
     justify-content: space-between;
@@ -418,7 +520,7 @@ button:disabled {
     margin-top: 15px;
 }
 
-/* 统一弹窗按钮大小 */
+/* 弹窗按钮大小 */
 .modal-buttons .btn {
     flex: 1;
     width: 100%;
@@ -432,59 +534,18 @@ button:disabled {
     justify-content: center;
 }
 
-/* 统一确认按钮 */
+/* 确认按钮 */
 .modal-buttons .btn-primary {
     background-color: #1e8449;
     color: white;
     border: none;
 }
+.modal-buttons .btn-primary:hover {background-color: #145a32;}
 
-.modal-buttons .btn-primary:hover {
-    background-color: #145a32;
-}
-
-/* 统一取消按钮 */
+/* 取消按钮 */
 .modal-buttons .btn-secondary {
     background-color: #e74c3c;
     color: white;
     border: none;
 }
-
-.modal-buttons .btn-secondary:hover {
-    background-color: #c0392b;
-}
-
-/* 页面标题 */
-.page-title {
-    font-size: 28px;
-    font-weight: bold;
-    color: #1e8449;
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Dashboard 按钮 */
-.btn-dashboard {
-    width: 350px;
-    height: auto;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 8px;
-    padding: 12px;
-    background-color: #3498db;
-    color: white;
-    text-align: center;
-    display: block;
-    margin: 20px auto;
-    transition: all 0.3s ease-in-out;
-}
-
-.btn-dashboard:hover {
-    background-color: #2274b0;
-    transform: scale(1.05);
-}
+.modal-buttons .btn-secondary:hover {background-color: #c0392b;}

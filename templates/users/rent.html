@@ -4,8 +4,11 @@
 {% block title %}Rent a Power Bank{% endblock %}
 
 {% block content %}
+
+<h2 class="page-title">
+    <i class="fa-solid fa-download icon-spacing"></i>Rent Power Bank
+</h2>
 <div class="container mt-5">
-    <h2 class="text-center"><i class="fa-solid fa-download"></i> Rent Power Bank</h2>
 
     <!-- 用户当前余额 -->
     <div class="wallet-balance-box">
@@ -25,11 +28,13 @@
     </div>
 
     <div class="text-center">
-        <form method="POST" action="{% url 'rent_powerbank' powerbank_id=power_bank.id%}" id="rentForm">
-            {% csrf_token %}
-            <input type="hidden" name="station_id" id="selected_station">
-            <button type="submit" class="btn btn-success">Rent</button>
-        </form>
+        <a href="{% url 'rent_powerbank' powerbank_id=power_bank.id %}"
+           class="btn btn-success"
+           data-confirm
+           data-message="Do you want to rent this power bank? Your deposit will be charged."
+           data-url="{% url 'rent_powerbank' powerbank_id=power_bank.id %}">
+           Rent
+        </a>
 
         <!-- 如果余额不足，提供充值按钮 -->
         {% if balance < 5 %}

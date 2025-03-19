@@ -51,9 +51,14 @@
         </a>
     {% endif %}
 
-    <a href="{% url 'report_feedback' order.id %}" class="order-btn order-btn-warning">
-        <i class="fas fa-exclamation-triangle icon-spacing"></i> Report Feedback
+    <a href="{% url 'report_feedback' order.id %}"
+       class="order-btn order-btn-warning"
+       data-confirm
+       data-message="Are you sure you want to report an issue with this power bank?"
+       data-url="{% url 'report_feedback' order.id %}">
+       <i class="fas fa-exclamation-triangle icon-spacing"></i> Report Feedback
     </a>
+
 </div>
 
 </div>

@@ -1,29 +1,33 @@
 {% extends 'includes/base.html' %}
 {% load static %}
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/wallet.css' %}">
-{% endblock %}
+{% block title %}Wallet{% endblock %}
 {% block content %}
 
-<div class="wallet-container">
-    <h2 class="wallet-title"><i class="fas fa-wallet"></i> Wallet</h2>
+<h2 class="page-title">
+    <i class="fas fa-wallet icon-spacing"></i> Wallet
+</h2>
 
+<div class="wallet-container">
     <!-- 余额显示 -->
     <div class="balance-card">
         <p class="current-balance">Current Balance: <strong>￡{{ balance }}</strong></p>
     </div>
-
     <!-- 按钮组 -->
-    <div class="button-group">
-        <a href="{% url 'recharge_wallet' %}" class="btn btn-primary"><i class="fas fa-bolt icon-spacing"></i> Recharge</a>
-
+    <div class="v-button-group">
+        <a href="{% url 'recharge_wallet' %}"
+           class="btn btn-greenwhite"
+           data-confirm
+           data-message="Are you sure you want to recharge your wallet?"
+           data-url="{% url 'recharge_wallet' %}">
+           <i class="fas fa-bolt icon-spacing"></i> Recharge
+        </a>
         {% if powerbank %}
-            <a href="{% url 'rent_powerbank' powerbank_id=powerbank.id %}" class="btn btn-secondary">
-                <i class="fas fa-plug icon-spacing icon-spacing"></i>Rent
+            <a href="{% url 'rent_powerbank' powerbank_id=powerbank.id %}" class="btn btn-greenwhite">
+                <i class="fas fa-plug icon-spacing"></i> Rent
             </a>
         {% else %}
-            <a href="{% url 'station_list' %}" class="btn btn-secondary">
-                <i class="fas fa-map-marker-alt icon-spacing"></i>Stations
+            <a href="{% url 'station_list' %}" class="btn btn-greenwhite">
+                <i class="fas fa-map-marker-alt icon-spacing"></i> Stations
             </a>
         {% endif %}
     </div>

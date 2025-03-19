@@ -1,14 +1,16 @@
 {% extends 'includes/base.html' %}
 {% load static %}
-
+{% block title %}Recharge{% endblock %}
+{% block extra_css %}
+     <link rel="stylesheet" href="{% static 'css/recharge.css' %}">
+{% endblock %}
 {% block content %}
-<head>
-    <link rel="stylesheet" href="{% static 'css/recharge.css' %}">
-    <script src="{% static 'js/recharge.js' %}" defer></script>
-</head>
 
-<div class="recharge-container">
-    <h2 class="page-title"><i class="fas fa-credit-card icon-spacing"></i> Recharge Wallet</h2>
+<h2 class="page-title">
+    <i class="fas fa-credit-card icon-spacing"></i> Recharge Wallet
+</h2>
+
+<div class="wallet-container">
 
     <!-- 充值后自动跳转提示 -->
     {% if request.GET.next %}
@@ -26,23 +28,25 @@
                oninput="this.value = this.value.replace(/[^0-9.]/g, '')">
         <p class="input-helper">Minimum recharge: £{{ deposit_amount|default:"15.00" }}</p>
 
-        <button type="button" class="btn btn-primary" onclick="submitRecharge()">
-            <i class="fas fa-check-circle icon-spacing"></i> Recharge
-        </button>
+        <a href="{% url 'recharge_wallet' %}"
+           class="btn btn-rechargegreen"
+           data-confirm
+           data-message="Are you sure you want to recharge your wallet?"
+           data-url="{% url 'recharge_wallet' %}">
+           <i class="fas fa-check-circle icon-spacing"></i> Recharge
+        </a>
     </form>
 
-
     <!-- 按钮组 -->
-    <div class="vertical-buttons">
-        <a href="{% url 'view_wallet' %}" class="btn btn-secondary full-width">
+    <div class="v-button-group">
+        <a href="{% url 'view_wallet' %}" class="btn btn-greenwhite">
             <i class="fas fa-wallet icon-spacing"></i> Wallet
         </a>
-        <a href="{% url 'station_list' %}" class="btn btn-secondary full-width">
+        <a href="{% url 'station_list' %}" class="btn btn-greenwhite">
             <i class="fas fa-map-marker-alt icon-spacing"></i> Stations
         </a>
     </div>
 
 </div>
 <script src="{% static 'js/recharge.js' %}"></script>
-
 {% endblock %}

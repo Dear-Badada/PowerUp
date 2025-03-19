@@ -1,4 +1,39 @@
-// 低电量按钮弹窗逻辑
+document.addEventListener("DOMContentLoaded", function () {
+    let globalModal = new bootstrap.Modal(document.getElementById("globalModal"));
+    let globalModalBody = document.getElementById("globalModalBody");
+    let confirmActionButton = document.getElementById("globalModalConfirm");
+
+    let actionCallback = null; // 存储当前的操作
+
+    // 监听所有带 data-confirm 属性的按钮
+    document.querySelectorAll("[data-confirm]").forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            let message = this.getAttribute("data-message") || "Are you sure you want to proceed?";
+            let actionUrl = this.getAttribute("data-url");
+
+            globalModalBody.textContent = message;
+            globalModal.show();
+
+            // 记录用户确认后的操作
+            actionCallback = function () {
+                if (actionUrl) {
+                    window.location.href = actionUrl;
+                }
+            };
+        });
+    });
+
+    // 用户点击确认按钮时执行操作
+    confirmActionButton.addEventListener("click", function () {
+        if (actionCallback) {
+            actionCallback();
+        }
+        globalModal.hide();
+    });
+});
+
+// 低电量弹窗
 function alertLowBattery() {
     alert("Battery too low to rent. Please choose another.");
 }

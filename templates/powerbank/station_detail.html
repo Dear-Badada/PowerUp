@@ -1,15 +1,16 @@
 {% extends "includes/base.html" %}
-
-{% block content %}
-<head>
-    {% load static %}
+{% load static %}
+{% block title %}Station Detail{% endblock %}
+{% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/station_detail.css' %}">
-    <script src="{% static 'js/station_detail.js' %}" defer></script>
-</head>
+{% endblock %}
+{% block content %}
 
-<div class="container station-container">
-    <h2 class="station-title">📍 {{ station.name }} Power Banks</h2>
+<h2 class="page-title">
+    <SPAN class="icon-spacing">📍 {{ station.name }} Power Banks</SPAN>
+</h2>
 
+<div class="station-container">
     <p class="station-location">Location: <strong>{{ station.location }}</strong></p>
 
     {% if power_banks %}
@@ -23,13 +24,11 @@
                     </div>
 
                     <!-- 进度条容器 -->
-                    <div class="progress-container">
-                        <div class="power-bank-progress">
-                            <div class="progress-bar {% if power_bank.battery_level > 50 %} bg-success
-                                {% elif power_bank.battery_level > 20 %} bg-warning
-                                {% else %} bg-danger {% endif %}"
-                                style="width: {{ power_bank.battery_level }}%;">
-                            </div>
+                    <div class="power-bank-progress">
+                        <div class="progress-bar {% if power_bank.battery_level > 50 %} bg-success
+                            {% elif power_bank.battery_level > 20 %} bg-warning
+                            {% else %} bg-danger {% endif %}"
+                            style="width: {{ power_bank.battery_level }}%;">
                         </div>
                     </div>
 
@@ -41,18 +40,21 @@
                     </span>
 
                     <!-- 按钮 -->
-                    <div class="power-bank-action">
+                    <div class="powerbank-action">
                         {% if request.user.is_authenticated %}
                             {% if power_bank.battery_level > 20 %}
-                                <a href="#" class="btn action-btn rent-btn"
-                                   data-rent-url="{% url 'create_order' power_bank_id=power_bank.id %}">
+                                <a href="{% url 'create_order' power_bank_id=power_bank.id %}"
+                                   class="btn btn-small btn-rent"
+                                   data-confirm
+                                   data-message="Do you want to rent this power bank? Your deposit will be charged."
+                                   data-url="{% url 'create_order' power_bank_id=power_bank.id %}">
                                    Rent
                                 </a>
                              {% else %}
-                                <button class="btn action-btn low-battery-btn" onclick="alertLowBattery()">Low</button>
+                                <button class=" btn btn-small btn-low-battery" onclick="alertLowBattery()">Low</button>
                             {% endif %}
                         {% else %}
-                            <button class="btn action-btn rent-btn" onclick="alertNotLoggedIn()">Rent</button>
+                            <button class="btn btn-small btn-rent" onclick="alertNotLoggedIn()">Rent</button>
                         {% endif %}
                     </div>
                 </div>
@@ -62,10 +64,9 @@
          <h2 class="station-title text-center">No available power banks at this station. Please try another one.</h2>
     {% endif %}
 
-    <div class="text-center mt-4">
-        <a href="{% url 'station_list' %}" class="btn station-back-btn">Stations</a>
 
-    </div>
+    <a href="{% url 'station_list' %}" class="btn-greenwhite btn-s">Stations</a>
 
 </div>
+<script src="{% static 'js/station_detail.js' %}" defer></script>
 {% endblock %}

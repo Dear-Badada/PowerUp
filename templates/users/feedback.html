@@ -1,13 +1,16 @@
 {% extends 'includes/base.html' %}
 {% load static %}
-
 {% block title %}Submit Feedback{% endblock %}
-
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/feedback.css' %}">
+{% endblock %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/feedback.css' %}">
+
+<h2 class="page-title">
+    <i class="fas fa-comment-dots icon-spacing"></i> Feedback
+</h2>
 
 <div class="feedback-container">
-    <h2 class="feedback-title"><i class="fas fa-comment-dots icon-spacing"></i> Feedback</h2>
 
     <form method="POST" class="feedback-card" id="feedbackForm">
         {% csrf_token %}
@@ -38,9 +41,14 @@
             <textarea class="feedback-textarea" name="message" id="message" rows="4" required></textarea>
         </div>
 
-        <button type="submit" class="feedback-btn">
-            <i class="fas fa-paper-plane icon-spacing"></i> Submit Feedback
-        </button>
+        <a href="{% url 'submit_feedback' %}"
+           class="feedback-btn"
+           data-confirm
+           data-message="Are you sure you want to submit this feedback?"
+           data-url="{% url 'submit_feedback' %}">
+           <i class="fas fa-paper-plane icon-spacing"></i> Submit Feedback
+        </a>
+
     </form>
 </div>
 

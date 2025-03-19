@@ -3,17 +3,19 @@
 {% block title %}Return a Power Bank{% endblock %}
 
 {% block content %}
+<h2 class="page-title">
+    <i class="fa-solid fa-upload icon-spacing"></i>Return Power Bank
+</h2>
 <div class="container mt-5">
-    <h2 class="text-center text-success">
-        <i class="fa-solid fa-upload"></i> Return Power Bank
-    </h2>
 
-    <form id="returnForm" method="POST" action="{% url 'return_powerbank' %}" class="mt-4">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-success w-100 return-btn">
-            <i class="fas fa-undo-alt"></i> Return
-        </button>
-    </form>
+    <a href="{% url 'return_powerbank' %}"
+       class="btn btn-success w-100 return-btn"
+       data-confirm
+       data-message="Are you sure you want to return this power bank?"
+       data-url="{% url 'return_powerbank' %}">
+       <i class="fas fa-undo-alt"></i> Return
+    </a>
+
 </div>
 
 <script src="{% static 'js/return.js' %}"></script>

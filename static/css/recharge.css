@@ -1,49 +1,3 @@
-/* 充值页面整体布局 */
-.recharge-container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    background: rgba(255, 255, 255, 0.9);
-}
-
-/* 页面标题 */
-.page-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #1E8449;
-    margin: 15px;
-}
-
-/* 余额卡片 */
-.balance-card {
-    background: #E8F5E9;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #1E8449;
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px;
-}
-
-/* 余额显示文本 */
-.current-balance {
-    font-size: 16px;
-    font-weight: bold;
-    color: #1E8449;
-    text-align: center;
-    margin: auto;
-    display: block;
-}
-
 /* 充值卡片 */
 .recharge-card {
     background: white;
@@ -94,7 +48,7 @@
 }
 
 /* 充值按钮 */
-.btn-primary {
+.btn-rechargegreen {
     background: #1E8449;
     color: white;
     border: 3px solid #1E8449;
@@ -114,63 +68,8 @@
     margin: 15px auto;
 }
 
-.btn-primary:hover {
+.btn-rechargegreen:hover {
     background: #166534;
     transform: scale(1.05);
     box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
-}
-
-.btn-secondary {
-    background: white;
-    color: #1E8449;
-    border: 2px solid #1E8449;
-    padding: 12px 15px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 100%;
-    max-width: 300px;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
-    margin: 10px auto;
-    height: 50px;
-}
-
-/* 鼠标悬停时的效果 */
-.btn-secondary:hover {
-    background: #1E8449;
-    color: white;
-    transform: scale(1.05);
-    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* 其他按钮（钱包、站点） */
-.vertical-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 20px;
-}
-
-.full-width {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    border: 2px solid #1E8449;
-    background: white;
-    color: #1E8449;
-    transition: all 0.3s ease;
-}
-
-.full-width:hover {
-    background: #1E8449;
-    color: white;
-    transform: scale(1.05);
 }
