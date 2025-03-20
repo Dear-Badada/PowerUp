@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = "/login/"; // 退出后跳转到登录页
+                    window.location.href = "/";
                 } else {
                     alert("⚠️ Logout failed. Please try again.");
                 }

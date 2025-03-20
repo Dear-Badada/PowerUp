@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const powerBankStatusElement = document.querySelector(".power-bank-status");
     const returnButton = document.querySelector(".return-btn");
     const stationButton = document.querySelector(".station-btn");
+    const modal = new bootstrap.Modal(document.getElementById("globalModal"));
+    const confirmButton = document.getElementById("globalModalConfirm");
 
     if (powerBankStatusElement) {
         let powerBankStatus = powerBankStatusElement.innerText.trim().toLowerCase();
@@ -20,40 +22,31 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 监听 "Return" 按钮点击事件，让它立即消失
+    // 监听 "Return" 按钮点击事件
     if (returnButton) {
         returnButton.addEventListener("click", function(event) {
-            event.preventDefault(); // 防止默认跳转
-            let returnUrl = this.getAttribute("href"); // 获取归还 URL
+            event.preventDefault(); // 阻止默认跳转行为
+            let returnUrl = this.getAttribute("href");
 
-            let userConfirmed = confirm("Are you sure you want to return the power bank?");
-            if (userConfirmed) {
-                window.location.href = returnUrl; // ✅ 确认后跳转到归还页面
-            }
+            showModal(
+                "Confirm Return",
+                "Are you sure you want to return the power bank?",
+                "Return"
+            );
+
+            confirmButton.onclick = function() {
+                // 点击确认后隐藏按钮，并跳转
+                if (returnButton) returnButton.style.display = "none";
+                window.location.href = returnUrl;
+            };
+
+            modal.show();
         });
     }
-    showDjangoMessages();
 });
 
-function showDjangoMessages() {
-    let messagesContainer = document.getElementById("django-messages");
-    if (messagesContainer) {
-        let messages = messagesContainer.getElementsByClassName("message");
-        for (let message of messages) {
-            let messageText = message.innerText;
-            showMessage(messageText);
-        }
-    }
-}
-
-function showMessage(message) {
-    let messageDiv = document.createElement("div");
-    messageDiv.className = "alert alert-success";
-    messageDiv.innerText = message;
-    document.body.appendChild(messageDiv);
-
-    // 3 秒后自动隐藏
-    setTimeout(() => {
-        messageDiv.style.display = "none";
-    }, 3000);
+function showModal(title, message, confirmText) {
+    document.getElementById("globalModalLabel").textContent = title;
+    document.getElementById("globalModalBody").textContent = message;
+    document.getElementById("globalModalConfirm").textContent = confirmText;
 }

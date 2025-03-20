@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const deleteButtons = document.querySelectorAll(".delete-station-btn");
-    const modal = document.getElementById("confirmActionModal");
-    const confirmButton = document.getElementById("confirmAction");
-    const cancelButton = document.getElementById("cancelAction");
+    const modal = new bootstrap.Modal(document.getElementById("globalModal"));
+    const confirmButton = document.getElementById("globalModalConfirm");
     let stationId = null;
 
     // 监听删除按钮
@@ -13,7 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("Station ID is missing.");
                 return;
             }
-            showModal("⚠️ Are you sure delete this station?", "This action cannot be undone!", "Delete");
+            showModal("⚠️ Are you sure you want to delete this station?", "This action cannot be undone!", "Delete");
+            modal.show();
         });
     });
 
@@ -49,19 +49,13 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("An error occurred while deleting. Please try again.");
         });
 
-        modal.style.display = "none";
-    });
-
-    // 取消删除操作
-    cancelButton.addEventListener("click", function () {
-        modal.style.display = "none";
+        modal.hide();
     });
 
     function showModal(title, message, confirmText) {
-        document.getElementById("actionTitle").textContent = title;
-        document.getElementById("actionMessage").textContent = message;
-        document.getElementById("confirmAction").textContent = confirmText;
-        modal.style.display = "block";
+        document.getElementById("globalModalLabel").textContent = title;
+        document.getElementById("globalModalBody").textContent = message;
+        confirmButton.textContent = confirmText;
     }
 
     function getCSRFToken() {
