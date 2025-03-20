@@ -1,38 +1,52 @@
 {% extends 'includes/base.html' %}
 {% load static %}
-
-{% block title %}Register - Power Up{% endblock %}
-
+{% block title %}Register{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center"><i class="fas fa-user"></i> Registration</h2>
 
-    <form method="POST" class="card p-4 shadow mt-4" id="registerForm">
+<h2 class="page-title">
+    <i class="fas fa-user icon-spacing"></i>Registration
+</h2>
+
+<div class="container">
+    <form method="POST" class="card" id="registerForm">
         {% csrf_token %}
+            <!-- 显示 Django 的错误消息 -->
+            {% if form.errors %}
+                <div class="error-message">
+                    {{ form.errors }}
+                </div>
+            {% endif %}
 
-        <!-- 显示 Django 消息 -->
-        {% if messages %}
-        <div class="alert alert-danger" role="alert">
-            <ul class="list-unstyled">
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-
-        <!-- 使用 form.as_p 快速生成表单 -->
-        {{ form.as_p }}
-
-        <!-- 额外的 confirm_password 字段 -->
+        <!-- 输入框统一样式 -->
         <div class="mb-3">
-            <label for="confirm_password" class="form-label"><strong>Confirm Password</strong></label>
+            <label for="id_username">Username:</label>
+            <input type="text" name="username" class="form-control" id="id_username" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_email">Email:</label>
+            <input type="email" name="email" class="form-control" id="id_email" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_phone">Phone:</label>
+            <input type="text" name="phone" class="form-control" id="id_phone" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_password">Password:</label>
+            <input type="password" name="password" class="form-control" id="id_password" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="confirm_password">Confirm Password:</label>
             <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
         </div>
 
-        <button type="submit" class="btn btn-success w-100">
-            <i class="fas fa-user-plus"></i> Register
-        </button>
+        <button type="button" class="btn-reg" id="registerBtn">Register</button>
     </form>
 </div>
 
