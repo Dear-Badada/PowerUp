@@ -16,7 +16,6 @@ def manager_login_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
-
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
@@ -160,8 +159,8 @@ def delete_station(request, station_id):
 @login_required
 def manager_reports(request):
     """ 管理员查看数据报告 """
-    recent_transactions = Transaction.objects.all().order_by('-created_at')[:5]
-    recent_orders = Order.objects.all().order_by('-start_time')[:5]
+    recent_transactions = Transaction.objects.all().order_by('-created_at')[:3]
+    recent_orders = Order.objects.all().order_by('-start_time')[:3]
 
     return render(request, "manager/manager_reports.html", {
         "recent_transactions": recent_transactions,
@@ -187,7 +186,7 @@ def update_pricing(request):
     """管理员修改租赁价格和押金"""
     pricing = Pricing.objects.first()  # 获取现有的定价信息
     if not pricing:
-        pricing = Pricing.objects.create(hourly_rate=1.00, deposit_amount=15.0)
+        pricing = Pricing.objects.create(hourly_rate=1, deposit_amount=15)
 
     if request.method == "POST":
         form = PricingForm(request.POST, instance=pricing)

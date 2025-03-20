@@ -28,8 +28,7 @@
                         <div class="progress-bar {% if power_bank.battery_level > 50 %} bg-success
                             {% elif power_bank.battery_level > 20 %} bg-warning
                             {% else %} bg-danger {% endif %}"
-                            style="width: {{ power_bank.battery_level }}%;">
-                        </div>
+                            style="width: {{ power_bank.battery_level }}%;"></div>
                     </div>
 
                     <!-- 电量百分比 -->
@@ -43,15 +42,13 @@
                     <div class="powerbank-action">
                         {% if request.user.is_authenticated %}
                             {% if power_bank.battery_level > 20 %}
-                                <a href="{% url 'create_order' power_bank_id=power_bank.id %}"
-                                   class="btn btn-small btn-rent"
-                                   data-confirm
-                                   data-message="Do you want to rent this power bank? Your deposit will be charged."
-                                   data-url="{% url 'create_order' power_bank_id=power_bank.id %}">
+                                <button class="btn btn-small btn-rent"
+                                        data-url="{% url 'create_order' power_bank_id=power_bank.id %}"
+                                        data-message="Do you want to rent this power bank? Your deposit will be charged.">
                                    Rent
-                                </a>
+                                </button>
                              {% else %}
-                                <button class=" btn btn-small btn-low-battery" onclick="alertLowBattery()">Low</button>
+                                <button class="btn btn-small btn-low-battery">Low</button>
                             {% endif %}
                         {% else %}
                             <button class="btn btn-small btn-rent" onclick="alertNotLoggedIn()">Rent</button>
@@ -64,9 +61,7 @@
          <h2 class="station-title text-center">No available power banks at this station. Please try another one.</h2>
     {% endif %}
 
-
     <a href="{% url 'station_list' %}" class="btn-greenwhite btn-s">Stations</a>
-
 </div>
 <script src="{% static 'js/station_detail.js' %}" defer></script>
 {% endblock %}

@@ -22,19 +22,16 @@
         <p class="current-balance">Current Balance: <strong>￡{{ balance }}</strong></p>
     </div>
 
-    <form id="recharge-form" class="recharge-card">
+    <form id="rechargeForm" class="recharge-card" method="POST" action="{% url 'recharge_wallet' %}">
+        {% csrf_token %}
         <label for="amount">Amount ( £ )</label>
         <input type="text" name="amount" id="amount" class="form-input" required placeholder="Enter amount"
                oninput="this.value = this.value.replace(/[^0-9.]/g, '')">
         <p class="input-helper">Minimum recharge: £{{ deposit_amount|default:"15.00" }}</p>
 
-        <a href="{% url 'recharge_wallet' %}"
-           class="btn btn-rechargegreen"
-           data-confirm
-           data-message="Are you sure you want to recharge your wallet?"
-           data-url="{% url 'recharge_wallet' %}">
-           <i class="fas fa-check-circle icon-spacing"></i> Recharge
-        </a>
+        <button type="button" id="rechargeBtn" class="btn btn-rechargegreen">
+            <i class="fas fa-check-circle icon-spacing"></i> Recharge
+        </button>
     </form>
 
     <!-- 按钮组 -->

@@ -1,5 +1,8 @@
 /* 登录输入框 */
-.login-input {
+.login-input,
+input[type="text"],
+input[type="password"],
+select {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -9,10 +12,19 @@
     transition: all 0.3s ease-in-out;
 }
 
-.login-input:focus {
+/* 输入框聚焦时的效果 */
+.login-input:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus {
     border-color: #1e8449;
     outline: none;
     box-shadow: 0px 0px 5px rgba(30, 132, 73, 0.5);
+}
+
+input.is-invalid, input.error {
+    border-color: #d5dbdb;
+    box-shadow: none;
 }
 
 /* 按钮样式 */
@@ -49,23 +61,3 @@
 .register-link:hover { color: #145a32; }
 .back-link { color: #e67e22; }
 .back-link:hover { color: #d35400; }
-
-/* 提示信息 */
-.alert {
-    display: block;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.messages {
-    padding: 0;
-}
-
-.list-group-item-success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}

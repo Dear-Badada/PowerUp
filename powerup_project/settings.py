@@ -6,12 +6,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-kj=+zkm!ehe5e$ou^2i=3bqanr9rwar+ie=_gyraa-9ci2gt2#'
 
-
-DEBUG = False
-
 ALLOWED_HOSTS = ['powerup-yv7g.onrender.com','127.0.0.1', 'localhost']
 
-
+# DEBUG = False
+DEBUG = True  # 本地调试
 # 静态文件 MIME 类型支持
 mimetypes.add_type("text/css", ".css", True)
 mimetypes.add_type("application/javascript", ".js", True)
@@ -62,23 +60,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'powerup_project.wsgi.application'
 
 # Database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'powerup',
-#         'USER': 'postgres',
-#         'PASSWORD': '120045',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'powerup',
+        'USER': 'postgres',
+        'PASSWORD': '120045',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

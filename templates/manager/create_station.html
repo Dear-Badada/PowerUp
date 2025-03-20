@@ -10,7 +10,7 @@
     <i class="fas fa-plus-circle"></i> Create New Station
 </h2>
 
-<div class="container">
+<div class="form-container">
     <!-- 显示创建站点的表单 -->
     <form id="createStationForm" method="post">
         {% csrf_token %}
@@ -23,15 +23,6 @@
     <a href="{% url 'station_list_manager' %}" class="create-station-back-btn">Stations</a>
 </div>
 
-<!-- 统一确认操作弹窗 -->
-<div id="confirmActionModal" class="modal">
-    <h2>Confirm Creation</h2>
-    <p>⚠️ Are you sure create this station?</p>
-    <div class="modal-buttons">
-        <button id="confirmAction" class="btn btn-primary">Confirm</button>
-        <button id="cancelAction" class="btn btn-secondary">Cancel</button>
-    </div>
-</div>
 {% if form.errors %}
     <div class="alert alert-danger">
         <ul>

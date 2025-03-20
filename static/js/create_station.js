@@ -1,36 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
     const openModalBtn = document.getElementById("openConfirmModal");
-    const confirmModal = document.getElementById("confirmActionModal");
-    const confirmBtn = document.getElementById("confirmAction");
-    const cancelBtn = document.getElementById("cancelAction");
     const form = document.getElementById("createStationForm");
+    const modal = new bootstrap.Modal(document.getElementById("globalModal"));
+    const confirmButton = document.getElementById("globalModalConfirm");
 
-    // 显示弹窗
+    // 打开模态框
     openModalBtn.addEventListener("click", function () {
-        confirmModal.style.display = "block";
+        showModal("⚠️ Are you sure you want to create this station?", "This action will create a new station.", "Create");
+        modal.show();
     });
 
-    // 确认创建
-    confirmBtn.addEventListener("click", function () {
+    // 确认创建操作
+    confirmButton.addEventListener("click", function () {
         form.submit(); // 提交表单
     });
 
-    // 监听表单提交，成功后跳转并刷新
-    form.addEventListener("submit", function (event) {
-        setTimeout(function () {
-            window.location.href = "/manager/stations/";
-        }, 1000);
-    });
-
-    // 取消操作
-    cancelBtn.addEventListener("click", function () {
-        confirmModal.style.display = "none";
-    });
-
-    // 点击窗口外部关闭弹窗
-    window.addEventListener("click", function (event) {
-        if (event.target === confirmModal) {
-            confirmModal.style.display = "none";
-        }
-    });
+    function showModal(title, message, confirmText) {
+        document.getElementById("globalModalLabel").textContent = title;
+        document.getElementById("globalModalBody").textContent = message;
+        confirmButton.textContent = confirmText;
+    }
 });

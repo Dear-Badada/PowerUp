@@ -13,13 +13,13 @@
     <form method="post">
         {% csrf_token %}
         <div class="pricing-form-group">
-            {{ form.as_p }} <!-- Django 渲染表单字段 -->
+            {{ form.as_p }}
         </div>
-        <button type="submit" class="btn btn-update-pricing">Save Changes</button>
+        <button type="button" class="btn btn-update-pricing" id="showModalBtn">Save Changes</button>
     </form>
 </div>
-<!-- 返回按钮 -->
-<div class="text-center mt-4">
-    <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
-</div>
+
+<a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
+
+<script src="{% static 'js/update_pricing.js' %}"></script>
 {% endblock %}

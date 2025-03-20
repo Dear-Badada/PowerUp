@@ -18,32 +18,12 @@ form {
     box-sizing: border-box;
 }
 
-/* 标题样式 */
 h2 {
     font-size: 26px;
     color: #1e8449;
     font-weight: bold;
     text-align: center;
     margin-bottom: 20px;
-}
-
-/* 输入框样式 */
-input[type="text"], input[type="password"], select {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 2px solid #d5dbdb;
-    border-radius: 8px;
-    font-size: 16px;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* 输入框聚焦时的效果 */
-input[type="text"]:focus, input[type="password"]:focus, select:focus {
-    border-color: #27ae60;
-    box-shadow: 0 0 8px rgba(39, 174, 96, 0.5);
-    outline: none;
 }
 
 /* 按钮样式 */
@@ -153,16 +133,6 @@ nav a:hover {
     margin-bottom: 20px;
 }
 
-/* 输入框验证错误时的样式 */
-input:invalid {
-    border: 2px solid #e74c3c;
-}
-
-input:focus:invalid {
-    outline: none;
-    box-shadow: 0 0 5px rgba(231, 76, 60, 0.7); /* 红色阴影效果 */
-}
-
 /* 数据表格优化 */
 table {
     width: 100%;
@@ -238,6 +208,7 @@ button:disabled {
     color: white;
     border: 3px solid #1e8449;
 }
+
 /* Logo 样式 */
 .logo-container {
     display: flex;
@@ -322,7 +293,6 @@ button:disabled {
     transition: all 0.3s ease;
 }
 
-
 /* 页面标题 */
 .page-title {
     font-size: 28px;
@@ -338,25 +308,51 @@ button:disabled {
 }
 
 /* 单一返回按钮 */
-.btn-dashboard,.btn-greenwhite {
+.btn-dashboard,
+.btn-greenwhite {
     width: 350px;
     font-size: 18px;
     font-weight: bold;
     border-radius: 8px;
     padding: 12px;
     text-align: center;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 20px auto;
     transition: all 0.3s ease-in-out;
     text-decoration: none;
-    color: white;
+    cursor: pointer;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Dashboard 按钮 */
-.btn-dashboard {background-color: #3498db;}
+.btn-dashboard {
+    background: white;
+    color: #3498db;
+    border: 2px solid #3498db;
+    max-width: 300px;
+    height: 50px;
+}
 .btn-dashboard:hover {
-    background-color: #2274b0;
+    background: #3498db;
+    color: white;
     transform: scale(1.05);
+    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-greenwhite {
+    background: white;
+    color: #1E8449;
+    border: 2px solid #1E8449;
+    max-width: 300px;
+    height: 50px;
+}
+
+.btn-greenwhite:hover {
+    background: #1E8449;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* 垂直按钮组 */
@@ -366,27 +362,6 @@ button:disabled {
     flex-direction: column;
     align-items: center;
     gap: 12px;
-}
-
-.btn-greenwhite {
-    background: white;
-    color: #1E8449;
-    border: 2px solid #1E8449;
-    cursor: pointer;
-    max-width: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
-    height: 50px;
-    margin: 10px auto;
-}
-
-.btn-greenwhite:hover {
-    background: #1E8449;
-    color: white;
-    transform: scale(1.05);
-    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
 }
 
 .btn-small {
@@ -475,41 +450,26 @@ button:disabled {
     background: rgba(255, 255, 255, 0.9);
 }
 
-/* 弹窗样式 */
-.modal {
-    display: none;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    width: 500px;
-    height: auto;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    text-align: center;
-    border: 2px solid #ddd;
-    z-index: 1050;
+/* 弹窗内容容器 */
+.custom-modal-content {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
 }
 
 /* 弹窗标题 */
-.modal h2 {
+.modal-header h2 {
     font-size: 20px;
     font-weight: bold;
     color: #333;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
 }
 
 /* 弹窗内容 */
-.modal p {
+.modal-body p {
     font-size: 16px;
     color: #555;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 /* 按钮容器 */
@@ -517,35 +477,29 @@ button:disabled {
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    margin-top: 15px;
 }
 
-/* 弹窗按钮大小 */
-.modal-buttons .btn {
+/* 按钮样式 */
+.btn-confirm,.btn-cancel {
     flex: 1;
-    width: 100%;
     padding: 10px 14px;
     font-size: 14px;
     font-weight: bold;
     border-radius: 6px;
+    border: none;
     transition: all 0.2s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 /* 确认按钮 */
-.modal-buttons .btn-primary {
+.btn-confirm {
     background-color: #1e8449;
     color: white;
-    border: none;
 }
-.modal-buttons .btn-primary:hover {background-color: #145a32;}
+.btn-confirm:hover {background-color: #145a32;}
 
 /* 取消按钮 */
-.modal-buttons .btn-secondary {
+.btn-cancel {
     background-color: #e74c3c;
     color: white;
-    border: none;
 }
-.modal-buttons .btn-secondary:hover {background-color: #c0392b;}
+.btn-cancel:hover {background-color: #c0392b;}

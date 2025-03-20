@@ -43,15 +43,6 @@
     </div>
 </div>
 
-<!-- 统一删除确认模态框 -->
-<div id="confirmActionModal" class="modal">
-    <h2><span id="actionTitle">Are you sure delete this station?</span></h2>
-    <p id="actionMessage">This action cannot be undone!</p>
-    <div class="modal-buttons">
-        <button id="confirmAction" class="btn btn-primary">Delete</button>
-        <button id="cancelAction" class="btn btn-secondary">Cancel</button>
-    </div>
-</div>
 <a href="{% url 'manager_dashboard' %}" class="btn btn-dashboard">Dashboard</a>
 <script src="{% static 'js/station_list.js' %}"></script>
 {% endblock %}

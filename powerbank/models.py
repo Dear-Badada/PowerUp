@@ -46,8 +46,8 @@ class PowerBank(models.Model):
 class Pricing(models.Model):
     """ Pricing model """
     id = models.AutoField(primary_key=True)
-    hourly_rate = models.DecimalField(max_digits=10, decimal_places=2, default=1.00)  # 每小时租赁费用
-    deposit_amount = models.DecimalField(max_digits=10, decimal_places=2, default=15.00)  # 押金金额
+    hourly_rate = models.DecimalField(max_digits=10, decimal_places=2, default=1.00)
+    deposit_amount = models.DecimalField(max_digits=10, decimal_places=2, default=15.00)
 
     class Meta:
         db_table = "pricing"

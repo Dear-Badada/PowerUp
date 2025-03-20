@@ -60,10 +60,10 @@ urlpatterns = [
     path("manager/pricing/update/", update_pricing, name="update_pricing"),
 
     # 退款管理
-    # 退款管理
     path('manager/refund-requests/', refund_requests_list, name='refund_requests_list'),
     path('manager/refund-requests/<int:refund_request_id>/', refund_request_detail, name='refund_request_detail'),
     path('manager/refund-requests/<int:refund_request_id>/handle/', handle_refund_request, name='handle_refund_request'),
 ]
+if not settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

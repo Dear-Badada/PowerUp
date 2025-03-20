@@ -168,7 +168,7 @@ def view_order(request, order_id):
     refund_amount = deposit - total_cost
     context = {
             "order": order,
-            "refund_amount": refund_amount.quantize(Decimal("0.01")),  # 保留 2 位小数
+            "refund_amount": refund_amount.quantize(Decimal("0.01")),
         }
     return render(request, "users/order_detail.html", context)
 

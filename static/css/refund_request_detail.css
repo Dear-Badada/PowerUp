@@ -7,13 +7,6 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-form {
-    background: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-}
-
 /* 退款详情表格 */
 .refund-table {
     width: 100%;
@@ -25,15 +18,13 @@ form {
     margin-bottom: 30px;
 }
 
-/* 表头样式，换成粉色 */
 .refund-table th {
-    background: #ffb6e7;
+    background: #fabae3;
     color: white;
     padding: 12px;
     text-align: left;
 }
 
-/* 表格内容 */
 .refund-table th,
 .refund-table td {
     padding: 12px;
@@ -42,31 +33,12 @@ form {
 }
 
 /* 状态颜色 */
-.status-pending {
-    color: #f39c12;
-    font-weight: bold;
-}
+.status-pending {color: #f39c12; font-weight: bold;}
+.status-approved {color: #27ae60; font-weight: bold;}
+.status-rejected {color: #e74c3c; font-weight: bold;}
 
-.status-approved {
-    color: #27ae60;
-    font-weight: bold;
-}
-
-.status-rejected {
-    color: #e74c3c;
-    font-weight: bold;
-}
-/* 审批按钮优化 */
-.btn-vertical-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-}
-
+/* 审批按钮样式 */
 .btn-approve, .btn-reject {
-    width: auto;
     min-width: 180px;
     max-width: 300px;
     padding: 12px 20px;
@@ -79,17 +51,12 @@ form {
     color: white;
     border: none;
 }
+
 .btn-approve {background: #28a745;}
-.btn-approve:hover {
-    background: #2ecc71;
-    transform: scale(1.05);
-}
+.btn-approve:hover {background: #2ecc71; transform: scale(1.05);}
 
 .btn-reject {background: #dc3545;}
-.btn-reject:hover {
-    background: #e74c3c;
-    transform: scale(1.05);
-}
+.btn-reject:hover {background: #e74c3c; transform: scale(1.05);}
 
 .btn-group {
     display: flex;
@@ -100,32 +67,41 @@ form {
 
 .btn-pink,
 .btn-dash {
-    width: 250px;
-    max-width: 250px;
-    height: 55px;
-    font-size: 18px;
-    font-weight: bold;
+    background: white;
     border-radius: 8px !important;
-    padding: 12px;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease-in-out;
-    color: white;
-    box-sizing: border-box;
-    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    max-width: 250px;
+    height: 55px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
+.btn-pink {
+    border: 2px solid #f887d7;
+    color: #ec36b0;
+}
 
-.btn-pink {background-color: #ffb6e7;}
 .btn-pink:hover {
-    background-color: #f06292;
-    transform: scale(1.02);
+    background-color: #ffb6e7;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
 }
 
-.btn-dash {background-color: #3498db;}
+.btn-dash {
+    border: 2px solid #3498db;
+    color: #3498db;
+}
+
 .btn-dash:hover {
-    background-color: #2274b0;
-    transform: scale(1.02);
+    background-color: #3498db;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
 }

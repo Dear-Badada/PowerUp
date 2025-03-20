@@ -12,11 +12,7 @@ from .models import PowerBank, Station, Pricing
 @login_required
 @csrf_exempt
 def rent_powerbank(request, powerbank_id):
-    """
-    用户租借充电宝
-    - 只能租借状态为 "available" 的充电宝
-    - 用户只能租一个充电宝，不能重复租借
-    """
+    """ 用户租借充电宝 """
     if request.method == "POST":
         user = request.user
         existing_order = Order.objects.filter(user=user, end_time__isnull=True).first()
@@ -28,7 +24,7 @@ def rent_powerbank(request, powerbank_id):
 
         # 获取租赁单价和押金
         pricing = Pricing.objects.first()
-        deposit = pricing.deposit_amount if pricing else Decimal("5.00")
+        deposit = pricing.deposit_amount if pricing else Decimal("15.00")
         hourly_rate = pricing.hourly_rate if pricing else Decimal("1.00")
 
         # 创建订单
@@ -51,14 +47,10 @@ def rent_powerbank(request, powerbank_id):
 @login_required
 @csrf_exempt
 def return_powerbank(request, order_id):
-    """
-    用户归还充电宝
-    - 归还时，充电宝状态会变回 "available"
-    - 记录归还时间，并计算费用
-    """
+    """ 用户归还充电宝 """
     order = get_object_or_404(Order, id=order_id, user=request.user, end_time__isnull=True)
 
-    # 计算租借时长（小时）
+    # 计算租借时长
     rental_duration = (timezone.now() - order.start_time).total_seconds() / 3600
     total_cost = round(order.hourly_rate * rental_duration, 2)
 
@@ -76,17 +68,13 @@ def return_powerbank(request, order_id):
 
 
 def station_list(request):
-    """
-    显示所有站点
-    """
+    """ 显示所有站点 """
     stations = Station.objects.all()
     return render(request, "powerbank/stations.html", {"stations": stations})
 
 
 def station_detail(request, station_id):
-    """
-    显示站点的所有可用充电宝
-    """
+    """ 显示站点的所有可用充电宝 """
     station = get_object_or_404(Station, id=station_id)
     available_power_banks = PowerBank.objects.filter(station=station, status="available")
 

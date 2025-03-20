@@ -10,8 +10,6 @@
     <i class="fas fa-comment-dots icon-spacing"></i> Feedback
 </h2>
 
-<div class="feedback-container">
-
     <form method="POST" class="feedback-card" id="feedbackForm">
         {% csrf_token %}
 
@@ -41,16 +39,14 @@
             <textarea class="feedback-textarea" name="message" id="message" rows="4" required></textarea>
         </div>
 
-        <a href="{% url 'submit_feedback' %}"
+        <a href="{% url 'report_feedback' order.id %}"
            class="feedback-btn"
            data-confirm
            data-message="Are you sure you want to submit this feedback?"
-           data-url="{% url 'submit_feedback' %}">
+           data-url="{% url 'report_feedback' order.id %}">
            <i class="fas fa-paper-plane icon-spacing"></i> Submit Feedback
         </a>
-
     </form>
-</div>
 
 <script src="{% static 'js/feedback.js' %}"></script>
 {% endblock %}
